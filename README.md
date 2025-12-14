@@ -30,7 +30,7 @@ but through an **explicit, transparent rule system** that:
 Comm-SCI-Control is:
 
 - a **purely text-based rule system** (no code, no plugin),
-- **LLM-agnostic** (tested, among others, with ChatGPT, Gemini, Mistral, DeepSeek),
+- **LLM-agnostic** (tested, among others, with ChatGPT, Gemini, Mistral, Claude, DeepSeek),
 - an **external control framework** for AI interaction,
 - a tool for **reducing friction, drift, and misinterpretation**.
 
