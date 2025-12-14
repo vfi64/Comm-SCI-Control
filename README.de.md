@@ -144,6 +144,14 @@ Comm-SCI-Control wird typischerweise:
 
 ---
 
+## 📘 Zitation
+
+Wenn Sie dieses Regelwerk verwenden, zitieren Sie bitte die archivierte Version auf Zenodo:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17930749.svg)](https://doi.org/10.5281/zenodo.17930749)
+**DOI:** [10.5281/zenodo.17930749](https://doi.org/10.5281/zenodo.17930749)
+
+---
+
 ## Lizenz
 
 Dieses Werk ist lizenziert unter der  
