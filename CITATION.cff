@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "Comm-SCI-Control"
+message: "If you use this framework, please cite it."
+authors:
+  - family-names: Fickert
+    given-names: Volker
+version: 19.0
+date-released: 2025-12-14
+license: CC-BY-4.0
+repository-code: https://github.com/vfi64/Comm-SCI-Control
