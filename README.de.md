@@ -30,7 +30,7 @@ sondern durch ein **explizites, transparentes Regelwerk**, das:
 Comm-SCI-Control ist:
 
 - ein **rein textbasiertes Regelwerk** (kein Code, kein Plugin),
-- **LLM-agnostisch** (getestet u. a. mit ChatGPT, Gemini, Mistral, DeepSeek),
+- **LLM-agnostisch** (getestet u. a. mit ChatGPT, Gemini, Mistral, Claude, DeepSeek),
 - ein **externer Steuerungsrahmen** für KI-Interaktion,
 - ein Werkzeug zur **Reduktion von Reibung, Drift und Fehlinterpretation**.
 
