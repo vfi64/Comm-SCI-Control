@@ -138,7 +138,7 @@ Comm-SCI-Control wird typischerweise:
 
 ## Status
 
-- Aktuelle Version: **v19.0**
+- Aktuelle Version: **v19.0.1**
 - Entwicklungsstand: **stabil, produktiv einsetzbar**
 - Fokus weiterer Arbeit: Dokumentation, Beispiele, Usability, Evalution
 
