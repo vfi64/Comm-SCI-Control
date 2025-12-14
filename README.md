@@ -138,7 +138,7 @@ Comm-SCI-Control is typically used as follows:
 
 ## Status
 
-- Current version: **v19.0.1**
+- Current version: **v19.0.3**
 - Development status: **stable, production-ready**
 - Current focus: documentation, examples, usability, evaluation
 
