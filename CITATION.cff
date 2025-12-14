@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: Fickert
     given-names: Volker
-version: 19.0
+version: 19.0.1
 date-released: 2025-12-14
 license: CC-BY-4.0
 repository-code: https://github.com/vfi64/Comm-SCI-Control
