@@ -144,6 +144,14 @@ Comm-SCI-Control is typically used as follows:
 
 ---
 
+## Citation · Zitation
+
+If you use this framework, please cite the archived version on Zenodo:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17930749.svg)](https://doi.org/10.5281/zenodo.17930749)
+**DOI:** [10.5281/zenodo.17930749](https://doi.org/10.5281/zenodo.17930749)
+
+---
+
 ## License
 
 This work is licensed under the  
