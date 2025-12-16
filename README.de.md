@@ -166,7 +166,7 @@ Comm-SCI-Control wird typischerweise wie folgt angewendet:
 
 ## Status
 
-- Aktuelle Version: **v19.2.0**
+- Aktuelle Version: **v19.2.1**
 - Entwicklungsstatus: **stabil, produktionsreif**
 - Aktueller Fokus: Dokumentation, Beispiele, Usability, Evaluation
 

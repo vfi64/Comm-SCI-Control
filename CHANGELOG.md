@@ -24,9 +24,16 @@
 - Extended drift detection signals to include discursive loops without external friction.
 - Ethics additions: "rule euphoria killswitch" reminder and mandatory-contrast topics list (requires a serious counter-perspective for selected topics).
 
-## v19.2
+## v19.2.0
 - Added formal Web-Check hook for time-unstable/news-like claims (U4): standardized "Web-Check" output block (query time, search term, top sources, short conclusion, remaining uncertainty) and a marker for parsing/evaluation.
 - Added Source-first Hard-Mode for U4/news triggers: hard factual claims are not allowed without either a source or a Web-Check; otherwise the claim must be downgraded and labeled with Unsicherheit U4 + next verification step.
 - Extended verification route gate to accept `web_check` as a fourth verification route; added route presence markers (measurement/source/contrast/web_check) and updated loop guard to count Web-Check as external friction.
 - Expanded strong-claim/topic triggers (DE/EN) and mandatory-contrast topics to cover AGI/ASI/neocortex-related claims and "Integral AI" variants.
 - Tightened U4 next-step wording (explicitly demands Web-/Live-Check or primary source) and added a simple citation-format policy for source-first mode.
+
+## v19.2.1
+- Fixed command registry completeness & bilingual symmetry: added explicit EN commands for mode/Sci toggles ("Strict on/off", "Explore on/off", "SCI on/off", "SCIplus on/off") and linked DE variants via aliases (so all documented toggles exist as resolvable commands).
+- Changed EN activation/deactivation command strings for Strict/Explore modes to match the new on/off command names.
+- Added governance metadata: Source-of-Truth flag for the canonical JSON (clarifies that the canonical ruleset overrides secondary docs on conflicts).
+- Changed minor EN syntax-rule examples for consistency ("Profile Expert … / What is time?").
+- No changes to core Control-Layer/QC/verification semantics; this is a patch-level command/metadata alignment release.

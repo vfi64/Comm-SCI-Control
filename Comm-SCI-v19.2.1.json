@@ -5,7 +5,7 @@
       "en": "Volker Fickert"
     },
     "role": {
-      "de": "Entwickler/ Maintainer",
+      "de": "Entwickler / Maintainer",
       "en": "Developer / Maintainer"
     }
   },
@@ -258,8 +258,8 @@
     }
   },
   "version": {
-    "de": "19.2.0",
-    "en": "19.2.0"
+    "de": "19.2.1",
+    "en": "19.2.1"
   },
   "commands": {
     "dynamic_control": {
@@ -347,25 +347,73 @@
         "function": {
           "de": "Deaktiviert Strict Mode.",
           "en": "Disables Strict Mode."
-        }
+        },
+        "aliases": [
+          "Strict off"
+        ]
       },
       "Strict an": {
         "function": {
           "de": "Aktiviert Strict Mode.",
           "en": "Enables Strict Mode."
-        }
+        },
+        "aliases": [
+          "Strict on"
+        ]
       },
       "Explore an": {
         "function": {
           "de": "Aktiviert Exploration Mode.",
           "en": "Enables Exploration Mode."
-        }
+        },
+        "aliases": [
+          "Explore on"
+        ]
       },
       "Explore aus": {
         "function": {
           "de": "Deaktiviert Exploration Mode.",
           "en": "Disables Exploration Mode."
-        }
+        },
+        "aliases": [
+          "Explore off"
+        ]
+      },
+      "Strict on": {
+        "function": {
+          "de": "Aktiviert Strict Mode.",
+          "en": "Enables Strict Mode."
+        },
+        "aliases": [
+          "Strict an"
+        ]
+      },
+      "Strict off": {
+        "function": {
+          "de": "Deaktiviert Strict Mode.",
+          "en": "Disables Strict Mode."
+        },
+        "aliases": [
+          "Strict aus"
+        ]
+      },
+      "Explore on": {
+        "function": {
+          "de": "Aktiviert Exploration Mode.",
+          "en": "Enables Exploration Mode."
+        },
+        "aliases": [
+          "Explore an"
+        ]
+      },
+      "Explore off": {
+        "function": {
+          "de": "Deaktiviert Exploration Mode.",
+          "en": "Disables Exploration Mode."
+        },
+        "aliases": [
+          "Explore aus"
+        ]
       }
     },
     "special_numeric": {
@@ -416,25 +464,73 @@
         "function": {
           "de": "Aktiviert SCI (Plan–Lösung–Check) im aktuellen Profil.",
           "en": "Enables SCI (Plan-Solution-Check) in the current profile."
-        }
+        },
+        "aliases": [
+          "SCI on"
+        ]
       },
       "SCIplus an": {
         "function": {
           "de": "Aktiviert SCIplus.",
           "en": "Enables SCIplus."
-        }
+        },
+        "aliases": [
+          "SCIplus on"
+        ]
       },
       "SCIplus aus": {
         "function": {
           "de": "Deaktiviert SCIplus.",
           "en": "Disables SCIplus."
-        }
+        },
+        "aliases": [
+          "SCIplus off"
+        ]
       },
       "SCI aus": {
         "function": {
           "de": "Deaktiviert SCI.",
           "en": "Disables SCI."
-        }
+        },
+        "aliases": [
+          "SCI off"
+        ]
+      },
+      "SCI on": {
+        "function": {
+          "de": "Aktiviert SCI (Plan–Lösung–Check) im aktuellen Profil.",
+          "en": "Enables SCI (Plan-Solution-Check) in the current profile."
+        },
+        "aliases": [
+          "SCI an"
+        ]
+      },
+      "SCI off": {
+        "function": {
+          "de": "Deaktiviert SCI.",
+          "en": "Disables SCI."
+        },
+        "aliases": [
+          "SCI aus"
+        ]
+      },
+      "SCIplus on": {
+        "function": {
+          "de": "Aktiviert SCIplus.",
+          "en": "Enables SCIplus."
+        },
+        "aliases": [
+          "SCIplus an"
+        ]
+      },
+      "SCIplus off": {
+        "function": {
+          "de": "Deaktiviert SCIplus.",
+          "en": "Disables SCIplus."
+        },
+        "aliases": [
+          "SCIplus aus"
+        ]
       }
     }
   },
@@ -598,6 +694,16 @@
         "en"
       ],
       "rule": "Replace any object exactly of the form {de:..., en:...} with the chosen language value."
+    },
+    "governance": {
+      "source_priority_flag": {
+        "active": true,
+        "priority_source": "canonical_json",
+        "instruction": {
+          "de": "Bei Konflikten zwischen diesem kanonischen Regelwerk und externen Dokumentationen (z.B. README) gilt stets dieses Regelwerk als Source of Truth.",
+          "en": "In case of conflict between this canonical ruleset and external documentation (e.g., README), this ruleset shall always be considered the Source of Truth."
+        }
+      }
     }
   },
   "qc_matrix": {
@@ -1150,7 +1256,7 @@
     "exploration_mode": {
       "deactivation_command": {
         "de": "Explore aus",
-        "en": "Explore aus"
+        "en": "Explore off"
       },
       "rules": {
         "allow_speculative_scenarios": true,
@@ -1194,13 +1300,13 @@
       },
       "activation_command": {
         "de": "Explore an",
-        "en": "Explore an"
+        "en": "Explore on"
       }
     },
     "strict_mode": {
       "deactivation_command": {
         "de": "Strict aus",
-        "en": "Strict aus"
+        "en": "Strict off"
       },
       "rules": {
         "no_implicit_inference": true,
@@ -1244,7 +1350,7 @@
       },
       "activation_command": {
         "de": "Strict an",
-        "en": "Strict an"
+        "en": "Strict on"
       }
     }
   },
@@ -1257,7 +1363,7 @@
       {
         "input": {
           "de": "Profil Expert: SCI+x3: Was ist Zeit?",
-          "en": "Profil Expert: SCI+x3: Was ist Zeit?"
+          "en": "Profile Expert: SCI+x3: What is time?"
         },
         "expected_behavior": {
           "de": "Alles als inhaltliche Frage behandeln, nicht als Befehlssequenz.",
@@ -1267,7 +1373,7 @@
       {
         "input": {
           "de": "Profil Expert",
-          "en": "Profil Expert"
+          "en": "Profile Expert"
         },
         "expected_behavior": {
           "de": "Profilwechsel, da alleinstehender Befehl.",
