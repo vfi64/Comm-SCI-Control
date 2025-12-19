@@ -81,3 +81,28 @@
 ## v19.4.1
 - Fixed CSC governance-trigger refinement: CSC refinement can be **forced by governance triggers** (U4 / Web-Check / strong-claim / negative neutrality delta) to prevent trigger mismatches.
 - Improved auditability: bridge signals now use **path-precise parameter references** (thresholds/bindings) for reliable tracing in audits/diagnostics.
+
+## v19.4.2
+- **Härtung der SCI-Auditierbarkeit**: Wenn SCI aktiviert ist, muss der vollständige Step-Trace (Plan → Solution → Check) zwingend im Output gerendert werden; eine stille Kompression oder Auslassung der Denkschritte ist untersagt.
+- Korrektur der QC-Sichtbarkeit: Sicherstellung, dass die QC-Matrix auch bei minimalen Antwortlängen korrekt gerendert wird.
+
+## v19.4.3
+- **Härtung der Menü-Sichtbarkeit**: Solange eine SCI-Variantenwahl (A–H) aussteht, muss das Auswahlmenü in jedem Antwort-Turn gerendert werden, um Fehlbedienungen durch fehlenden Kontext zu vermeiden.
+
+## v19.4.4
+- **Härtung des Dialog-Language Rendering**: Explizite Regelung, dass Hilfe-, Status- und Menütexte zwingend in der aktuellen Konversationssprache (z. B. Deutsch) gerendert werden müssen, sofern diese unterstützt wird.
+- Befehls-Token (Command Tokens) bleiben davon unberührt und strikt kanonisch Englisch.
+
+## v19.4.5
+- **System-Konsolidierung**: Integration der Härtungen aus v19.4.2–v19.4.4 in den stabilen Hauptzweig.
+- Optimierung der CSC (Control Layer Subsystem) Logik zur besseren Erkennung von Neutralitäts-Deltas.
+
+## v19.4.6
+- **Härtung der Comm-Start Initialisierung**: Das System erzwingt nun bei jedem Neustart die Instanziierung des `default_profile` (Standard).
+- Verbot von "Inferred Profile Switching": Automatische Profilwechsel durch die KI basierend auf dem Nutzerkontext sind untersagt; Wechsel erfordern nun ein explizites Audit-Kommando.
+
+## v19.4.7
+- **CSC Transparenz-Patch**: Der Marker `CSC-Refine: applied` wurde von intern auf nutzersichtbar umgestellt (`always_visible_if_applied`).
+- **U4-Loop Resolution**: Der `discursive_loop_guard` erzwingt nun nach 3 Zügen ohne neue Daten eine markierte `Hypothetical-Model-Analysis`, um argumentative Sackgassen zu durchbrechen.
+- **UI Fallback Alignment**: Bei fehlenden Übersetzungen (U1) wird nun automatisch eine zweisprachige Zusammenfassung (EN/DE) erstellt, um den kognitiven Fluss zu erhalten.
+- **SCI Context Persistence**: Das Timeout für die Variantenwahl wurde bei inhaltlichen Rückfragen zur Methodik auf 2 Turns erweitert.
