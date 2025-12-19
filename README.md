@@ -30,14 +30,14 @@ but through an **explicit, transparent rule system** that:
 Comm-SCI-Control is:
 
 - a **purely text-based rule system** (no code, no plugin),
-- **LLM-agnostic** (tested, among others, with ChatGPT, Gemini, Mistral, Claude, DeepSeek),
+- **LLM-agnostic by design** (used with multiple LLMs; behavior can vary by model compliance),
 - an **external control framework** for AI interaction,
 - a tool for **reducing friction, drift, and misinterpretation**.
 
 It defines, among other things:
 
 - profiles (Standard, Expert, Sparring, Briefing, Sandbox),
-- structured reasoning processes (SCI, SCIplus),
+- structured reasoning processes (SCI; extended dialectical depth via variant selection—formerly referred to as “SCIplus”),
 - an explicit QC matrix (including deviation reporting),
 - a control layer against silent adaptation,
 - optional but controlled extensions (CGI, Trade-Off Guard).
@@ -52,7 +52,7 @@ It defines, among other things:
 - ❌ not a replacement for human judgment or responsibility
 
 > **Core statement:**
-> *The rule system makes errors more visible — it does not eliminate them.*
+> *The rule system can make errors and drift more visible — it does not eliminate them.*
 
 ---
 
@@ -62,10 +62,10 @@ It defines, among other things:
 Define the **mode of cooperation** between human and AI
 (e.g., everyday use, expert analysis, sparring, condensation, exploration).
 
-### SCI / SCIplus
+### SCI (with variants; former “SCIplus” via variant selection)
 Explicit reasoning structure:
-- **SCI:** Plan → Solution → Check
-- **SCIplus:** extended dialectical examination (many-lenses approach)
+- **SCI:** Plan → Solution → Check.
+- **Extended dialectical depth (formerly “SCIplus”):** enabled via **SCI on** followed by selecting the corresponding SCI variant (e.g., the deep-dive/dialectics++ option in the A–H menu).
 
 ### QC Matrix
 Six quality dimensions:
@@ -88,35 +88,45 @@ Meta-layer to ensure:
 
 ---
 
-## New Features in v19.x
+## New features in v19.x
 
-**Compared to v19.0.3:** v19.1.x added the *Verification Route Gate*, *Evidence Cap*, and the *Discursive Loop Guard*; v19.2.0 added the *Web-Check Hook* and *Source-first Hard-Mode*.
+The v19 line focuses on **verifiability**, **drift control**, and **auditability**—without claiming correctness.
 
+### Verification and evidence discipline
+- **Verification Route Gate (v19.1.x):** strong claims require at least one explicit verification route (Measurement / Source / Contrast / Web-Check).
+- **Evidence Cap rules (v19.1.x+):** if a strong claim is made without a successful verification route, the Evidence score must not be reported as “3”.
 
-The following functional rules enhance verifiability and structural integrity, especially for time-sensitive or highly speculative claims:
+### Friction and stability for time-unstable topics
+- **Web-Check Hook + Source-first Hard-Mode (v19.2.0):** for temporally unstable or news-like claims (U4), hard factual statements require a source or a web/live check; otherwise they must be downgraded and labeled.
 
-### Verification Routes
-* **Verification Route Gate (v19.1.x):** Enforces at least one explicit verification route (Measurement, Source, Contrast, or Web Check) for strong claims.
-* **Evidence Cap Rules:** If a strong claim is made without a successful verification route, the Evidence QC score is capped at a maximum of 2, preventing overconfidence.
+### Auditability hardening (v19.4.x)
+- **SCI trace enforcement (v19.4.2):** if SCI is active, a visible step trace is mandatory (no silent compression/omission).
+- **SCI variant menu enforcement (v19.4.3):** when SCI selection is pending, the ruleset requires the A–H menu to be rendered (no silent omission; omissions should be repaired/flagged).
+- **Dialog-language UI rendering (v19.4.4):** explanatory/help/status/error/menu text must be rendered in the current conversation language (when supported), while command tokens stay canonical English.
+- **Comm Start initialization guard (v19.4.6):** prevents inferred profile switching on activation; profile changes require explicit standalone commands.
+- **Edge-case patches (v19.4.7):** CSC refinement marker is required to be user-visible when applied; discursive loop guard adds a marked hypothetical-analysis exit after 3 turns without external friction (when no web/live check is available); translation-gap U1 triggers a concise bilingual key-point summary; SCI variant selection can persist one additional turn for contextual SCI-method questions.
 
-### Friction and Stability
-* **Web-Check Hook (v19.2.0):** Formalized mechanism for critical, temporally unstable facts (Uncertainty U4). This action is registered as "external friction" by the system.
-* **Source-First Hard-Mode (v19.2.0):** For news-like or unstable claims (U4), hard factual statements are not allowed without a source or a Web Check. Claims are instead downgraded to hypotheses or classified.
-
-### Loop Prevention
-* **Discursive Loop Guard (v19.1.x):** Issues a warning when interaction exceeds a defined threshold (>3 turns) without new external friction (Measurement/Source/Contrast/Web Check), mitigating argumentative loops.
 
 ---
 
 
 ### Commands (quick reference)
-- **Comm Start**: enable the rule system.
+
+**Important:** Commands are recognized **only** when sent as a **standalone prompt** (one line, nothing else).
+
+- **Comm Start**: enable the rule system (initialize default profile).
 - **Comm Stop**: disable the rule system.
-- **Comm Status**: show current status (only command allowed as a non-standalone exception).
-- **Comm Codes**: show the code/options table.
-- **Comm Rules Off**: play mode (ignore Comm rules; safety still applies).
-- **Comm Rules On**: return to rule mode.
-- **Comm Help**: show help/command list.
+- **Comm Status** *(alias: Comm State)*: show current status.
+- **Comm Config** *(alias: Config)*: show a compact configuration view (for audits / debugging).
+- **Comm Help**: show the command list and usage notes.
+
+- **Profile Standard | Expert | Sparring | Briefing | Sandbox**: switch profile (standalone only).
+- **SCI on / SCI off**: enable/disable SCI (standalone only). If SCI is enabled and a variant selection is pending, the ruleset requires the A–H menu to be rendered (and the Control Layer is expected to repair omissions). **There is no separate “SCIplus” command; the former SCIplus pipeline is accessed via SCI + variant selection.**
+- **Strict on / Strict off**: toggle strict mode.
+- **Explore on / Explore off**: toggle exploration mode.
+- **Dynamic one-shot on**: enable Dynamic Prompting for the next answer only (then auto-resets).
+
+
 
 ## Ethics & responsibility (explicit)
 
@@ -168,11 +178,12 @@ Comm-SCI-Control is typically used as follows:
 
 ## Status
 
-- Current version: **v19.2.1**
-- Development status: **stable, production-ready**
+- Current version: **v19.4.7**
+- Development status: **stable**
+- Source of Truth: the **canonical JSON ruleset** (README is descriptive, not normative)
+
 - Current focus: documentation, examples, usability, evaluation
 
----
 
 ## Citation · Zitation
 
