@@ -1,73 +1,75 @@
 # Comm-SCI-Control
-**Explizites Regelsystem für kontrollierte Mensch–KI-Interaktion**
+**Explizites Regelwerk für kontrollierte Mensch–KI-Interaktion**
 
-> Ein LLM-agnostisches Kontroll- und Governance-Framework zur Reduktion von Drift, zur Sicherung von Transparenz und zur bewussten Beherrschbarkeit von KI-Antworten.
+> Ein LLM‑agnostisches Steuerungs‑ und Governance‑Framework zur Reduktion von Drift, zur Sicherung von Transparenz und zur bewussten Aufrechterhaltung menschlicher Kontrolle über KI‑Antworten.
 
 ---
 
 ## Motivation
 
-Moderne Large Language Models liefern beeindruckende Ergebnisse —
+Moderne Large Language Models liefern beeindruckende Ergebnisse –  
 gleichzeitig zeigen sie systemische Schwächen:
 
-- inkonsistente Antworten über längere Konversationen,
-- stillschweigende Anpassung des Antwortverhaltens,
+- inkonsistente Antworten über längere Dialoge hinweg,
+- stilles Anpassen des Antwortverhaltens,
 - fehlende oder unklare Unsicherheitskennzeichnung,
-- Qualität, die schwer zu verifizieren ist.
+- schwer überprüfbare Qualität.
 
-**Comm-SCI-Control** adressiert diese Probleme **nicht durch bessere Prompts**,
-sondern durch ein **explizites, transparentes Regelsystem**, das:
+**Comm‑SCI‑Control** adressiert diese Probleme **nicht durch bessere Prompts**,  
+sondern durch ein **explizites, transparentes Regelwerk**, das:
 
 - Antwortqualität sichtbar macht,
-- Denk- und Begründungsprozesse strukturiert,
-- menschliche Kontrolle erhält,
-- und stille Re‑Adaption reduziert.
+- Denk‑ und Argumentationsprozesse strukturiert,
+- menschliche Kontrolle bewahrt,
+- und stilles Re‑Adaptieren verhindert.
 
 ---
 
-## Was dieses Regelsystem ist
+## Was dieses Regelwerk ist
 
-Comm-SCI-Control ist:
+Comm‑SCI‑Control ist:
 
-- ein **rein textbasiertes Regelsystem** (kein Code, kein Plugin),
-- **LLM-agnostisch** (mit mehreren LLMs nutzbar; Verhalten hängt von Modell-Compliance ab),
-- ein **externes Kontroll-Framework** für KI-Interaktion,
-- ein Werkzeug zur **Reduktion von Reibung, Drift und Fehlinterpretation**.
+- ein **rein textbasiertes Regelwerk** (kein Code, kein Plugin),
+- **LLM‑agnostisch konzipiert** (nutzbar mit verschiedenen LLMs; Modell‑Compliance kann variieren),
+- ein **externes Governance‑ und Kontrollframework** für KI‑Interaktion,
+- ein Werkzeug zur **Reduktion von Drift, Mehrdeutigkeit und nicht verifizierbaren Ausgaben**.
 
 Es definiert u. a.:
 
 - Profile (Standard, Expert, Sparring, Briefing, Sandbox),
-- strukturierte Denk-/Begründungsprozesse (SCI; erweiterte dialektische Tiefe über Variantenwahl – früher „SCIplus“ genannt),
-- eine explizite QC-Matrix (inkl. Abweichungsreporting),
-- einen Control Layer gegen stille Verhaltensänderung,
-- optionale, aber kontrollierte Erweiterungen (CGI, Trade-Off Guard).
+- strukturierte Denkprozesse (SCI mit auswählbaren Varianten),
+- eine explizite QC‑Matrix mit Abweichungsanzeige (Δ),
+- einen harten Control Layer gegen stille Anpassungen,
+- explizite Unsicherheits‑ und Verifikationsrouten.
 
 ---
 
-## Was dieses Regelsystem **nicht** ist
+## Was dieses Regelwerk **nicht** ist
 
-- ❌ kein autonomes Lern- oder Selbstoptimierungssystem
-- ❌ kein Wrapper, keine API-Erweiterung und kein Plugin
-- ❌ keine Garantie für „wahre“ oder „korrekte“ Antworten
-- ❌ kein Ersatz für menschliches Urteilsvermögen oder Verantwortung
+- ❌ kein autonomes Lern‑ oder Selbstoptimierungssystem
+- ❌ kein Wrapper, keine API‑Erweiterung, kein Plugin
+- ❌ keine Garantie für Korrektheit oder Wahrheit
+- ❌ kein Ersatz für menschliches Urteil oder Verantwortung
 
-> **Kernaussage:**
-> *Das Regelsystem kann Fehler und Drift sichtbarer machen — es eliminiert sie nicht.*
+> **Kernaussage:**  
+> *Das Regelwerk macht Fehler und Drift sichtbar – es beseitigt sie nicht.*
 
 ---
 
-## Kernkonzepte (Kurzübersicht)
+## Zentrale Konzepte (Überblick)
 
 ### Profile
-Profile definieren den **Kooperationsmodus** zwischen Mensch und KI
-(z. B. Alltagsnutzung, Expertenanalyse, Sparring, Verdichtung, Exploration).
+Profile definieren den **Kooperationsmodus** zwischen Mensch und KI  
+(z. B. Alltagsnutzung, Expertenanalyse, kritisches Sparring, Verdichtung, Exploration).
 
-### SCI (mit Varianten; früheres „SCIplus“ über Variantenwahl)
-Explizite Begründungsstruktur:
-- **SCI:** Plan → Solution → Check.
-- **Erweiterte dialektische Tiefe (früher „SCIplus“):** wird über **SCI on** plus anschließende Variantenwahl im A–H‑Menü aktiviert (z. B. Deep‑Dive/Dialectics++).
+### SCI (Structured Cognitive Interaction)
+Explizite Denkstruktur:
+- **SCI:** Plan → Lösung → Prüfung
+- **Erweiterte Tiefe (vormals „SCIplus“):** aktiviert über die SCI‑Variantenwahl (A–H‑Menü).
 
-### QC-Matrix
+Wenn SCI aktiv ist, sind sichtbare SCI‑Traces verpflichtend.
+
+### QC‑Matrix
 Sechs Qualitätsdimensionen:
 - Klarheit
 - Kürze
@@ -77,124 +79,118 @@ Sechs Qualitätsdimensionen:
 - Neutralität
 
 Jede Antwort enthält:
-- eine aktuelle QC-Einschätzung,
-- eine geschätzte Abweichung (Δ) vom Profil-Ziel.
+- eine QC‑Selbsteinschätzung,
+- ein **Delta (Δ)** als Abweichung vom Zielkorridor des aktiven Profils.
+
+#### Delta‑Semantik (seit v19.4.15)
+- **Δ < 0:** unter Ziel → potenzieller Qualitätsmangel
+- **Δ = 0:** im Ziel → akzeptabel
+- **Δ > 0:** über Ziel → Risiko der Überoptimierung  
+  (z. B. Halluzinationsrisiko bei zu hoher Evidenz)
+
+**Handlungsempfehlung:**
+- |Δ| ≥ 2 → manuelle Korrektur durch den Nutzer empfohlen
+- |Δ| < 2 → nur Beobachtung
 
 ### Control Layer
-Meta-Ebene zur Sicherung von:
+Meta‑Ebene zur Durchsetzung von:
 - Regelkohärenz,
-- Drift-Erkennung,
-- Schutz vor stiller Verhaltensänderung.
+- Auditierbarkeit,
+- Schutz vor stillen Verhaltensänderungen.
 
 ---
 
-## Neue Funktionen in v19.x
+## Umgang mit Unsicherheit
 
-Die v19‑Linie fokussiert **Verifizierbarkeit**, **Drift-Kontrolle** und **Auditierbarkeit** — ohne Korrektheit zu versprechen.
+Comm‑SCI‑Control verwendet eine explizite Unsicherheits‑Taxonomie:
 
-### Verifikation und Evidenz-Disziplin
-- **Verification Route Gate (v19.1.x):** starke Behauptungen benötigen mindestens eine explizite Verifikationsroute (Messung / Quelle / Kontrast / Web‑Check).
-- **Evidenz‑Cap‑Regeln (v19.1.x+):** wenn eine starke Behauptung ohne erfolgreiche Verifikationsroute erfolgt, darf die Evidenz nicht als „3“ ausgewiesen werden.
+- **U1 – Datenlücke**
+- **U2 – Logische Unterbestimmtheit**
+- **U3 – Normativer Dissens**
+- **U4 – Zeitliche Instabilität**
+- **U5 – Modellgrenze** *(seit v19.4.15)*  
+  Strukturelle Begrenzung des LLM; Aufgabe ist nicht zuverlässig lösbar.
+- **U6 – Mehrdeutige Anfrage** *(seit v19.4.15)*  
+  Anfrage ist unterbestimmt oder besitzt mehrere valide Interpretationen.
 
-### Stabilität bei zeitinstabilen Themen
-- **Web‑Check‑Hook + Source‑first Hard‑Mode (v19.2.0):** bei zeitinstabilen oder news‑artigen Behauptungen (U4) erfordern harte Fakten eine Quelle oder einen Web/Live‑Check; andernfalls müssen sie downgraded und markiert werden.
-
-### Auditability-Härtung (v19.4.x)
-- **SCI‑Trace‑Enforcement (v19.4.2):** wenn SCI aktiv ist, ist eine sichtbare Schritt‑Trace verpflichtend (keine stille Kompression/kein Weglassen).
-- **SCI‑Variant‑Menü‑Enforcement (v19.4.3):** wenn die SCI‑Auswahl pending ist, verlangt das Regelsystem, dass das A–H‑Menü gerendert wird (kein stilles Weglassen; Auslassungen sollten repariert/markiert werden).
-- **Dialogsprache für UI‑Texte (v19.4.4):** Erklär-/Help-/Status-/Fehler-/Menü‑Text muss in der aktuellen Dialogsprache gerendert werden (wenn unterstützt); Command‑Tokens bleiben kanonisch Englisch.
-- **Comm‑Start‑Initialisierungs‑Guard (v19.4.6):** verhindert inferierte Profilwechsel bei Aktivierung; Profilwechsel erfordern explizite Standalone‑Kommandos.
-- **Edge‑Case‑Patches (v19.4.7):** CSC‑Refinement‑Marker muss bei Anwendung für den Nutzer sichtbar sein; der Discursive‑Loop‑Guard erzwingt nach 3 Zügen ohne externe Reibung einen markierten Hypothetical‑Analysis‑Exit (wenn kein Web/Live‑Check verfügbar ist); Translation‑Gap U1 triggert eine kurze zweisprachige Key‑Point‑Summary; die SCI‑Variantenwahl kann bei kontextuellen SCI‑Methodikfragen einen zusätzlichen Zug pending bleiben.
+Jedes Unsicherheitslabel erzwingt einen **definierten nächsten Schritt**  
+(z. B. Klärung, alternative Methoden, Verifikationsrouten).
 
 ---
 
-## Kommandos (Kurzübersicht)
+## Verifikationsdisziplin
 
-**Wichtig:** Kommandos werden **nur** erkannt, wenn sie als **Standalone‑Prompt** gesendet werden (eine Zeile, nichts anderes).
-
-- **Comm Start**: Regelsystem aktivieren (Default‑Profil initialisieren).
-- **Comm Stop**: Regelsystem deaktivieren.
-- **Comm Status** *(Alias: Comm State)*: aktuellen Status anzeigen.
-- **Comm Config** *(Alias: Config)*: kompakte Konfigurationssicht (für Audits/Debugging).
-- **Comm Help**: Kommandoliste und Nutzungshinweise anzeigen.
-
-- **Profile Standard | Expert | Sparring | Briefing | Sandbox**: Profil wechseln (nur Standalone).
-- **SCI on / SCI off**: SCI aktivieren/deaktivieren (nur Standalone). Wenn SCI aktiv ist und eine Variantenwahl pending ist, verlangt das Regelsystem, dass das A–H‑Menü gerendert wird (und der Control Layer sollte Auslassungen reparieren). **Es gibt keinen separaten „SCIplus“-Befehl; die frühere SCIplus‑Pipeline wird über SCI + Variantenwahl erreicht.**
-- **Strict on / Strict off**: Strict‑Modus umschalten.
-- **Explore on / Explore off**: Explore‑Modus umschalten.
-- **Dynamic one-shot on**: Dynamic Prompting nur für die nächste Antwort aktivieren (danach Auto‑Reset).
+- **Verification Route Gate:** starke Behauptungen erfordern mindestens eine explizite Route  
+  (Messung, Quelle, Kontrast oder Web‑Check).
+- Behauptungen ohne valide Route müssen herabgestuft und als unsicher markiert werden.
+- Evidenzwerte werden begrenzt, wenn Verifikation fehlt.
 
 ---
 
-## Ethik & Verantwortung (explizit)
+## Befehle (Kurzreferenz)
 
-Comm‑SCI‑Control behandelt Ethik **nicht als Add‑on**,
-sondern als **funktionalen Bestandteil der Kontrolllogik**.
+**Wichtig:** Befehle werden **nur** erkannt, wenn sie als **alleinstehender Prompt** gesendet werden.
 
-### Grundannahmen
+- **Comm Start / Comm Stop**
+- **Comm Status / Comm Help**
+- **Profile Standard | Expert | Sparring | Briefing | Sandbox**
+- **SCI on / SCI off**
+- **Strict on / Strict off**
+- **Explore on / Explore off**
+- **Dynamic one‑shot on**
 
-- LLMs sind **probabilistische Textmodelle**, keine intentionalen Akteure.
-- Verantwortung bleibt **immer beim Menschen**.
-- Komfort, Geschwindigkeit oder Überzeugungskraft dürfen
-  **niemals Transparenz und Verifizierbarkeit übersteuern**.
+---
 
-### Operationalisierte Ethik im Regelsystem
+## Ethik & Verantwortung
 
-Ethik wird nicht moralisch, sondern **technisch** implementiert durch:
+Ethik wird **technisch**, nicht rhetorisch umgesetzt:
 
-- **Safety Core:** keine Unterstützung für Schaden, klare Grenzen, Transparenz.
-- **Unsicherheitsklassifikation (U1–U4):**
-  Unwissen wird explizit markiert — nicht kaschiert.
-- **QC‑Dimension „Neutralität“:**
-  Trennung von Fakten und Werturteilen, Gegenperspektiven wenn angemessen.
-- **Dynamic Prompting standardmäßig deaktiviert:**
-  keine automatische Verhaltenskorrektur ohne explizite Nutzerentscheidung.
-
-> Ziel ist **Erhalt von Autonomie**, nicht Optimierung um jeden Preis.
+- LLMs sind probabilistische Sprachmodelle, keine handelnden Subjekte.
+- Verantwortung verbleibt stets beim Menschen.
+- Transparenz und Verifizierbarkeit haben Vorrang vor Komfort oder Überzeugungskraft.
+- Unsicherheit muss explizit benannt werden, nicht verdeckt.
 
 ---
 
 ## Praktische Nutzung
 
-Comm‑SCI‑Control wird typischerweise so genutzt:
+Typischer Ablauf:
 
-1. als vollständiges JSON‑Regelset in einen Chat eingebracht,
-2. am Anfang einer neuen Konversation explizit aktiviert,
-3. in langen Dialogen bewusst re‑initialisiert (Reset),
-4. intentional gesteuert statt automatisch.
+1. Übergabe des kanonischen JSON‑Regelwerks an das LLM,
+2. explizite Aktivierung zu Beginn eines Dialogs,
+3. bewusste Re‑Initialisierung in längeren Gesprächen,
+4. intentionale Steuerung statt impliziter Anpassung.
 
 ---
 
 ## Zielgruppe
 
-- Lehrkräfte und Bildungsbereich
-- Fachleute in technischen und wissenschaftlichen Feldern
+- Lehrkräfte und Pädagogen
+- Fachkräfte aus Technik und Wissenschaft
 - reflektierte Power‑User von LLMs
-- Menschen, die **Kontrollierbarkeit über Bequemlichkeit** priorisieren
+- Personen, die **Kontrollierbarkeit über Bequemlichkeit** stellen
 
 ---
 
 ## Status
 
-- Aktuelle Version: **v19.4.7**
-- Entwicklungsstatus: **stabil**
-- Source of Truth: das **kanonische JSON‑Regelset** (README ist beschreibend, nicht normativ)
+- **Aktuelle Version:** v19.4.15
+- **Stabilität:** stabil / produktionsreif
+- **Source of Truth:** kanonisches JSON‑Regelwerk  
+  (README ist beschreibend, nicht normativ)
 
-- Aktueller Fokus: Dokumentation, Beispiele, Usability, Evaluation
+Aktueller Fokus: Dokumentation, Beispiele, Usability, Evaluation.
 
 ---
 
 ## Zitation
 
-Wenn du dieses Framework nutzt, zitiere bitte die archivierte Version auf Zenodo:
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17930749.svg)](https://doi.org/10.5281/zenodo.17930749)
-**DOI:** [10.5281/zenodo.17930749](https://doi.org/10.5281/zenodo.17930749)
+Wenn Sie dieses Framework verwenden, zitieren Sie bitte die archivierte Zenodo‑Version:  
+**DOI:** https://doi.org/10.5281/zenodo.17930749
 
 ---
 
 ## Lizenz
 
-Dieses Werk ist lizenziert unter der
-**Creative Commons Attribution 4.0 International License (CC BY 4.0)**.
-
+Creative Commons Attribution 4.0 International (CC BY 4.0)  
 https://creativecommons.org/licenses/by/4.0/
