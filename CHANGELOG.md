@@ -106,3 +106,30 @@
 - **U4 loop resolution:** The `discursive_loop_guard` now forces a clearly marked `Hypothetical-Model-Analysis` after 3 turns without new data, to break argumentative dead-ends.
 - **UI fallback alignment:** If translations are missing (U1), the system automatically generates a bilingual summary (EN/DE) to preserve cognitive flow.
 - **SCI context persistence:** The timeout for variant selection is extended to 2 turns when the user asks methodological questions instead of sending an A–H token.
+
+## Diff: v19.4.17 → v19.4.15
+
+> Note: v19.4.15 represents a focused stabilization and clarification step relative to later experimental or internal iterations.
+
+### Added
+- Extended the uncertainty taxonomy with two additional explicit labels:
+  - **U5 – Model limitation**: Marks tasks that are structurally not solvable by an LLM and requires explaining the limitation and, where possible, suggesting alternative or external approaches.
+  - **U6 – Ambiguous query**: Marks underspecified or ambiguous user queries and requires clarification or enumeration of plausible interpretations.
+- Added dedicated `next_step_templates` for U5 and U6 to enforce appropriate follow-up behavior.
+
+### Clarified
+- Made the semantic interpretation of QC Delta values explicit by introducing a `delta_semantics` section:
+  - Clearly defines the meaning of negative, zero, and positive Delta values relative to the active profile’s target corridor.
+  - Explicitly highlights risks of over-optimization (e.g. hallucination risk when Evidence exceeds its target range).
+- Added non-automatic action guidance for QC deviations:
+  - `|Δ| ≥ 2`: manual correction by the user is recommended.
+  - `|Δ| < 2`: no correction required; monitoring only.
+
+### Unchanged
+- No changes to Control Layer structure or enforcement logic.
+- No changes to CSC engine placement or behavior.
+- No changes to numeric code categories or profile definitions.
+- No architectural refactoring or rule priority changes.
+
+### Summary
+v19.4.15 consolidates and clarifies core governance semantics (uncertainty handling and QC deviation interpretation) while deliberately avoiding architectural changes. The release is fully backward-compatible in behavior and focuses on auditability and semantic precision rather than feature expansion.
