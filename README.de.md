@@ -244,7 +244,7 @@ Dokumentation, Beispiele, Nutzbarkeit, Evaluation, Auditierbarkeit.
 ## Zitation
 
 Wenn Sie dieses Framework verwenden, zitieren Sie bitte die archivierte Zenodo-Version:  
-https://doi.org/10.5281/zenodo.17930749
+https://doi.org/10.5281/zenodo.18047859
 
 ---
 
