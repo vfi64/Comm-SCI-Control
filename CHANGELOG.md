@@ -107,9 +107,9 @@
 - **UI fallback alignment:** If translations are missing (U1), the system automatically generates a bilingual summary (EN/DE) to preserve cognitive flow.
 - **SCI context persistence:** The timeout for variant selection is extended to 2 turns when the user asks methodological questions instead of sending an A–H token.
 
-## Diff: v19.4.17 → v19.4.15
+## Diff: v19.4.14 → v19.4.17
 
-> Note: v19.4.15 represents a focused stabilization and clarification step relative to later experimental or internal iterations.
+> Note: v19.4.17 represents a focused stabilization and clarification step relative to later experimental or internal iterations.
 
 ### Added
 - Extended the uncertainty taxonomy with two additional explicit labels:
@@ -132,4 +132,4 @@
 - No architectural refactoring or rule priority changes.
 
 ### Summary
-v19.4.15 consolidates and clarifies core governance semantics (uncertainty handling and QC deviation interpretation) while deliberately avoiding architectural changes. The release is fully backward-compatible in behavior and focuses on auditability and semantic precision rather than feature expansion.
+v19.4.17 consolidates and clarifies core governance semantics (uncertainty handling and QC deviation interpretation) while deliberately avoiding architectural changes. The release is fully backward-compatible in behavior and focuses on auditability and semantic precision rather than feature expansion.
