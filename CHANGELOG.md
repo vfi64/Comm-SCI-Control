@@ -107,7 +107,7 @@
 - **UI fallback alignment:** If translations are missing (U1), the system automatically generates a bilingual summary (EN/DE) to preserve cognitive flow.
 - **SCI context persistence:** The timeout for variant selection is extended to 2 turns when the user asks methodological questions instead of sending an A–H token.
 
-## Diff: v19.4.14 → v19.4.17
+## Diff: v19.4.15 → v19.4.17
 
 > Note: v19.4.17 represents a focused stabilization and clarification step relative to later experimental or internal iterations.
 
