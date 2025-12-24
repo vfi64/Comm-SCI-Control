@@ -1,4 +1,4 @@
- # Comm-SCI-Control  
+# Comm-SCI-Control  
 **Explicit rule system for controlled human–AI interaction**
 
 An LLM-agnostic control and governance framework for reducing drift, ensuring transparency, and maintaining deliberate human control over AI responses.
