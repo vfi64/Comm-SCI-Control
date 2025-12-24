@@ -133,3 +133,162 @@
 
 ### Summary
 v19.4.17 consolidates and clarifies core governance semantics (uncertainty handling and QC deviation interpretation) while deliberately avoiding architectural changes. The release is fully backward-compatible in behavior and focuses on auditability and semantic precision rather than feature expansion.
+
+# Comm-SCI-Control – Changelog (v19.4.18 → v19.4.21)
+
+---
+
+## v19.4.18
+
+**Optional evidence signaling without behavioral impact**
+
+### Added
+- **Evidence Linker (optional, default-off)**
+  - Introduced an optional, presentation-level Evidence Linker with **three reliability classes**:
+    - **GREEN** – high confidence / well-supported
+    - **YELLOW** – mixed or partial support
+    - **RED** – weak, speculative, or insufficient support
+  - Designed purely as an **annotation layer** for human readers.
+  - Disabled by default; activation requires explicit configuration.
+
+### Clarified
+- Evidence Linker tags:
+  - Do **not** affect Control Layer decisions.
+  - Do **not** influence QC scoring.
+  - Do **not** alter uncertainty labels or verification routing.
+
+### Unchanged
+- No changes to:
+  - Control Layer logic
+  - QC metrics or delta semantics
+  - SCI / SCIplus behavior
+  - Command parsing or rendering rules
+
+### Summary
+v19.4.18 adds **optional evidence signaling** strictly for readability and audit support, without introducing any semantic or behavioral changes.
+
+---
+
+## v19.4.19
+
+**Stabilization of evidence signaling infrastructure**
+
+### Clarified
+- **Evidence Linker scope**
+  - Reaffirmed that Evidence Linker tags remain:
+    - non-semantic,
+    - non-normative,
+    - non-binding.
+  - Explicitly documented as **presentation-only metadata**.
+
+### Unchanged
+- No changes to:
+  - Command set
+  - Governance logic
+  - Rendering policies
+  - Runtime state handling
+
+### Summary
+v19.4.19 is a **documentation and stabilization step** ensuring that optional evidence signaling cannot be misinterpreted as evaluative logic.
+
+---
+
+## v19.4.20
+
+**Extended evidence tag rendering (still presentation-only)**
+
+### Added
+- **Emoji-enhanced Evidence Linker rendering (optional)**
+  - Evidence Linker tags may optionally include a trailing emoji:
+    - `[GREEN]` → 🟢
+    - `[YELLOW]` → 🟡
+    - `[RED]` → 🔴
+  - Textual tags remain canonical; emojis are purely additive.
+
+### Clarified
+- Emoji usage:
+  - Is optional.
+  - Must never replace textual tags.
+  - Must not encode additional meaning beyond the existing three classes.
+
+### Unchanged
+- No changes to:
+  - Control Layer or CSC behavior
+  - QC evaluation
+  - SCI / SCIplus logic
+  - Uncertainty taxonomy or verification routes
+
+### Summary
+v19.4.20 refines **visual ergonomics only**, keeping evidence signaling strictly outside governance semantics.
+
+---
+
+## v19.4.21
+
+**Canonical consolidation, deterministic state enforcement, and explicit rendering controls**
+
+### Added
+- **Explicit canonical-state enforcement**
+  - The active canonical ruleset version is now explicitly asserted and treated as the sole Source of Truth for the entire conversation lifecycle.
+  - All secondary, historical, experimental, or contextual rule variants are ignored once v19.4.21 is instantiated.
+
+- **Deterministic initialization guarantees**
+  - On session start or re-instantiation, the system explicitly enforces:
+    - `default_profile = Standard`
+    - `default_code = 122-1`
+    - `SCI = off`
+    - `Dynamic Prompting = off`
+    - `Color = off`
+  - Prevents residual state leakage from prior conversations, context fragments, or model-side heuristics.
+
+- **Explicit Color rendering control**
+  - Introduced a dedicated `Color on/off` runtime flag.
+  - **Purpose of `Color on`:**
+    - Improves visual orientation in cognitively dense outputs.
+    - Highlights structural, state, or diagnostic elements only.
+  - Color rendering is strictly **non-semantic** and must not influence:
+    - command resolution,
+    - Control Layer logic,
+    - QC evaluation,
+    - SCI / CSC behavior,
+    - uncertainty classification or verification routing.
+  - Default state is `Color off`.
+
+- **Color code definitions (rendering layer only)**
+  - Exactly three permitted color categories:
+    - **Neutral / Structural Color**
+      - Structural separation only (headers, tables).
+    - **State / Status Color**
+      - Explicit system states (profile, SCI, Color on/off).
+    - **Attention / Diagnostic Color**
+      - Governance-relevant notices (uncertainty, loop warnings).
+  - No additional colors or implicit semantics are allowed.
+
+- **Strict separation of configuration vs. interpretation**
+  - The JSON configuration is treated as a declarative control specification.
+  - No heuristic reinterpretation or stylistic inference is permitted.
+
+### Clarified
+- **Scope of authority**
+  - v19.4.21 is authoritative strictly within the current chat context.
+  - Guarantees non-interaction with external or historical rule variants.
+
+- **Command vs. rendering boundary**
+  - Command tokens remain canonical English-only.
+  - Rendering features (language, color, formatting) are non-authoritative.
+
+- **State transparency**
+  - Active version, profile, control flags, and rendering state must be surfaced explicitly when relevant.
+
+### Unchanged
+- No changes to:
+  - Control Layer structure or enforcement
+  - CSC engine behavior
+  - QC metrics or delta semantics
+  - SCI / SCIplus logic
+  - Uncertainty taxonomy (U1–U6)
+  - Verification-route or Web-Check semantics
+
+### Summary
+v19.4.21 is a **hardening and consolidation release**.
+It introduces no new control capabilities, but **eliminates ambiguity about runtime state, authority, and rendering boundaries**, ensuring maximal determinism and auditability.
