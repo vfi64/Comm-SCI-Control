@@ -151,6 +151,33 @@ Each uncertainty label **enforces a required next step**
 
 ---
 
+## Self-Debunking (since v19.5.0)
+
+Self-Debunking is a **strict, always-on (except Sandbox) post-answer audit block**:
+
+- Rendered **after the final answer** and **before the QC footer**.
+- **2–3 bullets**, focused on **weaknesses / assumptions / missing verification**.
+- Must **not introduce new factual claims**.
+
+Purpose: reduce blind spots by forcing a short, bounded self-critique without changing governance logic.
+
+---
+
+## Evidence Linker (since v19.4.18; defaults changed in v19.5.1 / v19.5.2)
+
+Evidence Linker is a **3-class, presentation-only reliability tagger**:
+`[GREEN]` / `[YELLOW]` / `[RED]` (optionally with 🟢/🟡/🔴).
+
+- It signals **verification strength**, not “truth”, “approval”, or persuasion.
+- It must never change Control Layer semantics, QC delta rules, or command resolution.
+
+### Defaults
+- **v19.5.1:** default-on for all profiles **except Sandbox**.
+- **v19.5.2:** default-off for **Briefing** (Sandbox excluded); default remains on for other profiles.
+
+
+---
+
 ## Rendering and Color control (since v19.4.21)
 
 - Rendering features are **explicitly separated** from governance logic.
@@ -231,7 +258,7 @@ Typical workflow:
 
 ## Status
 
-- **Current version:** v19.4.21  
+- **Current version:** v19.5.2  
 - **Stability:** stable / production-ready  
 - **Source of Truth:** canonical JSON ruleset  
   (README is descriptive, not normative)
