@@ -292,3 +292,72 @@ v19.4.20 refines **visual ergonomics only**, keeping evidence signaling strictly
 ### Summary
 v19.4.21 is a **hardening and consolidation release**.
 It introduces no new control capabilities, but **eliminates ambiguity about runtime state, authority, and rendering boundaries**, ensuring maximal determinism and auditability.
+---
+
+## v19.5.0
+
+**Always-on Self-Debunking module (strict, post-answer audit), no governance changes**
+
+### Added
+- **Self-Debunking (always-on; strict; post-answer, pre-QC)**
+  - A mandatory, short self-audit block rendered **after the final answer** and **before the QC footer**.
+  - Active for all profiles **except Sandbox**.
+  - Must be **2–3 bullets**, must **not introduce new factual claims**, and must focus on weaknesses / assumptions / missing verification steps.
+
+### Clarified
+- Self-Debunking is **diagnostic only**:
+  - It does not change Control Layer semantics, commands, QC delta semantics, or SCI logic.
+  - Its purpose is to expose plausible failure modes and verification gaps in a bounded format.
+
+### Unchanged
+- No changes to:
+  - Control Layer structure or enforcement
+  - CSC engine behavior
+  - QC metrics or delta semantics
+  - SCI / SCIplus logic
+  - Uncertainty taxonomy (U1–U6)
+  - Verification-route or Web-Check semantics
+
+### Summary
+v19.5.0 adds a **strict, always-on post-answer audit block** (Self-Debunking) to improve transparency and reduce blind spots, without changing any governance logic.
+
+---
+
+## v19.5.1
+
+**Evidence Linker defaults changed (default-on except Sandbox), still presentation-only**
+
+### Changed
+- **Evidence Linker default state**
+  - Evidence Linker **color tags are now default-on** for all profiles **except Sandbox**.
+
+### Unchanged
+- No changes to:
+  - Control Layer or CSC behavior
+  - QC evaluation or delta semantics
+  - SCI / SCIplus logic
+  - Uncertainty taxonomy or verification routes
+
+### Summary
+v19.5.1 changes only the **default activation policy** of Evidence Linker (on-by-default except Sandbox) while preserving the “presentation-only” boundary.
+
+---
+
+## v19.5.2
+
+**Evidence Linker default-off for Briefing (keep Briefing clean), otherwise unchanged**
+
+### Changed
+- **Evidence Linker default exceptions**
+  - Evidence Linker is now **default-off for Briefing** (Sandbox remains excluded).
+  - Default remains **on** for other profiles.
+
+### Unchanged
+- No changes to:
+  - Control Layer or CSC behavior
+  - QC evaluation or delta semantics
+  - SCI / SCIplus logic
+  - Uncertainty taxonomy or verification routes
+
+### Summary
+v19.5.2 keeps Evidence Linker on-by-default for most profiles, but **turns it off for Briefing** to maintain brevity and low visual overhead.
