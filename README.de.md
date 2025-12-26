@@ -248,7 +248,7 @@ Typischer Workflow:
 
 ## Zielgruppe
 
-- Lehrkräfte und Pädagog:innen
+- Lehrkräfte und Pädagogen
 - technische und naturwissenschaftliche Professionals
 - reflektierte Power-User von LLMs
 - alle, die **Kontrolle vor Bequemlichkeit** priorisieren
