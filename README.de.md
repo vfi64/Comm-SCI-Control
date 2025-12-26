@@ -1,24 +1,24 @@
 # Comm-SCI-Control  
 **Explizites Regelsystem für kontrollierte Mensch–KI-Interaktion**
 
-Ein LLM-agnostisches Kontroll- und Governance-Framework zur Reduktion von Drift, zur Sicherstellung von Transparenz und zur bewussten Wahrung menschlicher Kontrolle über KI-Antworten.
+Ein modellagnostischer Control- und Governance-Rahmen zur Reduktion von Drift, zur Sicherung von Transparenz und zur bewussten Aufrechterhaltung menschlicher Kontrolle über KI-Antworten.
 
 ---
 
 ## Motivation
 
-Moderne Large Language Models liefern beeindruckende Ergebnisse – zugleich zeigen sie jedoch systemische Schwächen:
+Moderne Large Language Models liefern beeindruckende Ergebnisse — zugleich zeigen sie systemische Schwächen:
 
-- inkonsistente Antworten über längere Konversationen hinweg,
+- inkonsistente Antworten über längere Gespräche hinweg,
 - stille Anpassung des Antwortverhaltens,
-- fehlende oder unklare Unsicherheitskennzeichnung,
-- Qualität, die schwer überprüfbar oder auditierbar ist.
+- fehlende oder unklare Kennzeichnung von Unsicherheit,
+- Qualität, die schwer zu verifizieren oder zu auditieren ist.
 
 **Comm-SCI-Control** adressiert diese Probleme **nicht durch bessere Prompts**, sondern durch ein **explizites, transparentes Regelsystem**, das:
 
 - Antwortqualität sichtbar macht,
 - Denkprozesse strukturiert,
-- menschliche Kontrolle bewahrt,
+- menschliche Kontrolle erhält,
 - und stille Re-Adaptation verhindert.
 
 ---
@@ -28,17 +28,17 @@ Moderne Large Language Models liefern beeindruckende Ergebnisse – zugleich zei
 Comm-SCI-Control ist:
 
 - ein **rein textbasiertes Regelsystem** (kein Code, kein Plugin),
-- **LLM-agnostisch konzipiert** (mit verschiedenen Modellen nutzbar; Regelbefolgung kann variieren),
-- ein **externes Governance- und Kontrollframework** für KI-Interaktion,
-- ein Werkzeug zur **Reduktion von Drift, Mehrdeutigkeit und nicht überprüfbarer Ausgabe**.
+- **modellagnostisch** konzipiert (nutzbar mit mehreren Modellen; Compliance kann variieren),
+- ein **externer Governance- und Kontrollrahmen** für KI-Interaktion,
+- ein Werkzeug zur **Reduktion von Drift, Mehrdeutigkeit und nicht verifizierbarer Ausgabe**.
 
 Es definiert unter anderem:
 
 - **Profile** (Standard, Expert, Sparring, Briefing, Sandbox),
 - **strukturierte Denkprozesse** (SCI mit auswählbaren Varianten),
-- eine **explizite QC-Matrix** mit Abweichungsberichten (Δ),
-- eine **harte Control Layer** gegen stille Anpassung,
-- **explizite Unsicherheitsbehandlung und Verifikationsrouten**,
+- eine **explizite QC-Matrix** mit Abweichungsreporting (Δ),
+- eine **harte Control Layer** gegen stille Adaption,
+- **explizites Unsicherheits-Handling und Prüf-/Verifikationsrouten**,
 - **deterministische Initialisierung und kanonische Zustandsdurchsetzung** (seit v19.4.21),
 - **explizite Rendering-Kontrollen** (Color on/off, nicht-semantisch).
 
@@ -47,24 +47,24 @@ Es definiert unter anderem:
 ## Was dieses Regelsystem nicht ist
 
 - ❌ kein autonom lernendes oder selbstoptimierendes System  
-- ❌ kein Wrapper, keine API-Erweiterung und kein Plugin  
+- ❌ kein Wrapper, keine API-Erweiterung, kein Plugin  
 - ❌ keine Garantie für Korrektheit oder Wahrheit  
 - ❌ kein Ersatz für menschliches Urteil oder Verantwortung  
 
 **Kernaussage:**  
-Das Regelsystem macht Fehler und Drift **sichtbar** – es beseitigt sie nicht.
+Das Regelsystem macht Fehler und Drift **sichtbar** — es eliminiert sie nicht.
 
 ---
 
-## Zentrale Konzepte (Überblick)
+## Kernkonzepte (Überblick)
 
 ### Profile
 
-Profile definieren den **Modus der Zusammenarbeit** zwischen Mensch und KI  
-(z. B. Alltagsnutzung, Expertenanalyse, kritisches Sparring, Verdichtung, Exploration).
+Profile definieren den **Kooperationsmodus** zwischen Mensch und KI  
+(z. B. Alltag, Expertenanalyse, kritisches Sparring, Verdichtung, Exploration).
 
 Profilwechsel sind **explizit und auditierbar**.  
-Automatische oder implizite Profilwechsel sind verboten.
+Automatische oder erschlossene Profilwechsel sind verboten.
 
 ---
 
@@ -72,12 +72,12 @@ Automatische oder implizite Profilwechsel sind verboten.
 
 Explizite Denkstruktur:
 
-- **SCI:** Plan → Lösung → Prüfung  
-- **Erweiterte Tiefe:** auswählbar über das SCI-Variantenmenü (A–H)
+- **SCI:** Plan → Solution → Check  
+- **Erweiterte Tiefe:** wählbar über ein SCI-Variantenmenü (A–H)
 
 Wenn SCI aktiv ist:
-- ist die **vollständige Denkspur verpflichtend**,
-- stille Kompression oder Auslassung ist unzulässig.
+- ist die **vollständige Reasoning-Trace verpflichtend**,
+- stille Komprimierung oder Auslassung ist untersagt.
 
 ---
 
@@ -95,94 +95,120 @@ Sechs Qualitätsdimensionen:
 Jede Antwort enthält:
 
 - eine **QC-Selbsteinschätzung**,
-- ein **Delta (Δ)**, das die Abweichung vom Zielkorridor des aktiven Profils angibt.
+- ein **Delta (Δ)** als Abweichung vom Zielkorridor des aktiven Profils.
 
 #### Delta-Semantik
 
 - Δ < 0 → unter Ziel (potenzielles Qualitätsdefizit)  
-- Δ = 0 → im Zielbereich (akzeptabel)  
-- Δ > 0 → über Ziel (Risiko der Überoptimierung, z. B. Halluzinationsgefahr bei zu hoher Evidenz)
+- Δ = 0 → im Zielkorridor (akzeptabel)  
+- Δ > 0 → über Ziel (Risiko von Überoptimierung, z. B. Halluzinationsrisiko bei zu viel „Evidenz“)
 
-**Handlungsempfehlung:**
+**Handlungsleitfaden:**
 
-- |Δ| ≥ 2 → manuelle Korrektur durch den Nutzer empfohlen  
-- |Δ| < 2 → nur Monitoring erforderlich  
+- |Δ| ≥ 2 → manuelle Nutzer-Korrektur empfohlen  
+- |Δ| < 2 → nur Monitoring  
 
 ---
 
 ### Control Layer
 
-Eine Meta-Ebene zur Durchsetzung von:
+Eine Meta-Ebene, die erzwingt:
 
 - Regelkohärenz,
 - Auditierbarkeit,
 - Verhinderung stiller Verhaltensänderungen,
-- strikter Trennung von Governance-Logik und Darstellung.
+- strikte Trennung von Governance-Logik und Präsentation.
 
 ---
 
-## Unsicherheitsbehandlung
+## Umgang mit Unsicherheit
 
-Comm-SCI-Control verwendet eine **explizite Unsicherheitstaxonomie**:
+Comm-SCI-Control nutzt eine **explizite Unsicherheits-Taxonomie**:
 
 - **U1 – Datenlücke**
 - **U2 – Logische Unterbestimmtheit**
-- **U3 – Normativer Dissens**
+- **U3 – Normative Uneinigkeit**
 - **U4 – Zeitliche Instabilität**
-- **U5 – Modellbegrenzung**  
-  Strukturelle Grenze des LLM; Aufgabe kann nicht zuverlässig gelöst werden.
+- **U5 – Modelllimitierung**  
+  Strukturelle Limitierung des LLM; die Aufgabe ist nicht zuverlässig lösbar.
 - **U6 – Mehrdeutige Anfrage**  
-  Eingabe ist unterbestimmt oder erlaubt mehrere valide Interpretationen.
+  Eingabe ist unterbestimmt oder hat mehrere plausible Interpretationen.
 
-Jede Unsicherheitsklasse **erzwingt einen nächsten Schritt**  
-(z. B. Klärung, alternative Ansätze, Verifikationsrouten).
+Jedes Unsicherheitslabel erzwingt einen **erforderlichen nächsten Schritt**  
+(z. B. Rückfrage, alternative Ansätze, Verifikationsrouten).
 
 ---
 
 ## Verifikationsdisziplin
 
-- **Verification-Route-Gate:**  
-  Starke Behauptungen erfordern mindestens eine explizite Route  
+- **Verification Route Gate:**  
+  Starke Behauptungen benötigen mindestens eine explizite Route  
   (Messung, Quelle, Kontrast oder Web-Check).
 
-- Behauptungen ohne gültige Route müssen **abgestuft und als unsicher markiert** werden.
+- Behauptungen ohne gültige Route müssen **abgewertet und als unsicher markiert** werden.
 
-- Evidenzwerte werden **gedeckelt**, wenn keine Verifikation vorliegt.
+- Evidenz-Scores werden **gedeckelt**, wenn Verifikation fehlt.
+
+---
+
+## Self-Debunking (seit v19.5.0)
+
+Self-Debunking ist ein **strikter, stets aktiver (außer Sandbox) Post-Answer-Auditblock**:
+
+- Wird **nach der finalen Antwort** und **vor dem QC-Footer** gerendert.
+- **2–3 Bulletpoints**, fokussiert auf **Schwächen / Annahmen / fehlende Verifikation**.
+- Darf **keine neuen Faktenbehauptungen einführen**.
+
+Zweck: Blindstellen reduzieren, indem eine kurze, begrenzte Selbstkritik erzwungen wird — ohne die Governance-Logik zu verändern.
+
+---
+
+## Evidence Linker (seit v19.4.18; Defaults geändert in v19.5.1 / v19.5.2)
+
+Evidence Linker ist ein **3-Klassen, rein präsentationsbezogenes Reliability-Tagging**:
+`[GREEN]` / `[YELLOW]` / `[RED]` (optional mit 🟢/🟡/🔴).
+
+- Es signalisiert **Verifikationsstärke**, nicht „Wahrheit“, „Zustimmung“ oder Überredung.
+- Es darf niemals die Control-Layer-Semantik, QC-Delta-Regeln oder Command-Auflösung verändern.
+
+### Defaults
+- **v19.5.1:** default-on für alle Profile **außer Sandbox**.
+- **v19.5.2:** default-off für **Briefing** (Sandbox bleibt ausgeschlossen); Default bleibt für andere Profile on.
 
 ---
 
 ## Rendering- und Farbkontrolle (seit v19.4.21)
 
-- Darstellungsmerkmale sind **explizit von der Governance-Logik getrennt**.
-- `Color on/off` ist **ausschließlich eine Präsentationskontrolle**.
+- Rendering-Features sind **explizit** von der Governance-Logik getrennt.
+- `Color on/off` ist **ausschließlich** ein Präsentations-Layer-Schalter.
 
 ### Zweck von `Color on`
 
-- Verbesserung der **Lesbarkeit und Orientierung** bei kognitiv dichten Ausgaben.
-- Hervorhebung **struktureller, zustandsbezogener oder diagnostischer Elemente**.
+- Verbessert **Lesbarkeit und Orientierung** bei kognitiv dichten Ausgaben.
+- Hebt **nur strukturelle, zustandsbezogene oder diagnostische Elemente** hervor.
 
-### Zulässige Farbkategorien
+### Erlaubte Farbkategorien
 
 Wenn `Color on` aktiviert ist, sind **genau drei Kategorien** erlaubt:
 
-- **Neutral / Strukturfarbe**  
+- **Neutral / Structural Color**  
   Strukturelle Trennung (Überschriften, Tabellen, Abschnitte).
 
-- **Zustands- / Statusfarbe**  
-  Explizite Systemzustände (Profil, SCI an/aus, Color an/aus).
+- **State / Status Color**  
+  Explizite Systemzustände (Profil, SCI on/off, Color on/off).
 
-- **Aufmerksamkeits- / Diagnosefarbe**  
-  Governance-relevante Hinweise (Unsicherheit, Schleifenwarnungen, Verifikationspflichten).
+- **Attention / Diagnostic Color**  
+  Governance-relevante Hinweise (Unsicherheit, Loop-Warnungen, Verifikationspflicht).
 
-Farben dürfen **niemals** Korrektheit, Qualität, Zustimmung, Überzeugung oder Präferenz codieren.
+Farbe darf **niemals** Korrektheit, Qualität, Zustimmung, Überredung oder Präferenz kodieren.
 
-Standardzustand: `Color off`.
+Default: `Color off`.
 
 ---
 
-## Befehle (Kurzübersicht)
+## Commands (Schnellreferenz)
 
-**Wichtig:** Befehle werden **nur erkannt, wenn sie als alleinstehende Eingabe gesendet werden**.
+**Wichtig:** Commands werden **nur erkannt, wenn sie als alleiniger Prompt** gesendet werden.
 
 - `Comm Start` / `Comm Stop`
 - `Comm Status` / `Comm Help`
@@ -193,57 +219,57 @@ Standardzustand: `Color off`.
 - `Dynamic one-shot on`
 - `Color on` / `Color off`
 
-Befehlstokens sind **kanonisch und ausschließlich englisch**.  
-Erklärtexte dürfen lokalisiert sein.
+Command-Tokens sind **kanonisch nur Englisch**.  
+Gerenderte Erklärungen können lokalisiert werden.
 
 ---
 
 ## Ethik & Verantwortung
 
-Ethik wird **technisch umgesetzt, nicht rhetorisch**:
+Ethik wird **technisch, nicht rhetorisch** umgesetzt:
 
-- LLMs sind probabilistische Modelle, keine Akteure.
-- Verantwortung verbleibt immer beim Menschen.
-- Transparenz und Verifizierbarkeit haben Vorrang vor Komfort oder Überzeugung.
-- Unsicherheit muss **explizit gemacht**, nicht verborgen werden.
+- LLMs sind probabilistische Modelle, keine Agenten.
+- Verantwortung bleibt immer beim Menschen.
+- Transparenz und Verifizierbarkeit stehen über Komfort oder Überredung.
+- Unsicherheit muss **explizit** gemacht werden, nicht versteckt.
 
 ---
 
 ## Praktische Nutzung
 
-Typischer Ablauf:
+Typischer Workflow:
 
-1. Das **kanonische JSON-Regelwerk** an das LLM übergeben.
+1. Das **kanonische JSON-Regelwerk** dem LLM geben.
 2. Zu Gesprächsbeginn explizit aktivieren.
-3. In langen Sitzungen bewusst re-initialisieren.
-4. Verhalten **intentional steuern – niemals implizit**.
+3. In langen Sessions bewusst re-initialisieren.
+4. Verhalten **intentional steuern — niemals implizit**.
 
 ---
 
 ## Zielgruppe
 
 - Lehrkräfte und Pädagog:innen
-- technische und wissenschaftliche Fachanwender:innen
+- technische und naturwissenschaftliche Professionals
 - reflektierte Power-User von LLMs
-- alle, die **Kontrolle höher bewerten als Bequemlichkeit**
+- alle, die **Kontrolle vor Bequemlichkeit** priorisieren
 
 ---
 
 ## Status
 
-- **Aktuelle Version:** v19.4.21  
-- **Stabilität:** stabil / produktionsreif  
+- **Aktuelle Version:** v19.5.2  
+- **Stabilität:** stable / production-ready  
 - **Source of Truth:** kanonisches JSON-Regelwerk  
   (README ist beschreibend, nicht normativ)
 
 **Aktueller Fokus:**  
-Dokumentation, Beispiele, Nutzbarkeit, Evaluation, Auditierbarkeit.
+Dokumentation, Beispiele, Usability, Evaluation, Auditierbarkeit.
 
 ---
 
 ## Zitation
 
-Wenn Sie dieses Framework verwenden, zitieren Sie bitte die archivierte Zenodo-Version:  
+Wenn du dieses Framework verwendest, zitiere bitte das archivierte Zenodo-Release:  
 https://doi.org/10.5281/zenodo.18047859
 
 ---
