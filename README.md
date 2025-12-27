@@ -271,7 +271,7 @@ documentation, examples, usability, evaluation, auditability.
 ## Citation
 
 If you use this framework, please cite the archived Zenodo release:  
-https://doi.org/10.5281/zenodo.18047859
+https://doi.org/10.5281/zenodo.18072065
 
 ---
 
