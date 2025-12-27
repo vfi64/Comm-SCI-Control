@@ -361,3 +361,23 @@ v19.5.1 changes only the **default activation policy** of Evidence Linker (on-by
 
 ### Summary
 v19.5.2 keeps Evidence Linker on-by-default for most profiles, but **turns it off for Briefing** to maintain brevity and low visual overhead.
+
+## v19.5.3
+
+**Governance clarification for QC rendering (no behavioral change)**
+
+### Added
+- Added `meta.governance.clarification_v19_5_3`:
+  - Clarifies that the **QC footer** satisfies the **visibility** requirement.
+  - **Header rendering is optional** and must not be inferred as mandatory unless explicitly required by a rule.
+
+### Unchanged
+- No changes to:
+  - Control Layer / CSC behavior
+  - QC evaluation or delta semantics
+  - SCI / SCIplus logic
+  - Command set or parsing rules
+  - Profile defaults or overlays
+
+### Summary
+v19.5.3 is a **documentation-only patch** that reduces ambiguity around QC header/footer rendering while keeping the runtime behavior fully backward-compatible.
