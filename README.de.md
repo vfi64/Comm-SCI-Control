@@ -263,7 +263,7 @@ Typischer Ablauf:
 
 ## Zielgruppe
 
-- Lehrkräfte und Dozierende
+- Lehrkräfte und Dozenten
 - technische und wissenschaftliche Fachkräfte
 - reflektierte Power‑User von LLMs
 - alle, die **Kontrolle über Bequemlichkeit** stellen
