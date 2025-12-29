@@ -5,6 +5,21 @@ An LLM-agnostic control and governance framework for reducing drift, ensuring tr
 
 ---
 
+## How to read and apply this ruleset (important)
+
+Comm-SCI-Control is a **purely dialog-internal, normative governance and interaction model** for large language models.
+
+It is **not** executable software, **not** a runtime, **not** a plugin, and **not** a formal object of programmatic validation.  
+Instead, it functions as an **explicit epistemic and methodological interface** that structures how an LLM reasons, reports uncertainty, and exposes limitations *within a single dialogue*.
+
+The ruleset operates **strictly within the model’s existing system, safety, and ethics policies**, which always take precedence.  
+Where no conflict exists, Comm-SCI-Control is intended to be applied **consistently and deliberately** as a binding framework for structure, transparency, and self-audit in the conversation.
+
+In short:  
+Comm-SCI-Control increases **clarity, auditability, and human control** — not by enforcement, but by **explicit self-binding of the model**.
+
+---
+
 ## Motivation
 
 Modern large language models deliver impressive results — at the same time, they exhibit systemic weaknesses:
@@ -175,7 +190,6 @@ Evidence Linker is a **3-class, presentation-only reliability tagger**:
 - **v19.5.1:** default-on for all profiles **except Sandbox**.
 - **v19.5.2:** default-off for **Briefing** (Sandbox excluded); default remains on for other profiles.
 
-
 ---
 
 ## Rendering and Color control (since v19.4.21)
@@ -258,7 +272,7 @@ Typical workflow:
 
 ## Status
 
-- **Current version:** v19.5.2  
+- **Current version:** v19.5.3  
 - **Stability:** stable / production-ready  
 - **Source of Truth:** canonical JSON ruleset  
   (README is descriptive, not normative)
