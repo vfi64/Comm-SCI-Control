@@ -398,7 +398,7 @@ Breaking changes are reserved for major versions (20.x).
 
 If you use this framework publicly (papers, blog posts, talks), please cite an **archived Zenodo release**.
 
-- DOI: https://doi.org/10.5281/zenodo.18072065
+- DOI: https://doi.org/10.5281/zenodo.18108395
 
 (If Zenodo provides a newer version DOI for the specific release you used, prefer that; the concept DOI typically remains stable.)
 

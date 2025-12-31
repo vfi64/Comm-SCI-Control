@@ -365,7 +365,7 @@ Breaking Changes sind Hauptversionen (20.x) vorbehalten.
 ## Zitierung
 
 Wenn Sie dieses Framework öffentlich nutzen (Papers, Blogposts, Vorträge), zitieren Sie bitte eine **archivierte Zenodo-Version**.
-- DOI: https://doi.org/10.5281/zenodo.18072065
+- DOI: https://doi.org/10.5281/zenodo.18108395
 
 (Wenn Zenodo eine neuere Versions-DOI für die spezifische verwendete Version bereitstellt, bevorzugen Sie diese; die Konzept-DOI bleibt typischerweise stabil.)
 
