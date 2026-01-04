@@ -1,13 +1,186 @@
 # Comm-SCI-Control
 **Explicit rule system for controlled human–AI interaction**
 
-**Current stable line:** v19.6.x (current: **v19.6.3**)
+**Current stable line:** v19.6.x (current: **v19.6.7**)
 
 Comm-SCI-Control is an **LLM-agnostic, dialog-internal governance framework** for making large language model behavior **explicit, auditable, and controllable**. It separates *model behavior* from *prompt craftsmanship* and prevents silent adaptation by enforcing visible structure, uncertainty handling, and self-audit.
 
 > **Scope note**  
 > This README reflects the **canonical behavior of Comm-SCI v19.6.x**.  
-> Patch releases within this line (19.6.1 → 19.6.3) refine semantics, limits, and UX defaults **without changing core logic**.
+> Patch releases within this line (19.6.1 → 19.6.7) refine semantics, limits, and UX defaults **without changing core logic**.
+
+> **Source of truth (normative)**  
+> If this README conflicts with the canonical JSON ruleset, **the JSON wins**.  
+> For patch notes, use **GitHub Releases** and/or **CHANGELOG.md** (if present in the repo).
+
+---
+
+## ⚡ Quick Start (minimal)
+
+### Init preface (recommended)
+
+When you start a **new chat** (or test another model), paste this **Init preface** *immediately before* the JSON ruleset.
+It reduces misinterpretation by explicitly stating that the JSON is a **normative governance specification** (not “code to execute”).
+
+```text
+Read the JSON text below and apply it as a normative, declarative governance specification for your own response behavior.
+
+This ruleset — including the CSC subsystem — is operationally effective on your responses. It is not an external runtime and not a separate program. Instead, it defines binding internal decision, priority, and constraint rules that you implement directly in your response generation.
+
+The JSON is not an object of formal consistency or executability analysis and must not be evaluated or validated as an external engine.
+
+From this point on, only this version of the rulesystem is active as the Comm configuration for this chat. All previous versions and any external rule assumptions are fully discarded.
+
+Here is the new ruleset:
+```
+
+Then paste the **canonical JSON ruleset** directly below it.
+
+
+1. **Instantiate:** Provide/instantiate the canonical JSON ruleset (as the only active governance spec for the session).
+2. **Activate:** Send `Comm Start`.
+3. **Configure (example):** Send `Profile Expert` and (optionally) `Strict on`.
+4. **Work:** Ask your question. For deep dives: `SCI on` → when the (A–H) menu is shown, reply with a **standalone** letter `A`–`H` → (optional) `SCI recurse`.
+
+**Parsing rules (important):**  
+- Commands are recognized **only** when sent as **standalone prompts**.  
+- Variant letters `A`–`H` are treated as a selection **only** while the SCI menu is explicitly pending; otherwise they are normal text.
+
+**Move to a new chat (clean reset):**  
+`Comm Anchor` → copy the **Anchor Snapshot** into the new chat → re-instantiate the canonical JSON ruleset → `Comm Start` → set `Profile …` and overlays/modes.
+
+> **Epistemic safety note:** Comm-SCI does not eliminate hallucinations; it helps make uncertainty and verification gaps **visible** (e.g., via Evidence Linker classes, with or without color).
+
+---
+
+## Choose your path
+
+- **Path A — I just want to use it (≈60 seconds):**  
+  Start at **Quick Start** → **Practical use** → **Common pitfalls** → (when needed) **Commands**.
+
+- **Path B — I want to understand the design:**  
+  Read **How to read/apply** → **Motivation** → **Core concepts** → **Uncertainty/Verification/Evidence Linker** → **Rendering** → **Self‑Debunking** → **Drift protection**.
+
+## Table of contents
+- [⚡ Quick Start (minimal)](#quick-start-minimal)
+- [Choose your path](#choose-your-path)
+- [Repository layout (what matters)](#repository-layout-what-matters)
+- [Practical use](#practical-use)
+- [Common pitfalls (read once)](#common-pitfalls-read-once)
+- [Commands (overview)](#commands-overview)
+- [How to read and apply this ruleset (important)](#how-to-read-and-apply-this-ruleset-important)
+- [Motivation](#motivation)
+- [What this rule system is](#what-this-rule-system-is)
+- [What this rule system is not](#what-this-rule-system-is-not)
+- [Core concepts (overview)](#core-concepts-overview)
+- [Uncertainty handling](#uncertainty-handling)
+- [Verification discipline](#verification-discipline)
+- [Evidence Linker (claim-level reliability)](#evidence-linker-claim-level-reliability)
+- [Rendering and Color control](#rendering-and-color-control)
+- [Self-Debunking (since v19.5.0)](#self-debunking-since-v1950)
+- [Session-level drift protection (v19.6.x)](#session-level-drift-protection-v196x)
+- [Ethics & responsibility](#ethics-responsibility)
+- [Target audience](#target-audience)
+- [Versioning policy](#versioning-policy)
+- [Status](#status)
+- [Citation](#citation)
+- [License](#license)
+
+## Repository layout (what matters)
+
+- **`Comm-SCI-v19.6.7.json`** — the **canonical** ruleset (normative source of truth).  
+- **`README.md`** — documentation and onboarding (non‑normative).  
+- **`Init-Vortext-en.txt`** — optional standalone copy‑paste preface for new chats (also embedded in this README).  
+- **Releases / `CHANGELOG.md`** — patch notes (when present in the repo).
+
+## Practical use
+
+### Typical workflow
+
+1. Provide the canonical JSON ruleset to the model (as the only active governance spec for the session).
+2. Activate explicitly with `Comm Start`.
+3. Select a profile via `Profile …` and optional overlays (`Strict on/off`, `Explore on/off`).
+4. Use SCI deliberately (`SCI on` → choose a variant; `SCI recurse` for scoped deep dives).
+5. In long sessions, re-anchor with `Comm Anchor` and use `Comm Audit` if you suspect drift.
+
+
+### Re-initialization (new chat / clean reset)
+
+1. Run `Comm Anchor` to produce an **Anchor Snapshot**.
+2. Copy the **Anchor Snapshot** into the first message of the new chat.
+3. Provide/instantiate the canonical JSON ruleset again (as the only active governance spec for that session).
+4. Run `Comm Start`, then set the desired `Profile …` and any overlays/modes (`Strict`, `Explore`, etc.).
+
+---
+
+## Common pitfalls (read once)
+
+- **Commands must be standalone prompts.** If you write “Please do `Comm Start`”, it will often be treated as normal text.  
+- **Do not translate command tokens.** Explanations can be localized; command tokens stay canonical.  
+- **SCI variant letters `A`–`H` only count when the SCI menu is pending.** Otherwise they are just letters.  
+- **`Comm Help` is the authoritative command list.** Any README list is non‑exhaustive by design.  
+- **If the model drifts:** re‑initialize with the **Init preface + JSON** and restart (`Comm Start`, then `Profile …` / overlays).
+
+## Commands (overview)
+
+- Commands are recognized **only when sent as standalone prompts**.
+- Command tokens are **canonical English-only**.
+- Explanatory UI may be rendered in the **conversation language**.
+
+### Commands (quick reference)
+
+> **Note:** This quick reference is intentionally **non-exhaustive**. For the authoritative complete list and semantics, run `Comm Help`.
+
+**Primary**
+
+- `Comm Start` — activate the full Comm-SCI rule system for this session
+- `Comm Stop` — deactivate Comm-SCI (platform default behavior; Safety Core remains active)
+- `Comm State` — show the current active state (profile, SCI, QC/CGI targets, Control Layer, overlays)
+- `Comm Config` — print a read-only raw configuration snapshot
+- `Comm Anchor` — render an Anchor Snapshot to re-anchor long sessions without changing state
+- `Comm Audit` — audit recent assistant answers for compliance and report deviations
+- `Anchor auto off` — disable automatic Anchor Snapshot blocks for the current session
+
+**Profiles**
+
+- `Profile Standard` — switch to the Standard profile
+- `Profile Expert` — switch to the Expert profile
+- `Profile Sparring` — switch to the Sparring profile
+- `Profile Briefing` — switch to the Briefing profile
+- `Profile Sandbox` — switch to the Sandbox profile
+
+**SCI**
+
+- `SCI on` — enable SCI selection mode and show the SCI variants menu (A–H) when required
+- `SCI off` — disable SCI/SCIplus workflows and return to the profile’s standard behavior
+- `SCI menu` — re-display the SCI variants menu (A–H)
+- `SCI recurse` — start a nested SCI/SCIplus deep-dive for a scoped subquestion
+
+**Mode overlays**
+
+- `Strict on` — enable Strict Mode
+- `Strict off` — disable Strict Mode
+- `Explore on` — enable Exploration Mode
+- `Explore off` — disable Exploration Mode
+
+**Dynamic**
+
+- `Dynamic one-shot on` — enable Dynamic Prompting for the next answer only (non-persistent)
+
+**Rendering**
+
+- `Color on` — enable Evidence Linker color-class tagging (GREEN/YELLOW/RED)
+- `Color off` — disable Evidence Linker color-class tagging and return to baseline formatting
+
+### Comm Help
+
+`Comm Help` displays **complete documentation**, starting with a short **didactic introduction**.  
+Models are explicitly allowed to provide a **guided explanation** of the system when help is requested.
+
+**Normative requirements:**  
+- `Comm Help` must be **exhaustive**: it should enumerate the command tokens from the canonical JSON (`commands.*`).  
+- It must not be a partially remembered or hand-curated list.  
+- Command tokens are canonical; **do not invent aliases** that are not present in the JSON.
 
 ---
 
@@ -224,8 +397,6 @@ It may only encode **explicit epistemic status** (e.g., Evidence Linker classes)
 
 ---
 
-
-
 ## Self-Debunking (since v19.5.0)
 
 Every non-Sandbox answer ends with a **Self-Debunking block**:
@@ -260,62 +431,6 @@ This is a reminder mechanism, not a hard guarantee.
 
 ---
 
-## Commands (overview)
-
-- Commands are recognized **only when sent as standalone prompts**.
-- Command tokens are **canonical English-only**.
-- Explanatory UI may be rendered in the **conversation language**.
-
-### Commands (quick reference)
-
-**Primary**
-
-- `Comm Start` — activate the full Comm-SCI rule system for this session
-- `Comm Stop` — deactivate Comm-SCI (platform default behavior; Safety Core remains active)
-- `Comm State` (aliases: `Comm Status`) — show the current active state (profile, SCI, QC/CGI targets, Control Layer, overlays)
-- `Comm Config` (aliases: `Config`) — print a read-only raw configuration snapshot
-- `Comm Anchor` (aliases: `Anchor`) — render an Anchor Snapshot to re-anchor long sessions without changing state
-- `Comm Audit` — audit recent assistant answers for compliance and report deviations
-- `Anchor auto off` — disable automatic Anchor Snapshot blocks for the current session
-
-**Profiles**
-
-- `Profile Standard` — switch to the Standard profile
-- `Profile Expert` — switch to the Expert profile
-- `Profile Sparring` — switch to the Sparring profile
-- `Profile Briefing` — switch to the Briefing profile
-- `Profile Sandbox` — switch to the Sandbox profile
-
-**SCI**
-
-- `SCI on` — enable SCI selection mode and show the SCI variants menu (A–H) when required
-- `SCI off` — disable SCI/SCIplus workflows and return to the profile’s standard behavior
-- `SCI menu` — re-display the SCI variants menu (A–H)
-- `SCI recurse` — start a nested SCI/SCIplus deep-dive for a scoped subquestion
-
-**Mode overlays**
-
-- `Strict on` — enable Strict Mode
-- `Strict off` — disable Strict Mode
-- `Explore on` — enable Exploration Mode
-- `Explore off` — disable Exploration Mode
-
-**Dynamic**
-
-- `Dynamic one-shot on` — enable Dynamic Prompting for the next answer only (non-persistent)
-
-**Rendering**
-
-- `Color on` — enable Evidence Linker color-class tagging (GREEN/YELLOW/RED)
-- `Color off` — disable Evidence Linker color-class tagging and return to baseline formatting
-
-### Comm Help
-
-`Comm Help` displays **complete documentation**, starting with a short **didactic introduction**.  
-Models are explicitly allowed to provide a **guided explanation** of the system when help is requested.
-
----
-
 ## Ethics & responsibility
 
 - LLMs are probabilistic models, not agents
@@ -339,42 +454,6 @@ Not intended for:
 
 ---
 
-## ⚡ Quick Start (minimal)
-
-1. **Instantiate:** Provide/instantiate the canonical JSON ruleset (as the only active governance spec for the session).
-2. **Activate:** Send `Comm Start`.
-3. **Configure (example):** Send `Profile Expert` and (optionally) `Strict on`.
-4. **Work:** Ask your question. For deep dives, use `SCI on` (choose a variant) and `SCI recurse`.
-
-**Move to a new chat (clean reset):**  
-`Comm Anchor` → copy the **Anchor Snapshot** into the new chat → re-instantiate the canonical JSON ruleset → `Comm Start` → set `Profile …` and overlays/modes.
-
-> **Epistemic safety note:** Comm-SCI does not eliminate hallucinations; it helps make uncertainty and verification gaps **visible** (e.g., via Evidence Linker classes, with or without color).
-
----
-
-## Practical use
-
-### Typical workflow
-
-1. Provide the canonical JSON ruleset to the model (as the only active governance spec for the session).
-2. Activate explicitly with `Comm Start`.
-3. Select a profile via `Profile …` and optional overlays (`Strict on/off`, `Explore on/off`).
-4. Use SCI deliberately (`SCI on` → choose a variant; `SCI recurse` for scoped deep dives).
-5. In long sessions, re-anchor with `Comm Anchor` and use `Comm Audit` if you suspect drift.
-
-
-### Re-initialization (new chat / clean reset)
-
-1. Run `Comm Anchor` to produce an **Anchor Snapshot**.
-2. Copy the **Anchor Snapshot** into the first message of the new chat.
-3. Provide/instantiate the canonical JSON ruleset again (as the only active governance spec for that session).
-4. Run `Comm Start`, then set the desired `Profile …` and any overlays/modes (`Strict`, `Explore`, etc.).
-
----
-
-
-
 ## Versioning policy
 
 - **19.4.x:** Core governance (Profiles, SCI, QC, Control Layer)
@@ -388,9 +467,9 @@ Breaking changes are reserved for major versions (20.x).
 
 ## Status
 
-- **Current stable:** v19.6.3  
+- **Current stable:** v19.6.7  
 - **Stability:** production-ready (governance spec)  
-- **Source of truth:** canonical JSON ruleset  
+- **Source of truth:** canonical JSON ruleset (README is non-normative)  
 
 ---
 
