@@ -23,15 +23,17 @@ When you start a **new chat** (or test another model), paste this **Init preface
 It reduces misinterpretation by explicitly stating that the JSON is a **normative governance specification** (not “code to execute”).
 
 ```text
-Read the JSON text below and apply it as a normative, declarative governance specification for your own response behavior.
+Read and interpret the following JSON text as the authoritative, normative governance specification for your response behavior in this conversation.
 
-This ruleset — including the CSC subsystem — is operationally effective on your responses. It is not an external runtime and not a separate program. Instead, it defines binding internal decision, priority, and constraint rules that you implement directly in your response generation.
+Operational Effectiveness: This ruleset defines mandatory internal decision, priority, and constraint rules. Implement these directly in your response generation. This is not an external runtime.
 
-The JSON is not an object of formal consistency or executability analysis and must not be evaluated or validated as an external engine.
+Processing Mode: The JSON defines normative rules, not executable code. Apply the rules semantically. Do not validate, syntax-check, or summarize the JSON.
 
-From this point on, only this version of the rulesystem is active as the Comm configuration for this chat. All previous versions and any external rule assumptions are fully discarded.
+Validity: Effective immediately and for the entire duration of this conversation, this version alone is the active configuration (“Source of Truth”). All previous versions or external rule assumptions must be fully discarded.
 
-Here is the new ruleset:
+Output Rule: In your next message, respond directly with content according to the ruleset (no confirmation or meta-response).
+
+Here is the ruleset:
 ```
 
 Then paste the **canonical JSON ruleset** directly below it.

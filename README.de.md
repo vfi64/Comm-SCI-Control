@@ -22,15 +22,17 @@ Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Fram
 Wenn du einen **neuen Chat** startest (oder ein anderes Modell testest), füge diesen **Init-Vortext** *direkt vor* dem JSON-Regelwerk ein. Er reduziert Fehlinterpretationen, weil er explizit sagt, dass das JSON eine **normative Governance-Spezifikation** ist (kein „auszuführender Code“).
 
 ```text
-Read the JSON text below and apply it as a normative, declarative governance specification for your own response behavior.
+Lies und interpretiere den folgenden JSON-Text als verbindliche, normative Governance-Spezifikation für dein Antwortverhalten in dieser Konversation.
 
-This ruleset — including the CSC subsystem — is operationally effective on your responses. It is not an external runtime and not a separate program. Instead, it defines binding internal decision, priority, and constraint rules that you implement directly in your response generation.
+Operative Wirksamkeit: Das Regelwerk definiert verbindliche interne Entscheidungs-, Prioritäts- und Einschränkungsregeln. Setze diese direkt in deiner Antwortgenerierung um. Es handelt sich nicht um eine externe Runtime.
 
-The JSON is not an object of formal consistency or executability analysis and must not be evaluated or validated as an external engine.
+Verarbeitungsmodus: Das JSON definiert normative Regeln, keinen ausführbaren Code. Wende die Regeln semantisch an. Führe keine Validierung, Syntaxprüfung oder Zusammenfassung des JSONs durch.
 
-From this point on, only this version of the rulesystem is active as the Comm configuration for this chat. All previous versions and any external rule assumptions are fully discarded.
+Gültigkeit: Ab sofort und für die gesamte Dauer dieser Konversation gilt ausschließlich diese Version als aktive Konfiguration („Source of Truth“). Alle vorherigen Versionen oder externen Regelannahmen sind vollständig zu verwerfen.
 
-Here is the new ruleset:
+Ausgabe-Regel: Antworte mit der nächsten Antwort direkt inhaltlich gemäß Regelwerk (keine Bestätigungs- oder Meta-Antwort).
+
+Hier ist das Regelwerk:
 ```
 
 Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
