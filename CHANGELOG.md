@@ -3,58 +3,73 @@
 All notable changes to this project are documented in this file.  
 The format follows common conventions: **newest versions first**, additive patch releases only.
 
-## [19.6.7] – 2026-01-01
-### Phase-1 Safe Internal Compaction (Current Stable)
+## [19.6.8] – 2026-01-05
+### Documentation & Onboarding Hardening (Current Stable)
 
 #### Changed
-- **Safe internal compaction** (token-/drift-schonend):
-  - Viele rein erklärende `notes`/`notes_extra`-Felder in `global_defaults` entfernt, ohne die eigentliche Logik zu verändern.
-  - `meta.philosophical_foundation` von detaillierten Unterobjekten auf eine **Kurz-Summary** verdichtet (gleiche Aussage, weniger Ballast).
-- **QC deviation examples** verschlankt:
-  - `global_defaults.qc_deviation_reporting.delta_examples` reduziert (Beispiele bleiben exemplarisch, aber kürzer).
-- **Syntax-Beispiele** leicht reduziert:
-  - `syntax_rules.examples` gekürzt (weniger Redundanz, gleiche Parser-Intention).
+- **Docs/Onboarding hardening**:
+  - README EN/DE updated: more robust init preface + clearer instantiation / clean-reset guidance.
+  - README structure tightened for didactic clarity (Quick Start moved to the top, "Choose your path", TOC, Pitfalls).
+- **Patch notes pointer corrected**:
+  - `meta.patch_notes_ref` updated: explicitly points v19.6.8 to **Docs/Onboarding hardening** (no longer to compaction).
 
 #### Notes
-- **Keine Command-Token-Änderungen** (Command-Set unverändert gegenüber 19.6.6).
-- Patch-Hinweis-Pointer aktualisiert (`meta.patch_notes_ref`): verweist explizit auf **CHANGELOG.md** als Source of Truth für Patch Notes.
+- **No command-token changes**.
+- **No behavioral changes** to the canonical ruleset (Commands/Profiles/SCI/QC/Control Layer unchanged).
+
+
+## [19.6.7] – 2026-01-01
+### Phase-1 Safe Internal Compaction
+
+#### Changed
+- **Safe internal compaction** (token-/drift-friendly):
+  - Removed many purely explanatory `notes`/`notes_extra` fields in `global_defaults` without changing the actual logic.
+  - Compressed `meta.philosophical_foundation` from detailed sub-objects into a **short summary** (same meaning, less ballast).
+- **QC deviation examples** trimmed:
+  - Reduced `global_defaults.qc_deviation_reporting.delta_examples` (examples remain representative, but shorter).
+- **Syntax examples** slightly reduced:
+  - Shortened `syntax_rules.examples` (less redundancy, same parser intent).
+
+#### Notes
+- **No command-token changes** (command set unchanged vs. 19.6.6).
+- Patch notes pointer updated (`meta.patch_notes_ref`): explicitly points to **CHANGELOG.md** as the Source of Truth for patch notes.
 
 
 ## [19.6.6] – 2025-12-31
-### Canonical Cleanup & Patch-Notes Externalization
+### Canonical Cleanup & Patch notes Externalization
 
 #### Changed
-- **Alias-Stubs entfernt**:
-  - Leere `aliases: []`-Felder in `commands.*` entfernt (weniger Rauschen, weniger Risiko, dass Modelle “Aliase erfinden”).
-- **Patch Notes aus dem Canonical JSON herausgezogen**:
-  - `patch_notes` entfernt; stattdessen `meta.patch_notes_ref` als Verweis auf **CHANGELOG.md / Release Notes**.
+- **Alias stubs removed**:
+  - Removed empty `aliases: []` fields under `commands.*` (less noise, lower risk of models “inventing aliases”).
+- **Patch notes moved out of the canonical JSON**:
+  - Removed `patch_notes`; introduced `meta.patch_notes_ref` as a pointer to **CHANGELOG.md / Release Notes**.
 
 #### Notes
-- **Keine Command-Token-Änderungen** (nur Strukturbereinigung, keine neuen/entfernten Commands).
+- **No command-token changes** (structural cleanup only; no new/removed commands).
 
 
 ## [19.6.5] – 2025-12-31
 ### Comm Help: Data-Driven + L10N Fix
 
 #### Added
-- **L10N-Datenstruktur für Comm Help**:
-  - Neue `meta.rendering.l10n.comm_help.*` Strings (de/en) als Datenbasis für lokalisierte Help-Blöcke.
+- **L10N data structure for Comm Help**:
+  - Added `meta.rendering.l10n.comm_help.*` strings (de/en) as a data basis for localized help blocks.
 
 #### Changed
-- **Comm Help vollständig datengetrieben**:
-  - `Comm Help.required_output` nutzt nun `{L10N:...}`-Resolver statt fest verdrahteter deutscher Help-Strings.
-- **Help-Rendering-Härtung**:
-  - `global_defaults.help_rendering_policy` erweitert um einen **Completeness-Guard**:
-    - Wenn ein Modell in langen Helps Commands unterschlägt, muss der Output im selben Help um eine **„Missing commands“**-Liste repariert werden.
-- Patch Notes erweitert um Eintrag **v19.6.5** (im JSON noch enthalten; ab 19.6.6 dann ausgelagert).
+- **Comm Help fully data-driven**:
+  - `Comm Help.required_output` now uses a `{L10N:...}` resolver instead of hard-coded German help strings.
+- **Help-rendering hardening**:
+  - Extended `global_defaults.help_rendering_policy` with a **completeness guard**:
+    - If a model omits commands in long help outputs, the same help response must self-repair by appending a **“Missing commands”** list.
+- Patch notes extended with a **v19.6.5** entry (still contained in JSON; externalized from 19.6.6 onward).
 
 #### Fixed
-- **Design-Widerspruch beseitigt**: Lokalisierte Help-Strings als Daten + Rendering je nach Konversationssprache (statt Deutsch in den Contract zu “gießen”).
-- **Gemini-Failure-Mode adressiert**: systematische Absicherung gegen unvollständige `Comm Help`-Ausgaben.
+- **Design contradiction resolved**: localized help strings as data + rendering by conversation language (instead of “baking German” into the contract).
+- **Gemini failure mode addressed**: systematic guard against incomplete `Comm Help` outputs.
 
 
 ## [19.6.3] – 2025-12-31
-### Stability, Limits & UX Consolidation (Current Stable)
+### Stability, Limits & UX Consolidation
 
 #### Added
 - **Recursive SCI hard limits**

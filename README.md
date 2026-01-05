@@ -1,13 +1,13 @@
 # Comm-SCI-Control
 **Explicit rule system for controlled human–AI interaction**
 
-**Current stable line:** v19.6.x (current: **v19.6.7**)
+**Current stable line:** v19.6.x (current: **v19.6.8**)
 
 Comm-SCI-Control is an **LLM-agnostic, dialog-internal governance framework** for making large language model behavior **explicit, auditable, and controllable**. It separates *model behavior* from *prompt craftsmanship* and prevents silent adaptation by enforcing visible structure, uncertainty handling, and self-audit.
 
 > **Scope note**  
 > This README reflects the **canonical behavior of Comm-SCI v19.6.x**.  
-> Patch releases within this line (19.6.1 → 19.6.7) refine semantics, limits, and UX defaults **without changing core logic**.
+> Patch releases within this line (19.6.1 → 19.6.8) refine semantics, limits, and UX defaults **without changing core logic**.
 
 > **Source of truth (normative)**  
 > If this README conflicts with the canonical JSON ruleset, **the JSON wins**.  
@@ -90,7 +90,7 @@ Then paste the **canonical JSON ruleset** directly below it.
 
 ## Repository layout (what matters)
 
-- **`Comm-SCI-v19.6.7.json`** — the **canonical** ruleset (normative source of truth).  
+- **`Comm-SCI-v19.6.8.json`** — the **canonical** ruleset (normative source of truth).  
 - **`README.md`** — documentation and onboarding (non‑normative).  
 - **`Init-Vortext-en.txt`** — optional standalone copy‑paste preface for new chats (also embedded in this README).  
 - **Releases / `CHANGELOG.md`** — patch notes (when present in the repo).
@@ -469,7 +469,7 @@ Breaking changes are reserved for major versions (20.x).
 
 ## Status
 
-- **Current stable:** v19.6.7  
+- **Current stable:** v19.6.8  
 - **Stability:** production-ready (governance spec)  
 - **Source of truth:** canonical JSON ruleset (README is non-normative)  
 

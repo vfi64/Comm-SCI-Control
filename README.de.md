@@ -1,13 +1,13 @@
 # Comm-SCI-Control
 **Explizites Regelwerk für kontrollierte Mensch–KI-Interaktion**
 
-**Aktuelle stabile Linie:** v19.6.x (aktuell: **v19.6.7**)
+**Aktuelle stabile Linie:** v19.6.x (aktuell: **v19.6.8**)
 
 Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Framework**, das das Verhalten eines Modells **explizit, auditierbar und steuerbar** macht. Es trennt *Modellverhalten* von *Prompt-Handwerk* und verhindert stille Anpassung, indem es sichtbare Struktur, Unsicherheitskennzeichnung und Selbstprüfung erzwingt.
 
 > **Hinweis zum Geltungsbereich**  
 > Diese README beschreibt das **kanonische Verhalten von Comm-SCI v19.6.x**.  
-> Patch-Releases innerhalb dieser Linie (19.6.1 → 19.6.7) verfeinern Semantik, Limits und UX-Defaults **ohne die Kernlogik zu ändern**.
+> Patch-Releases innerhalb dieser Linie (19.6.1 → 19.6.8) verfeinern Semantik, Limits und UX-Defaults **ohne die Kernlogik zu ändern**.
 
 > **Quelle der Wahrheit (normativ)**  
 > Falls diese README dem kanonischen JSON-Regelwerk widerspricht, gilt: **Das JSON hat Vorrang**.  
@@ -89,7 +89,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 
 ## Repository-Struktur (was zählt)
 
-- **`Comm-SCI-v19.6.7.json`** — das **kanonische** Regelwerk (normative Quelle der Wahrheit).  
+- **`Comm-SCI-v19.6.8.json`** — das **kanonische** Regelwerk (normative Quelle der Wahrheit).  
 - **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
 - **`Init-Vortext-en.txt`** — optionaler Copy‑Paste‑Vortext für neue Chats (hier ebenfalls eingebettet).  
 - **Releases / `CHANGELOG.md`** — Patch-Notes (falls vorhanden).
@@ -342,7 +342,7 @@ Breaking Changes sind großen Versionen (20.x) vorbehalten.
 
 ## Status
 
-- **Aktuell stabil:** v19.6.7  
+- **Aktuell stabil:** v19.6.8
 - **Stabilität:** production-ready (Governance-Spezifikation)  
 - **Quelle der Wahrheit:** kanonisches JSON-Regelwerk (README ist nicht-normativ)  
 
