@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Comm-SCI Operational Ruleset",
+  "type": "object",
+  "required": [
+    "schema",
+    "source",
+    "execution_order",
+    "runtime_guards",
+    "preemptive_logic",
+    "command_model",
+    "contracts",
+    "normative_model",
+    "csc",
+    "operational_sha256_sorted_json"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "pattern": "^comm-sci\\.operational\\.v\\d+\\.\\d+\\.\\d+$"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "version",
+        "canonical_version",
+        "canonical_sha256_sorted_json"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "canonical_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "canonical_sha256_sorted_json": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "execution_order": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^P[0-9A-Z_]+"
+      }
+    },
+    "preemptive_logic": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "preflight_checks"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "preflight_checks": {
+          "type": "array",
+          "minItems": 8,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "check",
+              "on_fail"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^PF-[0-9]{3}$"
+              },
+              "check": {
+                "type": "string",
+                "minLength": 8
+              },
+              "on_fail": {
+                "type": "string",
+                "minLength": 4
+              }
+            }
+          }
+        }
+      }
+    },
+    "command_model": {
+      "type": "object",
+      "required": [
+        "groups"
+      ],
+      "properties": {
+        "groups": {
+          "type": "object",
+          "required": [
+            "primary",
+            "profile_control",
+            "mode_control",
+            "sci_control",
+            "color_control"
+          ]
+        }
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "required": [
+        "uncertainty"
+      ],
+      "properties": {
+        "uncertainty": {
+          "type": "object",
+          "required": [
+            "taxonomy"
+          ],
+          "properties": {
+            "taxonomy": {
+              "type": "object",
+              "required": [
+                "labels"
+              ],
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "required": [
+                    "U1",
+                    "U2",
+                    "U3",
+                    "U4",
+                    "U5",
+                    "U6",
+                    "U7",
+                    "U8"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "normative_model": {
+      "type": "object",
+      "required": [
+        "rules"
+      ],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "minItems": 20,
+          "items": {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^R-[A-Z0-9-]+$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "csc": {
+      "type": "object",
+      "required": [
+        "trigger_bridge",
+        "engine"
+      ]
+    },
+    "operational_sha256_sorted_json": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

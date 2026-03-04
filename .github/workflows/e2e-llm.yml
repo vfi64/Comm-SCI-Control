@@ -1,0 +1,34 @@
+name: Optional LLM E2E
+
+on:
+  workflow_dispatch:
+
+jobs:
+  llm-e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate fixtures
+        run: python3 scripts/generate_fixtures.py
+
+      - name: Run live LLM E2E tests
+        if: ${{ secrets.CSC_E2E_API_KEY != '' }}
+        env:
+          CSC_E2E_ENABLE: "1"
+          CSC_E2E_API_KEY: ${{ secrets.CSC_E2E_API_KEY }}
+          CSC_E2E_MODEL: ${{ vars.CSC_E2E_MODEL || 'gpt-4.1-mini' }}
+          CSC_E2E_API_BASE: ${{ vars.CSC_E2E_API_BASE || 'https://api.openai.com/v1' }}
+          CSC_E2E_ATTEMPTS: ${{ vars.CSC_E2E_ATTEMPTS || '2' }}
+        run: bash scripts/run_e2e_llm_tests.sh
+
+      - name: Skip notice (missing secret)
+        if: ${{ secrets.CSC_E2E_API_KEY == '' }}
+        run: echo "CSC_E2E_API_KEY is not configured. Skipping live LLM E2E run."

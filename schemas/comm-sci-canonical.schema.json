@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Comm-SCI Canonical Ruleset",
+  "type": "object",
+  "required": [
+    "system_name",
+    "version",
+    "commands",
+    "profiles",
+    "global_defaults",
+    "sci",
+    "qc_matrix"
+  ],
+  "properties": {
+    "system_name": {
+      "type": "string",
+      "const": "Comm-SCI-Control"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "commands": {
+      "type": "object",
+      "required": [
+        "primary",
+        "profile_control",
+        "mode_control",
+        "sci_control",
+        "color_control"
+      ],
+      "properties": {
+        "primary": {
+          "type": "object",
+          "minProperties": 5
+        },
+        "profile_control": {
+          "type": "object",
+          "minProperties": 5
+        },
+        "mode_control": {
+          "type": "object",
+          "minProperties": 2
+        },
+        "sci_control": {
+          "type": "object",
+          "minProperties": 2
+        },
+        "color_control": {
+          "type": "object",
+          "required": [
+            "Color on",
+            "Color off"
+          ]
+        }
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "required": [
+        "Standard",
+        "Expert",
+        "Sparring",
+        "Briefing",
+        "Sandbox"
+      ]
+    },
+    "global_defaults": {
+      "type": "object",
+      "required": [
+        "output_contract",
+        "uncertainty_taxonomizer",
+        "verification_route_gate"
+      ],
+      "properties": {
+        "uncertainty_taxonomizer": {
+          "type": "object",
+          "required": [
+            "labels"
+          ],
+          "properties": {
+            "labels": {
+              "type": "object",
+              "required": [
+                "U1",
+                "U2",
+                "U3",
+                "U4",
+                "U5",
+                "U6"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "sci": {
+      "type": "object",
+      "required": [
+        "modes"
+      ]
+    },
+    "qc_matrix": {
+      "type": "object",
+      "required": [
+        "dimensions"
+      ],
+      "properties": {
+        "dimensions": {
+          "type": "array",
+          "minItems": 6
+        }
+      }
+    }
+  }
+}

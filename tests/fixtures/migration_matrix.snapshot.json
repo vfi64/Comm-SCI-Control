@@ -1,0 +1,139 @@
+{
+  "ordered_versions": [
+    "19.6.8",
+    "19.6.9",
+    "20.0.0",
+    "20.1.0",
+    "20.2.0"
+  ],
+  "features_by_version": {
+    "19.6.8": {
+      "version": "19.6.8",
+      "artifact_type": "canonical",
+      "has_comm_validate": false,
+      "has_anchor_auto_off": true,
+      "has_comm_anchor_on": false,
+      "has_comm_anchor_off": false,
+      "has_phi_compliance_block": false,
+      "has_u7": false,
+      "has_u8": false,
+      "has_retrieval_check_active": false,
+      "preflight_ids": [],
+      "rag_rule_ids": [],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6"
+      ]
+    },
+    "19.6.9": {
+      "version": "19.6.9",
+      "artifact_type": "canonical",
+      "has_comm_validate": false,
+      "has_anchor_auto_off": false,
+      "has_comm_anchor_on": true,
+      "has_comm_anchor_off": true,
+      "has_phi_compliance_block": false,
+      "has_u7": false,
+      "has_u8": false,
+      "has_retrieval_check_active": false,
+      "preflight_ids": [],
+      "rag_rule_ids": [],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6"
+      ]
+    },
+    "20.0.0": {
+      "version": "20.0.0",
+      "artifact_type": "canonical",
+      "has_comm_validate": true,
+      "has_anchor_auto_off": false,
+      "has_comm_anchor_on": true,
+      "has_comm_anchor_off": true,
+      "has_phi_compliance_block": true,
+      "has_u7": false,
+      "has_u8": false,
+      "has_retrieval_check_active": false,
+      "preflight_ids": [],
+      "rag_rule_ids": [],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6"
+      ]
+    },
+    "20.1.0": {
+      "version": "20.1.0",
+      "artifact_type": "canonical",
+      "has_comm_validate": true,
+      "has_anchor_auto_off": false,
+      "has_comm_anchor_on": true,
+      "has_comm_anchor_off": true,
+      "has_phi_compliance_block": true,
+      "has_u7": true,
+      "has_u8": true,
+      "has_retrieval_check_active": true,
+      "preflight_ids": [],
+      "rag_rule_ids": [],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6",
+        "U7",
+        "U8"
+      ]
+    },
+    "20.2.0": {
+      "version": "20.2.0",
+      "artifact_type": "operational",
+      "has_comm_validate": true,
+      "has_anchor_auto_off": false,
+      "has_comm_anchor_on": true,
+      "has_comm_anchor_off": true,
+      "has_phi_compliance_block": false,
+      "has_u7": true,
+      "has_u8": true,
+      "has_retrieval_check_active": true,
+      "preflight_ids": [
+        "PF-001",
+        "PF-002",
+        "PF-003",
+        "PF-004",
+        "PF-005",
+        "PF-006",
+        "PF-007",
+        "PF-008"
+      ],
+      "rag_rule_ids": [
+        "R-RAG-001",
+        "R-RAG-002",
+        "R-RAG-003",
+        "R-RAG-004"
+      ],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6",
+        "U7",
+        "U8"
+      ]
+    }
+  }
+}
