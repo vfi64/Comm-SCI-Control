@@ -19,16 +19,13 @@ jobs:
       - name: Generate fixtures
         run: python3 scripts/generate_fixtures.py
 
-      - name: Run live LLM E2E tests
-        if: ${{ secrets.CSC_E2E_API_KEY != '' }}
+      - name: Run live LLM E2E tests (optional)
         env:
-          CSC_E2E_ENABLE: "1"
           CSC_E2E_API_KEY: ${{ secrets.CSC_E2E_API_KEY }}
-          CSC_E2E_MODEL: ${{ vars.CSC_E2E_MODEL }}
-          CSC_E2E_API_BASE: ${{ vars.CSC_E2E_API_BASE }}
-          CSC_E2E_ATTEMPTS: ${{ vars.CSC_E2E_ATTEMPTS }}
-        run: bash scripts/run_e2e_llm_tests.sh
-
-      - name: Skip notice (missing secret)
-        if: ${{ secrets.CSC_E2E_API_KEY == '' }}
-        run: echo "CSC_E2E_API_KEY is not configured. Skipping live LLM E2E run."
+        run: |
+          if [ -z "${CSC_E2E_API_KEY:-}" ]; then
+            echo "CSC_E2E_API_KEY is not configured. Skipping live LLM E2E run."
+            exit 0
+          fi
+          export CSC_E2E_ENABLE="1"
+          bash scripts/run_e2e_llm_tests.sh
