@@ -558,10 +558,10 @@ Patch releases are additive within the active line; major lines may change archi
 
 ## Citation
 
-If you use this framework publicly (papers, blog posts, talks), cite the **Zenodo Concept DOI** as the stable default and add a version DOI only when exact release reproducibility is required.
+If you use this framework publicly (papers, blog posts, talks), cite the **Zenodo Concept DOI** as the stable default. Use a version DOI only when exact release reproducibility is required.
 
 - Concept DOI (stable, all versions): https://doi.org/10.5281/zenodo.17928357
-- Current version DOI (latest release record): https://doi.org/10.5281/zenodo.18866099 (v20.2.3)
+- Latest release page: https://github.com/vfi64/Comm-SCI-Control/releases/latest
 - Optional for exact reproducibility: add the exact version-specific Zenodo DOI of the release you used.
 - Repository link for code navigation (separate from DOI): https://github.com/vfi64/Comm-SCI-Control
 

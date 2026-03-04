@@ -457,10 +457,10 @@ Patch-Releases sind innerhalb der aktiven Linie additiv; große Linien dürfen d
 
 ## Zitierung
 
-Wenn du dieses Framework öffentlich verwendest (Paper, Blog, Vorträge), nutze als stabilen Standard die **Zenodo Concept-DOI** und ergänze eine versionsspezifische DOI nur dann, wenn exakte Release-Reproduzierbarkeit nötig ist.
+Wenn du dieses Framework öffentlich verwendest (Paper, Blog, Vorträge), nutze als stabilen Standard die **Zenodo Concept-DOI**. Eine versionsspezifische DOI ergänze nur dann, wenn exakte Release-Reproduzierbarkeit nötig ist.
 
 - Concept-DOI (stabil, alle Versionen): https://doi.org/10.5281/zenodo.17928357
-- Aktuelle Versions-DOI (neuester Release-Record): https://doi.org/10.5281/zenodo.18866099 (v20.2.3)
+- Neueste Release-Seite: https://github.com/vfi64/Comm-SCI-Control/releases/latest
 - Optional fuer exakte Reproduzierbarkeit: die exakte versionsspezifische Zenodo-DOI des konkret genutzten Releases angeben.
 - Repo-Link für Code-Navigation (separat von DOI): https://github.com/vfi64/Comm-SCI-Control
 
