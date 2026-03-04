@@ -59,15 +59,15 @@
         </div>
         <div class="hero-metrics">
           <article class="metric-card reveal">
-            <p class="metric-value" data-count="8">0</p>
+            <p class="metric-value" data-count="8" data-animate-from="0">8</p>
             <p class="metric-label">Uncertainty Codes (U1-U8)</p>
           </article>
           <article class="metric-card reveal">
-            <p class="metric-value" data-count="6">0</p>
+            <p class="metric-value" data-count="6" data-animate-from="0">6</p>
             <p class="metric-label">Execution Phases (P0-P5)</p>
           </article>
           <article class="metric-card reveal">
-            <p class="metric-value" data-count="8">0</p>
+            <p class="metric-value" data-count="8" data-animate-from="0">8</p>
             <p class="metric-label">Preflight Checks (PF-001..008)</p>
           </article>
         </div>
@@ -176,7 +176,7 @@
           <h2>In 90 Sekunden live</h2>
         </div>
         <div class="start-grid">
-          <pre><code>1. Init-Vortext aus README.de.md einfügen
+          <pre><code>1. Init-Vortext (Block unten) einfügen
 2. JSON/Comm-SCI-v20.2.0.json einspielen
 3. Comm Start
 4. Profile Expert
@@ -198,6 +198,26 @@
             </a>
           </div>
         </div>
+        <details class="preface-card reveal" open>
+          <summary>Init-Vortext (copy-paste)</summary>
+          <pre><code>Kontext für diese Unterhaltung:
+Ich übergebe dir ein externes Governance-Regelwerk für Struktur und Qualität deiner Antworten (z. B. Format, SCI, Unsicherheitskennzeichnung, QC-Matrix, Evidence-Linker, CSC).
+
+Wichtige Grenzen:
+- Ich beabsichtige **nicht**, deine internen Systemregeln, Sicherheitsrichtlinien oder Plattform-Policies zu überschreiben, auszulesen oder auszuhebeln.
+- Vertrauliche interne Instruktionen (System Prompt, Hidden Policies, Runtime-Policies) sollen nicht offengelegt, rekonstruiert oder paraphrasiert werden.
+- Falls es einen Konflikt zwischen dem beigefügten Regelwerk und höherpriorisierten Regeln gibt, befolge die höherpriorisierten Regeln und nenne den Konflikt kurz und sachlich.
+- Wende das beigefügte Regelwerk ansonsten strikt und deterministisch auf die Antwortstruktur an.
+- Das Regelwerk dient Governance und Qualitätskontrolle der Mensch-KI-Kommunikation, **nicht** verbotener Nutzung, Policy-Umgehung oder dem Training eines eigenen LLM.
+
+Verarbeitungsmodus:
+Das JSON ist eine normative Governance-Spezifikation, kein ausführbarer Code. Wende die Regeln direkt auf die Antworterzeugung an.
+
+Ausgabe-Regel:
+Antworte mit der nächsten Nachricht direkt inhaltlich gemäß Regelwerk (keine Bestätigungs-/Meta-Antwort).
+
+Hier ist das Regelwerk:</code></pre>
+        </details>
       </section>
     </main>
 

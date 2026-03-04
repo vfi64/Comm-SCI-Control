@@ -23,12 +23,22 @@
   const counters = document.querySelectorAll('[data-count]');
   counters.forEach((counter) => {
     const target = Number(counter.getAttribute('data-count'));
-    let current = 0;
-    const step = Math.max(1, Math.ceil(target / 18));
+    const startRaw = counter.getAttribute('data-animate-from');
+    const start = startRaw === null ? target : Number(startRaw);
+
+    if (!Number.isFinite(target) || !Number.isFinite(start) || start === target) {
+      counter.textContent = String(target);
+      return;
+    }
+
+    let current = start;
+    const step = Math.max(1, Math.ceil(Math.abs(target - start) / 18));
+    const direction = start < target ? 1 : -1;
 
     const run = () => {
-      current += step;
-      if (current >= target) {
+      current += step * direction;
+      const done = direction > 0 ? current >= target : current <= target;
+      if (done) {
         counter.textContent = String(target);
         return;
       }
@@ -40,6 +50,7 @@
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            counter.textContent = String(start);
             run();
             countObserver.unobserve(counter);
           }

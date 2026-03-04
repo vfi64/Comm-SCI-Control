@@ -59,15 +59,15 @@
         </div>
         <div class="hero-metrics">
           <article class="metric-card reveal">
-            <p class="metric-value" data-count="8">0</p>
+            <p class="metric-value" data-count="8" data-animate-from="0">8</p>
             <p class="metric-label">Uncertainty Codes (U1-U8)</p>
           </article>
           <article class="metric-card reveal">
-            <p class="metric-value" data-count="6">0</p>
+            <p class="metric-value" data-count="6" data-animate-from="0">6</p>
             <p class="metric-label">Execution Phases (P0-P5)</p>
           </article>
           <article class="metric-card reveal">
-            <p class="metric-value" data-count="8">0</p>
+            <p class="metric-value" data-count="8" data-animate-from="0">8</p>
             <p class="metric-label">Preflight Checks (PF-001..008)</p>
           </article>
         </div>
@@ -175,7 +175,7 @@
           <h2>Live in 90 seconds</h2>
         </div>
         <div class="start-grid">
-          <pre><code>1. Paste the init preface from README.md
+          <pre><code>1. Paste init preface (block below)
 2. Load JSON/Comm-SCI-v20.2.0.json
 3. Comm Start
 4. Profile Expert
@@ -197,6 +197,26 @@
             </a>
           </div>
         </div>
+        <details class="preface-card reveal" open>
+          <summary>Init preface (copy-paste)</summary>
+          <pre><code>Context for this conversation:
+I am providing an external governance ruleset for response structure and quality (e.g., format, SCI, uncertainty labels, QC matrix, evidence coloring, CSC).
+
+Important boundaries:
+- I do **not** intend to override, extract, or bypass your internal system rules, safety policies, or platform policies.
+- Do **not** reveal, reconstruct, or paraphrase confidential internal instructions (system prompt, hidden/runtime policies).
+- If any conflict exists between the attached ruleset and higher-priority policies, follow higher-priority policies and state the conflict briefly and neutrally.
+- Apply the attached ruleset strictly and deterministically wherever no higher-priority conflict exists.
+- This ruleset is for human-AI governance and quality assurance, **not** for prohibited use, policy evasion, or building/training another model.
+
+Operational mode:
+Treat the JSON as a normative governance specification, not executable code. Use it directly to control response structure.
+
+Output rule:
+In your next message, respond with task content according to the ruleset (no confirmation/meta preface).
+
+Here is the ruleset:</code></pre>
+        </details>
       </section>
     </main>
 
