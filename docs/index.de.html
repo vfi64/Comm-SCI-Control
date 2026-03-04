@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comm-SCI-Control | Controlled Human-AI Interaction</title>
+    <meta
+      name="description"
+      content="Comm-SCI-Control ist ein explizites Regelwerk fuer kontrollierte Mensch-KI-Interaktion: auditierbar, reproduzierbar und evidenzorientiert."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;700&family=Source+Serif+4:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/landing.css" />
+  </head>
+  <body>
+    <div class="bg-glow bg-glow-a" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-b" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#top">
+        <span class="brand-mark">CSC</span>
+        <span class="brand-text">Comm-SCI-Control</span>
+      </a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <a href="#why">Nutzen</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#security">Sicherheitskern</a>
+        <a href="#start">Start</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a class="lang-link" href="index.html">EN</a>
+          <span aria-hidden="true">|</span>
+          <a class="lang-link is-active" href="index.de.html">DE</a>
+        </div>
+        <a class="btn btn-line" href="https://github.com/vfi64/Comm-SCI-Control" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero reveal">
+        <p class="eyebrow">Governance fuer LLM-Dialoge · v20.2.x</p>
+        <h1>
+          Kein Prompt-Trick.
+          <span>Ein operationales Regelwerk fuer belastbare Antworten.</span>
+        </h1>
+        <p class="hero-copy">
+          Comm-SCI-Control macht LLM-Verhalten sichtbar und steuerbar: mit
+          expliziter Execution-Pipeline, Unsicherheitskennzeichnung U1-U8,
+          Audit-Faehigkeit und Drift-Schutz fuer lange Sessions.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="https://github.com/vfi64/Comm-SCI-Control/releases/latest" target="_blank" rel="noreferrer">Latest Release</a>
+          <a class="btn btn-soft" href="https://doi.org/10.5281/zenodo.17928357" target="_blank" rel="noreferrer">Concept DOI</a>
+        </div>
+        <div class="hero-metrics">
+          <article class="metric-card reveal">
+            <p class="metric-value" data-count="8">0</p>
+            <p class="metric-label">Uncertainty Codes (U1-U8)</p>
+          </article>
+          <article class="metric-card reveal">
+            <p class="metric-value" data-count="6">0</p>
+            <p class="metric-label">Execution Phases (P0-P5)</p>
+          </article>
+          <article class="metric-card reveal">
+            <p class="metric-value" data-count="8">0</p>
+            <p class="metric-label">Preflight Checks (PF-001..008)</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="why" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Warum dieses System?</p>
+          <h2>Von Prompting zu Governance</h2>
+        </div>
+        <div class="card-grid">
+          <article class="info-card reveal">
+            <h3>Evidenz statt Raten</h3>
+            <p>
+              Aussagen werden in Qualitaetsklassen, Unsicherheit und
+              Verifikationspfade eingebettet. Das verbessert die Bewertung der
+              Antwortqualitaet deutlich.
+            </p>
+          </article>
+          <article class="info-card reveal">
+            <h3>Kommunikation mit Struktur</h3>
+            <p>
+              SCI-Trace, QC-Matrix, Anchor und Audit geben dir wiederholt
+              dieselbe formale Sprache fuer komplexe Dialoge.
+            </p>
+          </article>
+          <article class="info-card reveal">
+            <h3>Drift sichtbar machen</h3>
+            <p>
+              Context-Pressure-Guard, Re-Anchor und Comm Audit erkennen
+              Abweichungen frueh, statt sie nachtraeglich zu erraten.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="pipeline" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Execution Model</p>
+          <h2>P0-P5: Die feste Ausfuehrungsreihenfolge</h2>
+        </div>
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <span class="phase">P0 Parse</span>
+            <p>Kommandos, Modi und Constraints werden robust erkannt.</p>
+          </li>
+          <li class="timeline-item reveal">
+            <span class="phase">P1 Route</span>
+            <p>Task-Routing entscheidet zwischen normalem Output und SCI-Varianten.</p>
+          </li>
+          <li class="timeline-item reveal">
+            <span class="phase">P2 State + Context</span>
+            <p>Session-State, Context Pressure und Drift-Signale werden bewertet.</p>
+          </li>
+          <li class="timeline-item reveal">
+            <span class="phase">P2B Preflight</span>
+            <p>PF-Checks erzwingen Mindest-Qualitaet vor dem ersten Token.</p>
+          </li>
+          <li class="timeline-item reveal">
+            <span class="phase">P3-P5 Contract, Repair, Render</span>
+            <p>Output-Vertrag, einmalige Reparaturlogik und finale Darstellung.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="security" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Sicherheitskern</p>
+          <h2>Die vier Schutzschichten</h2>
+        </div>
+        <div class="matrix">
+          <article class="matrix-card reveal">
+            <h3>RAG Governance</h3>
+            <p>
+              R-RAG-Regeln vermeiden unbelegte Web-Claims und erzwingen
+              Provenienz auf Claim-Ebene.
+            </p>
+          </article>
+          <article class="matrix-card reveal">
+            <h3>Uncertainty U1-U8</h3>
+            <p>
+              Wissensluecken, Konflikte oder Tool-Limits werden explizit
+              markiert statt versteckt.
+            </p>
+          </article>
+          <article class="matrix-card reveal">
+            <h3>Anchor + Audit</h3>
+            <p>
+              Mit Anchor Snapshot und Comm Audit kannst du Session-Drift
+              dokumentieren und korrigieren.
+            </p>
+          </article>
+          <article class="matrix-card reveal">
+            <h3>Self-Debunking</h3>
+            <p>
+              Das System fordert Gegenpruefung der eigenen Antwortannahmen.
+              Das senkt Scheinsicherheit bei komplexen Themen.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="start" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Schneller Einstieg</p>
+          <h2>In 90 Sekunden live</h2>
+        </div>
+        <div class="start-grid">
+          <pre><code>1. JSON/Comm-SCI-v20.2.0.json einspielen
+2. Comm Start
+3. Profile Expert
+4. Optional: Strict on
+5. Task stellen, bei Bedarf: SCI on
+6. Bei langen Sessions: Comm Anchor / Comm Audit</code></pre>
+          <div class="start-actions">
+            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/README.de.md" target="_blank" rel="noreferrer">
+              <h3>README (DE)</h3>
+              <p>Onboarding, Kommandos und Kernkonzepte</p>
+            </a>
+            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/docs/HANDBOOK.de.md" target="_blank" rel="noreferrer">
+              <h3>Handbuch (DE)</h3>
+              <p>Didaktische Tiefenbeschreibung aller Module</p>
+            </a>
+            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/JSON/Comm-SCI-v20.2.0.json" target="_blank" rel="noreferrer">
+              <h3>Operational JSON</h3>
+              <p>Aktuelles Deployment-Artefakt v20.2.0</p>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer reveal">
+      <p>
+        Comm-SCI-Control · Explicit rule system for controlled human-AI interaction
+      </p>
+      <p>
+        <a href="https://github.com/vfi64/Comm-SCI-Control" target="_blank" rel="noreferrer">Repository</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/vfi64/Comm-SCI-Control/releases/latest" target="_blank" rel="noreferrer">Latest Release</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://doi.org/10.5281/zenodo.17928357" target="_blank" rel="noreferrer">Concept DOI</a>
+      </p>
+    </footer>
+
+    <script src="assets/landing.js"></script>
+  </body>
+</html>
