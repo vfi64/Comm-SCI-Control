@@ -40,6 +40,18 @@ Run the full deterministic suite:
 bash scripts/validate_repo.sh
 ```
 
+Run the fast deterministic core tier:
+
+```bash
+bash scripts/validate_repo.sh --tier core
+```
+
+Run advisory live E2E tier only:
+
+```bash
+bash scripts/validate_repo.sh --tier e2e
+```
+
 Regenerate fixtures after intentional governance changes:
 
 ```bash

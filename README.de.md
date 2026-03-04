@@ -13,6 +13,28 @@ Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Fram
 > Falls diese README dem kanonischen JSON-Regelwerk widerspricht, gilt: **Das JSON hat Vorrang**.  
 > Für Patch-Notes nutze **GitHub Releases** und/oder **CHANGELOG.md** (falls im Repo vorhanden).
 
+## Welches JSON soll ich verwenden?
+
+Comm-SCI-Control liefert zwei Artefakttypen mit unterschiedlichem Zweck:
+
+| Ziel | Empfohlene Datei | Warum |
+|---|---|---|
+| Regeln, Intention und Semantik verstehen | `JSON/Comm-SCI-v20.1.0.json` (canonical) | Menschenlesbares Quellprofil mit reichhaltigerer Erklaerungsebene. |
+| Governed Verhalten im Chat/Runtime nutzen | `JSON/Comm-SCI-v20.2.0.json` (operational) | Kompaktes Deployment-Profil mit expliziter Execution Pipeline und Preflight Contracts. |
+| Deployment unter extremer Tokenknappheit | `JSON/Comm-SCI-v20.2.0.min.json` | Minifiziertes operationales Artefakt fuer enge Kontextbudgets. |
+
+Das maschinenlesbare Lifecycle-/Status-Mapping liegt in `versions/versions.json`.
+
+## Was Tests leisten (und was nicht)
+
+Deterministische CI-/Lokallaeufe in diesem Repo pruefen:
+- JSON-/Schema-/Integritaets-Konsistenz
+- Command-/Contract-/Migration-Invarianten
+- Konsistenz von Dokumentation und Versionsmetadaten
+
+Sie pruefen **nicht** perfekte Modell-Compliance in langen Sessions.
+LLM-Verhalten bleibt probabilistisch; optionale Live-E2E-Checks sind advisory und als Vertrauenssignal, nicht als formale Garantie, zu lesen.
+
 ---
 
 ## ⚡ Schnellstart (minimal)
@@ -70,6 +92,8 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 ## Inhaltsverzeichnis
 - [⚡ Schnellstart (minimal)](#schnellstart-minimal)
 - [Wähle deinen Pfad](#wähle-deinen-pfad)
+- [Welches JSON soll ich verwenden?](#welches-json-soll-ich-verwenden)
+- [Was Tests leisten (und was nicht)](#was-tests-leisten-und-was-nicht)
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [Repository-Struktur (was zählt)](#repository-struktur-was-zählt)
 - [Validierung und Tests](#validierung-und-tests)
@@ -99,6 +123,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 ## Repository-Struktur (was zählt)
 
 - **`JSON/Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
+- **`versions/versions.json`** — maschinenlesbares Lifecycle-/Status-Manifest fuer Versionslinien (`stable`, `supported`, `deprecated`).  
 - **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
 - **`docs/TESTING.de.md`** — Teststrategie auf Deutsch (Zweck, Umfang, Interpretation der Ergebnisse).  
 - **`docs/TESTING.md`** — englische Referenzversion der Teststrategie.  
@@ -112,6 +137,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 ## Validierung und Tests
 
 - Deterministische Repo-Validierung: `bash scripts/validate_repo.sh`
+- Deterministischer Core-Schnelllauf: `bash scripts/validate_repo.sh --tier core`
 - Fixture-Generierung nach beabsichtigten Regeländerungen: `python3 scripts/generate_fixtures.py`
 - Optionale Live-LLM-Verhaltenstests: `CSC_E2E_API_KEY=... bash scripts/run_e2e_llm_tests.sh`
 - Vollständige Testbegründung inkl. Ergebnisinterpretation (DE): `docs/TESTING.de.md`

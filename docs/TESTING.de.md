@@ -40,6 +40,18 @@ Deterministische Vollsuite:
 bash scripts/validate_repo.sh
 ```
 
+Schneller deterministischer Core-Tier:
+
+```bash
+bash scripts/validate_repo.sh --tier core
+```
+
+Nur advisory Live-E2E-Tier:
+
+```bash
+bash scripts/validate_repo.sh --tier e2e
+```
+
 Fixtures nach beabsichtigten Regeländerungen neu generieren:
 
 ```bash

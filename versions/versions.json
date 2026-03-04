@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "project": "Comm-SCI-Control",
+  "updated_for_release": "v20.2.3",
+  "status_values": [
+    "stable",
+    "supported",
+    "deprecated",
+    "experimental"
+  ],
+  "recommended": {
+    "chat_or_runtime": "JSON/Comm-SCI-v20.2.0.json",
+    "token_constrained_runtime": "JSON/Comm-SCI-v20.2.0.min.json",
+    "human_readable_reference": "JSON/Comm-SCI-v20.1.0.json"
+  },
+  "versions": [
+    {
+      "version": "20.2.0",
+      "status": "stable",
+      "artifact_type": "operational",
+      "path": "JSON/Comm-SCI-v20.2.0.json",
+      "notes": "Current stable operational profile for governed deployment."
+    },
+    {
+      "version": "20.2.0.min",
+      "status": "stable",
+      "artifact_type": "operational_minified",
+      "path": "JSON/Comm-SCI-v20.2.0.min.json",
+      "notes": "Minified operational profile for strict token budgets."
+    },
+    {
+      "version": "20.1.0",
+      "status": "supported",
+      "artifact_type": "canonical",
+      "path": "JSON/Comm-SCI-v20.1.0.json",
+      "notes": "Canonical source profile used as explanatory reference."
+    },
+    {
+      "version": "20.0.0",
+      "status": "supported",
+      "artifact_type": "canonical",
+      "path": "JSON/Comm-SCI-v20.0.0.json",
+      "notes": "Baseline v20 profile with explicit phi_compliance block."
+    },
+    {
+      "version": "19.6.9",
+      "status": "deprecated",
+      "artifact_type": "canonical",
+      "path": "JSON/Comm-SCI-v19.6.9.json",
+      "notes": "Legacy line retained for migration comparison."
+    },
+    {
+      "version": "19.6.8",
+      "status": "deprecated",
+      "artifact_type": "canonical",
+      "path": "JSON/Comm-SCI-v19.6.8.json",
+      "notes": "Legacy line retained for migration comparison."
+    }
+  ]
+}
