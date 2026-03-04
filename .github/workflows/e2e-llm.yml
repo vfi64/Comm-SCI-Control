@@ -24,9 +24,9 @@ jobs:
         env:
           CSC_E2E_ENABLE: "1"
           CSC_E2E_API_KEY: ${{ secrets.CSC_E2E_API_KEY }}
-          CSC_E2E_MODEL: ${{ vars.CSC_E2E_MODEL || 'gpt-4.1-mini' }}
-          CSC_E2E_API_BASE: ${{ vars.CSC_E2E_API_BASE || 'https://api.openai.com/v1' }}
-          CSC_E2E_ATTEMPTS: ${{ vars.CSC_E2E_ATTEMPTS || '2' }}
+          CSC_E2E_MODEL: ${{ vars.CSC_E2E_MODEL }}
+          CSC_E2E_API_BASE: ${{ vars.CSC_E2E_API_BASE }}
+          CSC_E2E_ATTEMPTS: ${{ vars.CSC_E2E_ATTEMPTS }}
         run: bash scripts/run_e2e_llm_tests.sh
 
       - name: Skip notice (missing secret)
