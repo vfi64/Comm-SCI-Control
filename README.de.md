@@ -72,6 +72,8 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - [Wähle deinen Pfad](#wähle-deinen-pfad)
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [Repository-Struktur (was zählt)](#repository-struktur-was-zählt)
+- [Validierung und Tests](#validierung-und-tests)
+- [Handbuch](#handbuch)
 - [Was in v20.2.0 gegenueber v19.6.8 neu ist](#was-in-v2020-gegenueber-v1968-neu-ist)
 - [Praktische Nutzung](#praktische-nutzung)
 - [Typische Stolpersteine (einmal lesen)](#typische-stolpersteine-einmal-lesen)
@@ -98,7 +100,27 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 
 - **`JSON/Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
 - **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
+- **`docs/TESTING.de.md`** — Teststrategie auf Deutsch (Zweck, Umfang, Interpretation der Ergebnisse).  
+- **`docs/TESTING.md`** — englische Referenzversion der Teststrategie.  
+- **`docs/HANDBOOK.de.md` / `docs/HANDBOOK.md`** — detailliertes konzeptionelles/architektonisches Handbuch (DE/EN).  
+- **`CONTRIBUTING.de.md` / `CONTRIBUTING.md`** — Beitragspfad und Qualitaetserwartungen (DE/EN).  
+- **`docs/RELEASE.de.md` / `docs/RELEASE.md`** — Release-Ablauf und Qualitaets-Gates (DE/EN).  
+- **`docs/CI.de.md` / `docs/CI.md`** — CI-Workflows, Secrets und Fehlerbehandlung (DE/EN).  
+- **`tests/` + `scripts/validate_repo.sh`** — lokale ausführbare Validierungssuite.
 - **Releases / `CHANGELOG.md`** — Patch-Notes (falls vorhanden).
+
+## Validierung und Tests
+
+- Deterministische Repo-Validierung: `bash scripts/validate_repo.sh`
+- Fixture-Generierung nach beabsichtigten Regeländerungen: `python3 scripts/generate_fixtures.py`
+- Optionale Live-LLM-Verhaltenstests: `CSC_E2E_API_KEY=... bash scripts/run_e2e_llm_tests.sh`
+- Vollständige Testbegründung inkl. Ergebnisinterpretation (DE): `docs/TESTING.de.md`
+- Englische Referenzfassung: `docs/TESTING.md`
+
+## Handbuch
+
+- Detaillierter Architektur- und Governance-Leitfaden (DE): `docs/HANDBOOK.de.md`
+- Englische Referenzfassung: `docs/HANDBOOK.md`
 
 ## Was in v20.2.0 gegenueber v19.6.8 neu ist
 

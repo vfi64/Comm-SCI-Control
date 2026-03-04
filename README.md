@@ -73,6 +73,8 @@ Then paste the **canonical JSON ruleset** directly below it.
 - [⚡ Quick Start (minimal)](#quick-start-minimal)
 - [Choose your path](#choose-your-path)
 - [Repository layout (what matters)](#repository-layout-what-matters)
+- [Validation and Testing](#validation-and-testing)
+- [Handbook](#handbook)
 - [What Is New in v20.2.0 vs v19.6.8](#what-is-new-in-v2020-vs-v1968)
 - [Practical use](#practical-use)
 - [Common pitfalls (read once)](#common-pitfalls-read-once)
@@ -99,7 +101,25 @@ Then paste the **canonical JSON ruleset** directly below it.
 
 - **`JSON/Comm-SCI-v20.2.0.json`** — current canonical/operational ruleset for deployment and interactive use.  
 - **`README.md`** — documentation and onboarding (non‑normative).  
+- **`docs/TESTING.md`** — test strategy (purpose, scope, and result interpretation).  
+- **`docs/HANDBOOK.md` / `docs/HANDBOOK.de.md`** — detailed conceptual/architectural handbook (EN/DE).  
+- **`CONTRIBUTING.md` / `CONTRIBUTING.de.md`** — contribution workflow and quality expectations (EN/DE).  
+- **`docs/RELEASE.md` / `docs/RELEASE.de.md`** — release process and quality gates (EN/DE).  
+- **`docs/CI.md` / `docs/CI.de.md`** — CI workflow semantics, secrets, and failure handling (EN/DE).  
+- **`tests/` + `scripts/validate_repo.sh`** — executable local validation suite.
 - **Releases / `CHANGELOG.md`** — patch notes (when present in the repo).
+
+## Validation and Testing
+
+- Run deterministic repository validation: `bash scripts/validate_repo.sh`
+- Regenerate governed fixtures after intentional rules changes: `python3 scripts/generate_fixtures.py`
+- Optional live LLM behavior checks: `CSC_E2E_API_KEY=... bash scripts/run_e2e_llm_tests.sh`
+- Full testing rationale and interpretation guide: `docs/TESTING.md`
+
+## Handbook
+
+- Detailed architecture and governance guide (EN): `docs/HANDBOOK.md`
+- German handbook version: `docs/HANDBOOK.de.md`
 
 ## What Is New in v20.2.0 vs v19.6.8
 
