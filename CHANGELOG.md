@@ -3,8 +3,82 @@
 All notable changes to this project are documented in this file.  
 The format follows common conventions: **newest versions first**, additive patch releases only.
 
+## [20.2.0] – 2026-03-04
+### Operational Governance Architecture (Current Stable)
+
+#### Changed
+- **Version baseline switched to v20.2.0**:
+  - Current stable line is now `v20.2.x` (current: `v20.2.0`).
+  - Repository documentation aligns on `JSON/Comm-SCI-v20.2.0.json` as active ruleset.
+- **Operational execution model formalized**:
+  - Explicit execution pipeline `P0..P5` added (including `P2A` context pressure and `P2B` preflight).
+  - Dedicated `preemptive_logic` with `PF-001..PF-008` before first output token.
+- **RAG hardening normalized into core governance**:
+  - `R-RAG-001..004` present as explicit normative MUST rules with priorities/failure actions.
+  - `PF-008` enforces WEB `QualityClass` handling before claim generation.
+- **Uncertainty and trigger governance expanded**:
+  - Uncertainty taxonomy includes `U1..U8` (including retrieval conflict `U7` and source-quality uncertainty `U8`).
+  - CSC trigger bridge includes `retrieval_check_active` in governance activation semantics.
+- **Command surface clarified for 20.2.0**:
+  - Canonical command set includes `Comm Validate` and `Comm Anchor on/off`.
+  - `Control on/off` remains non-canonical (profile/governance state, not direct user command).
+
+#### Notes
+- The operational file references canonical source `20.1.0`; `phi_compliance` remains in canonical source context, while runtime effect is enforced via preflight/repair/output contracts and CSC refinement.
+- This release line is optimized for deterministic governance behavior under context pressure and token constraints.
+
+## [20.1.0] – 2026-03-02
+### Deterministic Governance Hardening
+
+#### Added
+- **Communication premises + hard deterministic guards**:
+  - Added explicit communication premises with strict no-relaxation enforcement and violation handling.
+  - Added hard boundaries against system-principles readout/override behavior in normal content processing.
+- **RAG and retrieval governance core**:
+  - Added retrieval governance with capability gate, conflict protocol, required retrieval-check fields, and source-quality classes.
+  - Added formal `conformance_definition` levels (`base_core`, `rag_core`, `rag_strict`) with requirement IDs and audit hooks.
+- **Uncertainty and trigger expansion**:
+  - Added `U7` (retrieval/source conflict) and `U8` (source-quality uncertainty) to the uncertainty taxonomy.
+  - Added `retrieval_check_active` as CSC trigger signal for governance activation.
+
+#### Changed
+- **Output contracts tightened**:
+  - `Self-Debunking` applicability constrained to content answers.
+  - Added stricter formatting/profile-header enforcement and refined command-only response contracts.
+
+#### Notes
+- Command surface remains aligned with v20.0.0 (`Comm Validate` stays available; no new command token family introduced in v20.1.0).
+
+## [20.0.0] – 2026-02-08
+### Phi Compliance and Validation Baseline
+
+#### Added
+- **`Comm Validate` command**:
+  - Added an explicit in-session validation command for schema/ruleset conformance checks.
+- **Dedicated `phi_compliance` governance block**:
+  - Added explicit phi-check pass logic, deterministic repair sequence, and output protocol constraints.
+  - Added forbidden pattern controls and epistemic-gate extension triggers.
+- **Metadata/l10n enrichment**:
+  - Added `meta.l10n` structure for localized fixed help/rendering text handling.
+
+#### Notes
+- `Comm Anchor on/off` remains canonical from v19.6.9.
+- Retrieval-specific trigger (`retrieval_check_active`) and `U7/U8` are not yet part of v20.0.0.
+
+## [19.6.9] – 2026-02-02
+### Anchor Command Normalization
+
+#### Changed
+- **Anchor automation commands normalized**:
+  - Replaced legacy token `Anchor auto off` with canonical `Comm Anchor on` and `Comm Anchor off`.
+  - Updated anchor snapshot contract fields to carry explicit automation state handling.
+
+#### Notes
+- No additional command-token families were introduced in this step.
+- This release is primarily command-surface normalization on top of the v19.6.8 baseline.
+
 ## [19.6.8] – 2026-01-05
-### Documentation & Onboarding Hardening (Current Stable)
+### Documentation & Onboarding Hardening
 
 #### Changed
 - **Docs/Onboarding hardening**:
@@ -604,3 +678,4 @@ v19.4.17 consolidates and clarifies core governance semantics (uncertainty handl
 - Dynamic Prompting remains default-off (manual control).
 - One-shot override command: `Dynamic einmal an` (German token kept as-is).
 - No behavioral auto-adaptation.
+ 	

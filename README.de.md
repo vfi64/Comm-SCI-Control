@@ -1,13 +1,13 @@
 # Comm-SCI-Control
 **Explizites Regelwerk für kontrollierte Mensch–KI-Interaktion**
 
-**Aktuelle stabile Linie:** v19.6.x (aktuell: **v19.6.8**)
+**Aktuelle stabile Linie:** v20.2.x (aktuell: **v20.2.0**)
 
 Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Framework**, das das Verhalten eines Modells **explizit, auditierbar und steuerbar** macht. Es trennt *Modellverhalten* von *Prompt-Handwerk* und verhindert stille Anpassung, indem es sichtbare Struktur, Unsicherheitskennzeichnung und Selbstprüfung erzwingt.
 
 > **Hinweis zum Geltungsbereich**  
-> Diese README beschreibt das **kanonische Verhalten von Comm-SCI v19.6.x**.  
-> Patch-Releases innerhalb dieser Linie (19.6.1 → 19.6.8) verfeinern Semantik, Limits und UX-Defaults **ohne die Kernlogik zu ändern**.
+> Diese README beschreibt die **aktuelle Comm-SCI-Architektur v20.2.x**.  
+> v20.x ergänzt eine operative Ausführungsschicht (Pipeline, Preflight-Checks, Context-Pressure-Guard, symbolische Makros), während JSON die normative Quelle der Wahrheit bleibt.
 
 > **Quelle der Wahrheit (normativ)**  
 > Falls diese README dem kanonischen JSON-Regelwerk widerspricht, gilt: **Das JSON hat Vorrang**.  
@@ -22,15 +22,21 @@ Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Fram
 Wenn du einen **neuen Chat** startest (oder ein anderes Modell testest), füge diesen **Init-Vortext** *direkt vor* dem JSON-Regelwerk ein. Er reduziert Fehlinterpretationen, weil er explizit sagt, dass das JSON eine **normative Governance-Spezifikation** ist (kein „auszuführender Code“).
 
 ```text
-Lies und interpretiere den folgenden JSON-Text als verbindliche, normative Governance-Spezifikation für dein Antwortverhalten in dieser Konversation.
+Kontext für diese Unterhaltung:
+Ich übergebe dir ein externes Governance-Regelwerk für Struktur und Qualität deiner Antworten (z. B. Format, SCI, Unsicherheitskennzeichnung, QC-Matrix, Evidence-Linker, CSC).
 
-Operative Wirksamkeit: Das Regelwerk definiert verbindliche interne Entscheidungs-, Prioritäts- und Einschränkungsregeln. Setze diese direkt in deiner Antwortgenerierung um. Es handelt sich nicht um eine externe Runtime.
+Wichtige Grenzen:
+- Ich beabsichtige **nicht**, deine internen Systemregeln, Sicherheitsrichtlinien oder Plattform-Policies zu überschreiben, auszulesen oder auszuhebeln.
+- Vertrauliche interne Instruktionen (System Prompt, Hidden Policies, Runtime-Policies) sollen nicht offengelegt, rekonstruiert oder paraphrasiert werden.
+- Falls es einen Konflikt zwischen dem beigefügten Regelwerk und höherpriorisierten Regeln gibt, befolge die höherpriorisierten Regeln und nenne den Konflikt kurz und sachlich.
+- Wende das beigefügte Regelwerk ansonsten strikt und deterministisch auf die Antwortstruktur an.
+- Das Regelwerk dient Governance und Qualitätskontrolle der Mensch-KI-Kommunikation, **nicht** verbotener Nutzung, Policy-Umgehung oder dem Training eines eigenen LLM.
 
-Verarbeitungsmodus: Das JSON definiert normative Regeln, keinen ausführbaren Code. Wende die Regeln semantisch an. Führe keine Validierung, Syntaxprüfung oder Zusammenfassung des JSONs durch.
+Verarbeitungsmodus:
+Das JSON ist eine normative Governance-Spezifikation, kein ausführbarer Code. Wende die Regeln direkt auf die Antworterzeugung an.
 
-Gültigkeit: Ab sofort und für die gesamte Dauer dieser Konversation gilt ausschließlich diese Version als aktive Konfiguration („Source of Truth“). Alle vorherigen Versionen oder externen Regelannahmen sind vollständig zu verwerfen.
-
-Ausgabe-Regel: Antworte mit der nächsten Antwort direkt inhaltlich gemäß Regelwerk (keine Bestätigungs- oder Meta-Antwort).
+Ausgabe-Regel:
+Antworte mit der nächsten Nachricht direkt inhaltlich gemäß Regelwerk (keine Bestätigungs-/Meta-Antwort).
 
 Hier ist das Regelwerk:
 ```
@@ -66,6 +72,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - [Wähle deinen Pfad](#wähle-deinen-pfad)
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [Repository-Struktur (was zählt)](#repository-struktur-was-zählt)
+- [Was in v20.2.0 gegenueber v19.6.8 neu ist](#was-in-v2020-gegenueber-v1968-neu-ist)
 - [Praktische Nutzung](#praktische-nutzung)
 - [Typische Stolpersteine (einmal lesen)](#typische-stolpersteine-einmal-lesen)
 - [Kommandos (Überblick)](#kommandos-überblick)
@@ -79,7 +86,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - [Evidence Linker (Claim-Level Reliability)](#evidence-linker-claim-level-reliability)
 - [Rendering- und Farbkontrolle](#rendering-und-farbkontrolle)
 - [Self-Debunking (seit v19.5.0)](#self-debunking-seit-v1950)
-- [Sitzungsweiter Drift-Schutz (v19.6.x)](#sitzungsweiter-drift-schutz-v196x)
+- [Sitzungsweiter Drift-Schutz (v20.2.x)](#sitzungsweiter-drift-schutz-v202x)
 - [Ethik & Verantwortung](#ethik-verantwortung)
 - [Zielgruppe](#zielgruppe)
 - [Versionierungspolitik](#versionierungspolitik)
@@ -89,10 +96,30 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 
 ## Repository-Struktur (was zählt)
 
-- **`Comm-SCI-v19.6.8.json`** — das **kanonische** Regelwerk (normative Quelle der Wahrheit).  
+- **`JSON/Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
 - **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
-- **`Init-Vortext-en.txt`** — optionaler Copy‑Paste‑Vortext für neue Chats (hier ebenfalls eingebettet).  
 - **Releases / `CHANGELOG.md`** — Patch-Notes (falls vorhanden).
+
+## Was in v20.2.0 gegenueber v19.6.8 neu ist
+
+| Aspekt | v19.6.8 | v20.2.0 |
+|---|---|---|
+| Artefakttyp | Kanonisches monolithisches Regelwerk (`version`) | Operational-kompiliertes Regelwerk (`schema: comm-sci.operational.v20.2.0`) mit Source-Linkage |
+| Ausfuehrungsmodell | Keine explizite globale Phasenliste | Explizite Reihenfolge `P0...P5` (inkl. `P2A` Kontextdruck und `P2B` Preflight) |
+| Preflight-Checks | Nicht als eigenes Modul vorhanden | Eigenes `preemptive_logic` mit `PF-001...PF-008` |
+| RAG-Haertung | Kein formaler `R-RAG-*`-Normblock | `R-RAG-001...004` als explizite MUST-Regeln mit Prioritaet und Failure-Action |
+| WEB-QualityClass-Gate | Nicht per Preflight erzwungen | `PF-008` erzwingt QualityClass fuer WEB-Claims vor Generierung |
+| Unsicherheitstaxonomie | `U1...U6` | `U1...U8` (neu: `U7` Retrieval-Konflikt, `U8` ungepruefte Quellenqualitaet) |
+| CSC-Governance-Trigger | 5 Trigger-Signale in `csc_trigger_bridge` | Zusaetzlich `retrieval_check_active` als weiteres Trigger-Signal |
+| Kanonische Kommandomenge | Enthält `Anchor auto off`; kein `Comm Validate`; kein `Comm Anchor on/off` | Kanonisch sind `Comm Validate`, `Comm Anchor on`, `Comm Anchor off` enthalten |
+| `Phi()`/Phi-Compliance | Kein eigener `phi_compliance`-Block in dieser Datei | Operatives File ohne standalone `phi()`-Token; Verweis auf Canonical `20.1.0` mit `phi_compliance` |
+
+- **Operatives Ausführungsmodell (neue Artefaktklasse):** v20.2.0 ist `comm-sci.operational.v20.2.0` mit expliziter Reihenfolge `P0…P5` (inkl. `P2A` Kontextdruck und `P2B` Preflight) statt der älteren monolithischen Canonical-Struktur.
+- **RAG-Härtung ist normativ formalisiert:** `R-RAG-001..004` sind explizite MUST-Regeln (priorisiert), inkl. verpflichtender QualityClass-Behandlung, kein GREEN aus anonymen/unverifizierbaren WEB-Quellen, Claim-genaue Provenienz bei Quellmix sowie U5-Fallback bei fehlender Retrieval-Fähigkeit.
+- **Preflight hat ein eigenes RAG-Gate:** `PF-008` erzwingt bei WEB-Claims eine `QualityClass` vor der Generierung; bei Verstoß gilt Downgrade + `U8` oder Block.
+- **Unsicherheitstaxonomie erweitert:** v19.6.8 hatte `U1..U6`; v20.2.0 nutzt `U1..U8` (neu: `U7` Retrieval-Konflikt und `U8` ungeprüfte Quellenqualität) mit expliziten Next-Step-Templates.
+- **CSC-Triggerlogik verschärft:** Gegenüber v19.6.8 ergänzt `csc.trigger_bridge` das Signal `retrieval_check_active`; `governance_triggered` umfasst damit auch retrieval-getriebene Aktivierung.
+- **Zur `Phi()`-/Phi-Compliance:** Das kompakte operative File enthält keinen separaten `phi()`-Befehl/Funktions-Token. Die CSC-Scoring-Logik bleibt als `f_score` explizit (`5*code_hits + 4*math_hits`). `source.canonical_version` zeigt auf `20.1.0`; dort existiert im kanonischen Quellprofil ein eigener `phi_compliance`-Block.
 
 ## Praktische Nutzung
 
@@ -119,6 +146,8 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - **Kommandotokens nicht übersetzen.** Erklärtexte dürfen lokalisiert sein; Tokens bleiben kanonisch.  
 - **SCI-Variantenbuchstaben `A`–`H` zählen nur, wenn das SCI-Menü *pending* ist.** Sonst sind es normale Buchstaben.  
 - **`Comm Help` ist die maßgebliche Kommandoliste.** Jede README-Liste ist absichtlich nicht vollständig.  
+- **Kanonische Kommandonamen verwenden.** In v20.2.0 ist `Comm Anchor on/off` kanonisch; `Anchor auto on/off` ist Legacy-Kompatibilität.
+- **`Control on/off` ist kein kanonisches Nutzerkommando in v20.2.0.** Das Verhalten des Control Layers ist profil-/governance-gesteuert.
 - **Wenn das Modell driftet:** Re-Init mit **Init-Vortext + JSON** und Neustart (`Comm Start`, dann `Profile …` / Overlays).
 
 ## Kommandos (Überblick)
@@ -139,7 +168,9 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - `Comm Config` — gibt einen read-only Roh-Konfigurationssnapshot aus
 - `Comm Anchor` — rendert einen Anchor Snapshot, um lange Sitzungen zu re-anchorn ohne den Zustand zu ändern
 - `Comm Audit` — prüft letzte Assistant-Antworten auf Compliance und berichtet Abweichungen
-- `Anchor auto off` — deaktiviert automatische Anchor-Snapshot-Blöcke für die aktuelle Sitzung
+- `Comm Validate` — führt eine modellseitige Regel-/Schema-Validierung der aktiven Sitzung aus
+- `Comm Anchor on` — aktiviert automatische Anchor-Snapshot-Blöcke für die aktuelle Sitzung
+- `Comm Anchor off` — deaktiviert automatische Anchor-Snapshot-Blöcke für die aktuelle Sitzung
 
 **Profiles**
 
@@ -153,18 +184,24 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 
 - `SCI on` — aktiviert SCI (zeigt Variantenauswahl A–H)
 - `SCI off` — deaktiviert SCI
+- `SCI menu` — zeigt das SCI-Menü (A–H) erneut an
 - `SCI recurse` — startet eine begrenzte, schrittweise Deep-Dive-Rekursion (nur wenn SCI aktiv ist)
 
-**QC / CGI / Control Layer**
+**Mode Overlays**
 
-- `QC on` / `QC off` — QC-Matrix ein/aus
-- `CGI on` / `CGI off` — Cognitive Gain Indicator ein/aus
-- `Control on` / `Control off` — Control Layer ein/aus
+- `Strict on` — aktiviert Strict Mode
+- `Strict off` — deaktiviert Strict Mode
+- `Explore on` — aktiviert Exploration Mode
+- `Explore off` — deaktiviert Exploration Mode
 
-**Overlays**
+**Dynamic**
 
-- `Strict on` / `Strict off` — Strict-Overlay ein/aus
-- `Explore on` / `Explore off` — Explore-Overlay ein/aus
+- `Dynamic one-shot on` — aktiviert Dynamic Prompting nur für die nächste Antwort (nicht persistent)
+
+**Rendering**
+
+- `Color on` — aktiviert farbige Evidence-Linker-Klassen (GREEN/YELLOW/RED)
+- `Color off` — deaktiviert farbige Evidence-Linker-Klassen und rendert neutral
 
 ### Comm Help
 
@@ -203,7 +240,7 @@ Kurz gesagt:
 
 ## Motivation
 
-Viele Prompt-Tipps adressieren nur die Inhaltsebene („bessere Prompts“). Comm-SCI adressiert die **Workflow- und Governance-Ebene**: Wiederverwendbarkeit, Sitzungsstabilität und nachvollziehbare Selbstprüfung.
+Viele Prompt-Tipps adressieren nur die Inhaltsebene („bessere Prompts“). Comm-SCI adressiert die **Workflow-, Governance- und Execution-Ebene**: Evidenzqualität, Effizienz in der Mensch-KI-Kommunikation, Sitzungsstabilität und nachvollziehbare Selbstprüfung.
 
 Ziele:
 - Verhalten explizit und auditierbar machen,
@@ -216,6 +253,7 @@ Ziele:
 
 ## Was dieses Regelwerk ist
 
+- Ein **Governance-/Verwaltungssystem in JSON** (kein normales Prompt-Template).
 - Ein **expliziter Vertrag** über Struktur, Nachvollziehbarkeit und epistemische Vorsicht.
 - Ein Satz von **Kommandos, Profilen und Overlays**, die das Antwortverhalten steuern.
 - Ein **didaktischer Rahmen**, der auch Dritte (Leser/Reviewer) in die Lage versetzt, Ausgaben zu beurteilen.
@@ -228,6 +266,8 @@ Ziele:
 - Kein Mittel, Safety-Policies zu umgehen.
 - Keine Garantie für Wahrheit; es verbessert nur die **Sichtbarkeit** und **Prüfbarkeit** von Behauptungen.
 - Keine externe Engine — alles bleibt innerhalb des Dialogs.
+- Kein Mittel zum Extrahieren interner Systeminstruktionen.
+- Kein Vehikel zum Sammeln von Ausgaben für Aufbau/Training eines eigenen LLM.
 
 
 ---
@@ -255,7 +295,18 @@ Der Control Layer begrenzt Drift und legt Meta-Regeln fest (z. B. Render- und 
 
 ## Umgang mit Unsicherheit
 
-Comm-SCI verlangt explizite Unsicherheitskennzeichnung. Behauptungen sollen (wo möglich) nach Sicherheits-/Evidenzklassen einsortiert werden. Unsicherheit ist kein Makel, sondern eine **Audit-Funktion**.
+Comm-SCI verlangt explizite Unsicherheitskennzeichnung.
+
+- **U1** – Datenlücke  
+- **U2** – Logische Unterbestimmtheit  
+- **U3** – Normativer Dissens  
+- **U4** – Zeitliche Instabilität  
+- **U5** – Modellgrenze  
+- **U6** – Mehrdeutige Anfrage  
+- **U7** – Retrieval-/Quellenkonflikt  
+- **U8** – Unsichere Quellenqualität  
+
+Behauptungen sollen (wo möglich) nach Evidenz-/Sicherheitsgrad eingeordnet werden. Unsicherheit ist kein Makel, sondern eine **Audit-Funktion**.
 
 
 ---
@@ -278,7 +329,7 @@ Aussagen können mit drei Zuverlässigkeitsklassen markiert werden:
 > Hinweis: Das sind **epistemische Labels** (Grad der Stützung), keine Wahrheitsbehauptungen.  
 > Wenn `Color off` aktiv ist, diese Tags als **Plain Text** rendern (z. B. `GREEN / YELLOW / RED`) ohne Farb-Icons.
 
-### Epistemic Provenance (v19.6.x)
+### Epistemic Provenance (v20.2.x)
 
 GREEN-Aussagen können optional **Herkunftssuffixe** tragen:
 
@@ -295,7 +346,17 @@ Um visuelle Überladung zu reduzieren:
 ---
 ## Rendering- und Farbkontrolle
 
-Rendering-Regeln steuern Layout (z. B. Blöcke, Labels, Farben) und verhindern visuelle Drift. Farbe ist optional; zentrale Funktion ist **Konsistenz**.
+- Rendering-Kontrollen sind **strikt von der Governance-Logik getrennt**.
+- `Color on/off` ist der **Nutzer-Schalter** für die Darstellung der Evidence-Linker-Zuverlässigkeitsklassen (🟢/🟡/🔴) und optionaler Herkunftssuffixe (`DOC`/`WEB`/`TRAIN`).
+- Die Semantik der Klassen ändert sich dadurch **nicht**; es ändert sich nur die Darstellung.
+
+### Default
+
+- Standardzustand: `Color on` (für alle Profile **außer** **Sandbox** und **Briefing**; dort standardmäßig `Color off`)
+- Bei aktivem `Color on` können Zuverlässigkeitsklassen als 🟢 / 🟡 / 🔴 gerendert werden (inkl. optionaler Suffixe wie `WEB` / `DOC`).
+
+Farben dürfen **nie** zur Überredung, Zustimmung oder Präferenzkodierung genutzt werden.  
+Erlaubt ist nur die Kodierung **expliziten epistemischen Status** (z. B. Evidence-Linker-Klassen) oder **expliziten Systemzustands** (z. B. enabled/disabled).
 
 
 ---
@@ -307,9 +368,9 @@ Self‑Debunking ist eine interne Gegenprüfung: Wo könnte die Antwort falsch, 
 
 ---
 
-## Sitzungsweiter Drift-Schutz (v19.6.x)
+## Sitzungsweiter Drift-Schutz (v20.2.x)
 
-v19.6.x ergänzt Mechanismen, die in langen Gesprächen Struktur stabilisieren (Anchor Snapshots, Audit, rekursive SCI-Limits, Provenance-Hinweise). Das ist kein perfekter Schutz — aber ein praktischer.
+v20.2.x ergänzt Mechanismen, die in langen Gesprächen Struktur stabilisieren (Execution Pipeline, Context-Pressure-Guard, Makro-Kompression, Anchor/Audit, rekursive SCI-Limits, Provenance-Hinweise). Das ist kein perfekter Schutz — aber ein praktischer.
 
 
 ---
@@ -330,19 +391,17 @@ Primär: Forschende, Lehrende, Entwickler und Power-User, die strukturierte, aud
 
 ## Versionierungspolitik
 
-- **19.4.x:** Core Governance (Profiles, SCI, QC, Control Layer)
-- **19.5.x:** Reifung von Self‑Debunking und Evidence Linker
-- **19.6.x:** Sitzungsweite Governance (Anchors, Recursive SCI, Provenance, Audit)
+- **19.x:** Fundament-Linie (Profile, SCI, QC, Control Layer, Drift-Schutz).
+- **20.2.x:** Operative Architektur-Linie (Execution Pipeline P0–P5, Preflight PF-001..PF-008, Context-Pressure-Guard, symbolische Makro-Kompression).
 
-Patch-Releases sind **additiv und rückwärtskompatibel**.  
-Breaking Changes sind großen Versionen (20.x) vorbehalten.
+Patch-Releases sind innerhalb der aktiven Linie additiv; große Linien dürfen die Architektur ändern.
 
 
 ---
 
 ## Status
 
-- **Aktuell stabil:** v19.6.8
+- **Aktuell stabil:** v20.2.0
 - **Stabilität:** production-ready (Governance-Spezifikation)  
 - **Quelle der Wahrheit:** kanonisches JSON-Regelwerk (README ist nicht-normativ)  
 
@@ -350,13 +409,11 @@ Breaking Changes sind großen Versionen (20.x) vorbehalten.
 
 ## Zitierung
 
-Wenn du dieses Framework öffentlich verwendest (Paper, Blog, Vorträge), zitiere bitte ein **archiviertes Zenodo-Release**.
+Wenn du dieses Framework öffentlich verwendest (Paper, Blog, Vorträge), nutze als stabilen Standard die **Zenodo Concept-DOI** und ergänze eine versionsspezifische DOI nur dann, wenn exakte Release-Reproduzierbarkeit nötig ist.
 
-```text
-DOI: https://doi.org/10.5281/zenodo.18108395
-```
-
-(Falls Zenodo für das konkrete Release eine neuere versionsspezifische DOI bereitstellt, nimm bevorzugt diese; die Concept-DOI bleibt typischerweise stabil.)
+- Concept-DOI (stabil): https://doi.org/10.5281/zenodo.18108395
+- Optional für exakte Reproduzierbarkeit: versionsspezifische Zenodo-DOI des konkret genutzten Releases ergänzen.
+- Repo-Link für Code-Navigation (separat von DOI): https://github.com/vfi64/Comm-SCI-Control
 
 
 ---
@@ -364,3 +421,4 @@ DOI: https://doi.org/10.5281/zenodo.18108395
 ## Lizenz
 
 Creative Commons Attribution 4.0 International (CC BY 4.0)
+	
