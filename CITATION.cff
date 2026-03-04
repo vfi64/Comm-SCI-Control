@@ -2,7 +2,7 @@ cff-version: 1.2.0
 title: "Comm-SCI-Control"
 type: software
 message: "If you use this framework, please cite it."
-doi: 10.5281/zenodo.18108395
+doi: 10.5281/zenodo.17928357
 authors:
   - family-names: Fickert
     given-names: Volker
