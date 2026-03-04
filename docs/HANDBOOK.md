@@ -29,9 +29,11 @@ Reference for explanatory semantics: 20.1.0 (canonical)
 - [22. Phi(x): explicit block or distributed function](#22-phix-explicit-block-or-distributed-function)
 - [23. Didactic application examples](#23-didactic-application-examples)
 - [24. LLM as learning aid for the ruleset](#24-llm-as-learning-aid-for-the-ruleset)
-- [25. Compact startup flow](#25-compact-startup-flow)
-- [26. Limits, risks, and realistic expectations](#26-limits-risks-and-realistic-expectations)
-- [27. Keyword index](#27-keyword-index)
+- [25. Installation and setup](#25-installation-and-setup)
+- [26. Troubleshooting and debugging flow](#26-troubleshooting-and-debugging-flow)
+- [27. Compact startup flow](#27-compact-startup-flow)
+- [28. Limits, risks, and realistic expectations](#28-limits-risks-and-realistic-expectations)
+- [29. Keyword index](#29-keyword-index)
 
 ## 1. Purpose and guiding idea
 
@@ -460,7 +462,91 @@ Useful learning prompts:
 - "Show a compliant `Self-Debunking` block for this answer."
 - "Compare `Strict` and `Explore` on the same question in two short outputs."
 
-## 25. Compact startup flow
+## 25. Installation and setup
+
+The ruleset can be used in two ways: directly as JSON governance in chat, or via a local runtime/wrapper environment.
+
+### 25.1 Minimal setup (JSON directly in chat)
+
+1. Use the current ruleset (`JSON/Comm-SCI-v20.2.0.json`).
+2. Insert init preface + JSON into a fresh chat.
+3. Activate with `Comm Start`.
+4. Set profile and mode (`Profile ...`, optionally `Strict on` or `Explore on`).
+5. Re-anchor long sessions with `Comm Anchor`.
+
+### 25.2 Local repo setup (validation/testing)
+
+```bash
+cd /path/to/Comm-SCI-Control
+bash scripts/validate_repo.sh
+```
+
+Optional live E2E:
+
+```bash
+CSC_E2E_ENABLE=1 CSC_E2E_API_KEY=... bash scripts/run_e2e_llm_tests.sh
+```
+
+### 25.3 Wrapper setup (if external enforcement is desired)
+
+- Wrapper repo: [Comm-SCI-Control Wrapper Repository](https://github.com/vfi64/wrapper)
+- Benefit: lower prompt-token overhead, more stable enforcement paths, extensible tool integration.
+- Trade-offs: API costs, model-specific rendering differences, operational overhead.
+
+## 26. Troubleshooting and debugging flow
+
+### 26.1 Command is not recognized
+
+Check:
+1. Command sent as a standalone message?
+2. Exact canonical token used (no translation, no extra text)?
+3. Session active (`Comm Start`)?
+4. Confirm active state via `Comm State`.
+
+### 26.2 SCI output appears without `SCI Trace`
+
+Check:
+1. Is `SCI` truly active (`SCI on` + variant A-H selected)?
+2. Was the variant sent as a single-letter message (`A` to `H`)?
+3. Run `Comm Audit` and inspect `sci_trace_presence_if_sci_on`.
+
+### 26.3 RAG claim is downgraded (`U8`/`U7`)
+
+Typical cause:
+- missing `QualityClass` for WEB claim (`PF-008`, `R-RAG-001`)
+- unresolved source conflict (`U7`)
+
+Next step:
+- complete retrieval metadata (`QualityClass`, `RetrievedAt`, per-claim provenance)
+- only then consider claim upgrade.
+
+### 26.4 Drift in long sessions
+
+Check:
+1. `Comm Anchor` for a state snapshot.
+2. `Comm Audit` for compliance drift.
+3. Watch context pressure; migrate to a fresh chat if thread size is too large.
+
+### 26.5 Local ruleset/repo validation fails
+
+```bash
+bash scripts/validate_repo.sh
+```
+
+If failing:
+1. inspect diff vs `main`
+2. regenerate fixtures for intentional ruleset changes
+3. rerun validation.
+
+### 26.6 Minimal debugging sequence
+
+```text
+Comm State -> Comm Anchor -> Comm Audit -> Comm Validate
+```
+
+This gives you state, drift indicators, and structural checks in one fixed order.
+
+## 27. Compact startup flow
 
 ```text
 1) Comm Start
@@ -473,7 +559,7 @@ Useful learning prompts:
 8) for ruleset sanity checks: Comm Validate
 ```
 
-## 26. Limits, risks, and realistic expectations
+## 28. Limits, risks, and realistic expectations
 
 Important limits:
 - no 100% truth guarantee
@@ -485,7 +571,7 @@ Realistic objective:
 - not absolute correctness enforcement
 - but earlier error visibility and systematic risk reduction
 
-## 27. Keyword index
+## 29. Keyword index
 
 - Anchor Snapshot: sections 12, 15
 - Command Tokens: section 15

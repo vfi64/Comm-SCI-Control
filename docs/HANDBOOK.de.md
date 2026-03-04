@@ -29,9 +29,11 @@ Referenz fuer erklaerende Semantik: 20.1.0 (canonical)
 - [22. Phi(x): enthalten oder verteilt](#22-phix-enthalten-oder-verteilt)
 - [23. Didaktische Anwendungsbeispiele](#23-didaktische-anwendungsbeispiele)
 - [24. LLM als Lernhilfe fuer das Regelwerk](#24-llm-als-lernhilfe-fuer-das-regelwerk)
-- [25. Kompakter Startablauf](#25-kompakter-startablauf)
-- [26. Grenzen, Risiken und realistische Erwartungen](#26-grenzen-risiken-und-realistische-erwartungen)
-- [27. Stichwortverzeichnis](#27-stichwortverzeichnis)
+- [25. Installation und Setup](#25-installation-und-setup)
+- [26. Troubleshooting und Debugging-Flow](#26-troubleshooting-und-debugging-flow)
+- [27. Kompakter Startablauf](#27-kompakter-startablauf)
+- [28. Grenzen, Risiken und realistische Erwartungen](#28-grenzen-risiken-und-realistische-erwartungen)
+- [29. Stichwortverzeichnis](#29-stichwortverzeichnis)
 
 ## 1. Zweck und Leitidee
 
@@ -460,7 +462,91 @@ Sinnvolle Lernprompts:
 - "Zeige, wie `Self-Debunking` fuer diese Antwort konkret aussieht."
 - "Vergleiche `Strict` und `Explore` fuer dieselbe Frage in zwei kurzen Antworten."
 
-## 25. Kompakter Startablauf
+## 25. Installation und Setup
+
+Das Regelwerk kann auf zwei Arten genutzt werden: direkt als JSON-Governance im Chat oder ueber eine lokale Runtime/Wrapper-Umgebung.
+
+### 25.1 Minimal-Setup (JSON direkt im Chat)
+
+1. Aktuelles Ruleset verwenden (`JSON/Comm-SCI-v20.2.0.json`).
+2. Init-Preface + JSON in einen neuen Chat einspielen.
+3. Mit `Comm Start` aktivieren.
+4. Profil und Modus setzen (`Profile ...`, optional `Strict on` oder `Explore on`).
+5. Bei langen Verlaeufen mit `Comm Anchor` re-ankern.
+
+### 25.2 Lokales Repo-Setup (Validierung/Test)
+
+```bash
+cd /path/to/Comm-SCI-Control
+bash scripts/validate_repo.sh
+```
+
+Optional fuer Live-E2E:
+
+```bash
+CSC_E2E_ENABLE=1 CSC_E2E_API_KEY=... bash scripts/run_e2e_llm_tests.sh
+```
+
+### 25.3 Wrapper-Setup (wenn Enforcement ausserhalb des Chats gewuenscht ist)
+
+- Wrapper-Repo: [Comm-SCI-Control Wrapper Repository](https://github.com/vfi64/wrapper)
+- Nutzen: geringere Prompt-Tokenlast, stabilere Enforcement-Pfade, erweiterbare Tool-Integration.
+- Trade-offs: API-Kosten, Rendering-Differenzen zwischen Modellen, Betriebsaufwand.
+
+## 26. Troubleshooting und Debugging-Flow
+
+### 26.1 Command wird nicht erkannt
+
+Pruefen:
+1. Command als Standalone-Nachricht gesendet?
+2. Exaktes Token verwendet (keine Uebersetzung, keine Zusatztokens)?
+3. Session aktiv (`Comm Start`)?
+4. Mit `Comm State` den aktuellen Zustand verifizieren.
+
+### 26.2 SCI-Ausgabe ohne `SCI Trace`
+
+Pruefen:
+1. Ist `SCI` wirklich aktiv (`SCI on` + Variante A-H gewaehlt)?
+2. Wurde die Variante als einzelne Nachricht (`A` bis `H`) gesendet?
+3. `Comm Audit` ausfuehren und auf `sci_trace_presence_if_sci_on` achten.
+
+### 26.3 RAG-Claim wird downgraded (`U8`/`U7`)
+
+Typische Ursache:
+- fehlende `QualityClass` bei WEB-Claim (`PF-008`, `R-RAG-001`)
+- Konflikt zwischen Quellen (`U7`)
+
+Naechster Schritt:
+- Retrieval-Metadaten vervollstaendigen (`QualityClass`, `RetrievedAt`, Provenienz pro Claim)
+- Claim erst danach hochstufen.
+
+### 26.4 Drift in langen Sessions
+
+Pruefen:
+1. `Comm Anchor` fuer State-Snapshot.
+2. `Comm Audit` fuer Compliance-Verletzungen.
+3. Kontextdruck beachten (lange Threads ggf. in neuen Chat ueberfuehren).
+
+### 26.5 Regelwerk-/Repo-Validierung faellt lokal fehl
+
+```bash
+bash scripts/validate_repo.sh
+```
+
+Wenn fehlerhaft:
+1. Diff gegen `main` pruefen.
+2. Fixtures bei absichtlicher Regelwerksaenderung regenerieren.
+3. Danach Validierung erneut laufen lassen.
+
+### 26.6 Minimaler Debugging-Flow
+
+```text
+Comm State -> Comm Anchor -> Comm Audit -> Comm Validate
+```
+
+So bekommst du schnell Zustand, Drift-Indikatoren und Struktur-Checks in fester Reihenfolge.
+
+## 27. Kompakter Startablauf
 
 ```text
 1) Comm Start
@@ -473,7 +559,7 @@ Sinnvolle Lernprompts:
 8) bei Regelwerkscheck: Comm Validate
 ```
 
-## 26. Grenzen, Risiken und realistische Erwartungen
+## 28. Grenzen, Risiken und realistische Erwartungen
 
 Wichtige Grenzen:
 - keine 100%-Wahrheitsgarantie
@@ -485,7 +571,7 @@ Realistische Zielsetzung:
 - nicht perfekte Wahrheit erzwingen
 - sondern Fehler frueher sichtbar machen und Risiko systematisch reduzieren
 
-## 27. Stichwortverzeichnis
+## 29. Stichwortverzeichnis
 
 - Anchor Snapshot: Abschnitt 12, 15
 - Command Tokens: Abschnitt 15
