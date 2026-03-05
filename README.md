@@ -38,6 +38,15 @@ Deterministic CI/local tests in this repo prove:
 They do **not** prove perfect long-session model compliance.
 LLM behavior remains probabilistic; optional live E2E checks are advisory and should be interpreted as confidence signals, not formal guarantees.
 
+## JSON-only limits, wrapper strategy, and support
+
+- **JSON-only is a contract, not deterministic executable code.** In plain chat usage, adherence remains probabilistic and model/system/context dependent.
+- **Recommended model classes:** large chat LLMs with larger context windows; small/legacy models are possible but significantly more drift-prone.
+- **Privacy/cost note:** API usage is token-priced and can become expensive in long sessions; minimize/anonymize sensitive data before sending.
+- **Version support policy:** see `versions/versions.json` (`stable`, `supported`, `deprecated`, `experimental`).
+- **Wrapper strategy:** for stricter enforcement, an API-based Python wrapper is in active development: https://github.com/vfi64/wrapper/
+  Status: already usable and advanced, but not yet production-ready.
+
 ---
 
 ## ⚡ Quick Start (minimal)
@@ -103,6 +112,7 @@ Then paste the **canonical JSON ruleset** directly below it.
 - [Choose your path](#choose-your-path)
 - [Which JSON should I use?](#which-json-should-i-use)
 - [What tests prove (and what they do not)](#what-tests-prove-and-what-they-do-not)
+- [JSON-only limits, wrapper strategy, and support](#json-only-limits-wrapper-strategy-and-support)
 - [Repository layout (what matters)](#repository-layout-what-matters)
 - [Validation and Testing](#validation-and-testing)
 - [Handbook](#handbook)

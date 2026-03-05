@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comm-SCI Ausblick | Comm-SCI-Control</title>
+    <meta
+      name="description"
+      content="Ausblick, Grenzen und Wrapper-Status fuer Comm-SCI-Control: Modellklassen, Datenschutz/Kosten, Version-Support und Entwicklungsstand."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;700&family=Source+Serif+4:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/landing.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.de.html">
+        <span class="brand-mark">CSC</span>
+        <span class="brand-text">Comm-SCI Ausblick</span>
+      </a>
+      <nav class="nav-links" aria-label="Ausblick Navigation">
+        <a href="#limits">JSON-only Grenzen</a>
+        <a href="#models">Modellklassen</a>
+        <a href="#privacy">Datenschutz/Kosten</a>
+        <a href="#support">Support-Policy</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a class="lang-link" href="roadmap.html">EN</a>
+          <span aria-hidden="true">|</span>
+          <a class="lang-link is-active" href="roadmap.de.html">DE</a>
+        </div>
+        <a class="btn btn-line" href="index.de.html">Landing</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero reveal is-visible">
+        <p class="eyebrow">Status und Weiterentwicklung</p>
+        <h1>
+          JSON ist ein Vertrag.
+          <span>Der Wrapper ist der Durchsetzungsweg.</span>
+        </h1>
+        <p class="hero-copy">
+          Comm-SCI-Control als JSON-only Ansatz verbessert Regeltreue und Transparenz deutlich,
+          kann aber in reinen Chat-Umgebungen keine 100% deterministische Regelbefolgung garantieren.
+          Deshalb wird parallel ein Python-Wrapper mit API-Anbindung entwickelt.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="https://github.com/vfi64/wrapper/" target="_blank" rel="noreferrer">Wrapper auf GitHub</a>
+          <a class="btn btn-soft" href="index.de.html#start">Zurueck zum Schnellstart</a>
+        </div>
+      </section>
+
+      <section id="limits" class="section reveal is-visible">
+        <div class="section-head"><h2>JSON-only Grenzen (ehrlich und wichtig)</h2></div>
+        <article class="info-card">
+          <p><strong>Kernpunkt:</strong> Das JSON-Regelwerk ist eine normative Spezifikation, kein deterministisches Programm.</p>
+          <p><strong>Folge:</strong> In Chat-only Nutzung bleibt Verhalten modell-, system- und kontextabhaengig probabilistisch.</p>
+          <p><strong>Einflussfaktoren:</strong> Modellarchitektur, effektives Kontextfenster, Prompt-Laenge, Provider-Routing und Laufzeitlast.</p>
+          <p><strong>Praxis:</strong> Anchor, Audit, QC-Deltas und Context-Pressure-Guard reduzieren Drift, ersetzen aber keine externe Durchsetzung.</p>
+        </article>
+      </section>
+
+      <section id="models" class="section reveal is-visible">
+        <div class="section-head"><h2>Unterstuetzte/empfohlene Modellklassen</h2></div>
+        <article class="info-card">
+          <table class="concept-table">
+            <thead>
+              <tr><th>Modellklasse</th><th>Einschaetzung</th><th>Typische Einschraenkung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Grosse Chat-LLMs mit grossem Kontextfenster</td><td>empfohlen</td><td>bei sehr langen Sessions weiterhin Drift-Risiko</td></tr>
+              <tr><td>Mittlere Modelle mit begrenztem Kontext</td><td>bedingt geeignet</td><td>frueheres Lost-in-the-Middle und unvollstaendige Contract-Treue</td></tr>
+              <tr><td>Kleine/legacy Modelle</td><td>nur eingeschraenkt</td><td>instabile Kommandoerkennung und hoehere Regelverletzungsrate</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="privacy" class="section reveal is-visible">
+        <div class="section-head"><h2>Datenschutz- und API-Kosten-Hinweis</h2></div>
+        <article class="info-card">
+          <p><strong>Datenschutz:</strong> Prompts koennen sensible Inhalte enthalten. Vor API-Nutzung personenbezogene Daten minimieren/anonymisieren.</p>
+          <p><strong>Kosten:</strong> API-Abrechnung ist tokenbasiert; grosse Regelwerke plus lange Sitzungen erhoehen Kosten merklich.</p>
+          <p><strong>Empfehlung:</strong> Kompakte Artefakte nutzen, Kontext kuerzen, Budgetgrenzen setzen, Exporte bewusst steuern.</p>
+        </article>
+      </section>
+
+      <section id="support" class="section reveal is-visible">
+        <div class="section-head"><h2>Version-Support-Policy</h2></div>
+        <article class="info-card">
+          <p>Die maschinenlesbare Referenz liegt in <code>versions/versions.json</code>.</p>
+          <table class="concept-table">
+            <thead>
+              <tr><th>Status</th><th>Bedeutung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>stable</code></td><td>Produktiv empfohlene Linie; aktive Pflege.</td></tr>
+              <tr><td><code>supported</code></td><td>Weiterhin nutzbar; begrenzter, kompatibilitaetsorientierter Support.</td></tr>
+              <tr><td><code>deprecated</code></td><td>Nur fuer Vergleich/Migration; keine aktive Weiterentwicklung.</td></tr>
+              <tr><td><code>experimental</code></td><td>Teststatus; Breaking Changes moeglich.</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="wrapper-status" class="section reveal is-visible">
+        <div class="section-head"><h2>Wrapper-Status (aktueller Stand)</h2></div>
+        <article class="info-card">
+          <p><strong>Reifegrad:</strong> weit fortgeschritten und bereits nutzbar, aber noch nicht produktionsreif.</p>
+          <p><strong>Offene Punkte:</strong></p>
+          <p>1. Modularisierung des Hauptprogramms noch nicht abgeschlossen (trotz klaren Fortschritts).</p>
+          <p>2. Dokumentation und wissenschaftliche Tooling-Module noch unvollstaendig.</p>
+          <p>3. Formel-Rendering fehlt noch.</p>
+          <p>4. Upload eigener Dokumente fehlt noch.</p>
+          <p>5. UI kann weiter optimiert werden.</p>
+          <p>6. Systematische Anwendungstests und Beispielkorpora werden weiter ausgebaut.</p>
+          <p><strong>Mitarbeit:</strong> Mitstreiter sind willkommen. Das Projekt wird aktuell als Freizeitprojekt entwickelt.</p>
+        </article>
+      </section>
+
+      <section id="wrapper-shot" class="section reveal is-visible">
+        <div class="section-head"><h2>Wrapper Screenshot</h2></div>
+        <p class="hero-copy">
+          Beispielansichten aus dem aktuellen Wrapper-Stand (GUI + Panel, SCI-Aktivierung, Deep-Dive-Ausgabe, Anchor/Audit).
+        </p>
+        <div class="shot-grid">
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-00.png" alt="Wrapper Startansicht mit geladenem Regelwerk und Panel" loading="lazy" />
+            <figcaption>1. Wrapper-Start: Regelwerk geladen, Panel aktiv</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-01.png" alt="Profile Expert gesetzt und SCI Variantenmenu sichtbar" loading="lazy" />
+            <figcaption>2. Profile Expert + SCI-Variantenmenu</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-02.png" alt="Deep-Dive Variante B wurde aktiviert" loading="lazy" />
+            <figcaption>3. Variante B aktiviert (Deep-Dive)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-03.png" alt="SCI Deep-Dive Antwort mit Control Layer Note und Trace" loading="lazy" />
+            <figcaption>4. Deep-Dive-Ausgabe mit SCI-Trace (Teil 1)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-04.png" alt="Fortsetzung der SCI Deep-Dive Antwort" loading="lazy" />
+            <figcaption>5. Deep-Dive-Ausgabe mit SCI-Trace (Teil 2)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-05.png" alt="Self-Debunking und QC-Matrix in der Antwortansicht" loading="lazy" />
+            <figcaption>6. Self-Debunking + QC-Matrix</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/wrapper/wrapper-06.png" alt="Comm Anchor Snapshot und Comm Audit Ergebnis" loading="lazy" />
+            <figcaption>7. Anchor Snapshot und Comm Audit</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section reveal is-visible">
+        <a class="btn btn-solid" href="index.de.html">Zurueck zur Landingpage</a>
+      </section>
+    </main>
+
+    <script src="assets/landing.js"></script>
+  </body>
+</html>

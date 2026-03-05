@@ -38,6 +38,15 @@ Deterministische CI-/Lokallaeufe in diesem Repo pruefen:
 Sie pruefen **nicht** perfekte Modell-Compliance in langen Sessions.
 LLM-Verhalten bleibt probabilistisch; optionale Live-E2E-Checks sind advisory und als Vertrauenssignal, nicht als formale Garantie, zu lesen.
 
+## JSON-only Grenzen, Wrapper-Strategie und Support
+
+- **JSON-only ist ein Vertrag, kein deterministisches Programm.** Bei reiner Chat-Nutzung bleibt die Regeleinhaltung modell-, system- und kontextabhaengig probabilistisch.
+- **Empfohlene Modellklassen:** grosse Chat-LLMs mit grossem Kontextfenster; kleinere/legacy Modelle sind moeglich, aber deutlich drift-anfaelliger.
+- **Datenschutz/Kosten:** API-Nutzung ist tokenbasiert und kann bei langen Sessions teuer werden; sensible Daten vorab minimieren/anonymisieren.
+- **Version-Support-Policy:** siehe `versions/versions.json` (`stable`, `supported`, `deprecated`, `experimental`).
+- **Wrapper-Strategie:** Fuer strengere Durchsetzung wird ein Python-Wrapper via API entwickelt: https://github.com/vfi64/wrapper/
+  Stand: bereits nutzbar und weit fortgeschritten, aber noch nicht produktionsreif.
+
 ---
 
 ## ⚡ Schnellstart (minimal)
@@ -101,6 +110,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - [Wähle deinen Pfad](#wähle-deinen-pfad)
 - [Welches JSON soll ich verwenden?](#welches-json-soll-ich-verwenden)
 - [Was Tests leisten (und was nicht)](#was-tests-leisten-und-was-nicht)
+- [JSON-only Grenzen, Wrapper-Strategie und Support](#json-only-grenzen-wrapper-strategie-und-support)
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [Repository-Struktur (was zählt)](#repository-struktur-was-zählt)
 - [Validierung und Tests](#validierung-und-tests)
