@@ -107,14 +107,50 @@ Hier ist das Regelwerk:`;
     status.dataset.kind = kind;
   };
 
+  const jsonCache = new Map();
+  const jsonFetchState = new Map();
+
+  const compactJsonText = (raw) => {
+    const trimmed = String(raw || '').trim();
+    try {
+      return JSON.stringify(JSON.parse(trimmed));
+    } catch (_error) {
+      return trimmed;
+    }
+  };
+
+  const preloadJson = (jsonPath) => {
+    if (jsonCache.has(jsonPath) || jsonFetchState.get(jsonPath) === 'loading') {
+      return;
+    }
+    jsonFetchState.set(jsonPath, 'loading');
+
+    fetch(jsonPath, { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Failed to fetch ${jsonPath}`);
+        return response.text();
+      })
+      .then((raw) => {
+        jsonCache.set(jsonPath, compactJsonText(raw));
+        jsonFetchState.set(jsonPath, 'ready');
+      })
+      .catch((_error) => {
+        jsonFetchState.set(jsonPath, 'error');
+      });
+  };
+
   const copyFallback = (text) => {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.setAttribute('readonly', 'readonly');
-    textarea.style.position = 'absolute';
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
     textarea.style.left = '-9999px';
+    textarea.style.opacity = '0';
     document.body.appendChild(textarea);
+    textarea.focus();
     textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
 
     let copied = false;
     try {
@@ -127,45 +163,83 @@ Hier ist das Regelwerk:`;
     return copied;
   };
 
-  document.querySelectorAll('[data-copy-bundle]').forEach((button) => {
-    button.addEventListener('click', async () => {
+  const manualPromptFallback = (text, lang) => {
+    const label =
+      lang === 'de'
+        ? 'Automatisches Kopieren blockiert. Bitte Inhalt manuell kopieren:'
+        : 'Automatic copy is blocked. Please copy the content manually:';
+    try {
+      window.prompt(label, text);
+      return true;
+    } catch (_error) {
+      return false;
+    }
+  };
+
+  const copyButtons = document.querySelectorAll('[data-copy-bundle]');
+  copyButtons.forEach((button) => {
+    const path = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.json';
+    preloadJson(path);
+  });
+
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', () => {
       const lang = button.dataset.lang === 'de' ? 'de' : 'en';
       const jsonPath = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.json';
       const preface = lang === 'de' ? DE_PREFACE : EN_PREFACE;
+      const jsonText = jsonCache.get(jsonPath);
 
-      setStatus(button, lang === 'de' ? 'Kopiere Bundle ...' : 'Copying bundle ...', 'info');
-
-      try {
-        const response = await fetch(jsonPath, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Failed to fetch ${jsonPath}`);
-        const jsonText = (await response.text()).trim();
-        const bundle = `${preface}\n\n${jsonText}\n`;
-
-        let copied = false;
-
-        if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
-          try {
-            await navigator.clipboard.writeText(bundle);
-            copied = true;
-          } catch (_error) {
-            copied = false;
-          }
+      if (!jsonText) {
+        preloadJson(jsonPath);
+        const state = jsonFetchState.get(jsonPath);
+        if (state === 'error') {
+          setStatus(
+            button,
+            lang === 'de'
+              ? 'JSON konnte nicht geladen werden. Nutze den JSON-Link oder lade die Seite neu.'
+              : 'JSON could not be loaded. Use the JSON link or reload the page.',
+            'error'
+          );
+          return;
         }
-
-        if (!copied) {
-          copied = copyFallback(bundle);
-        }
-
-        if (!copied) throw new Error('Clipboard write blocked');
-
         setStatus(
           button,
           lang === 'de'
-            ? 'Init-Vortext + JSON erfolgreich in Zwischenablage.'
-            : 'Init preface + JSON copied to clipboard.',
+            ? 'Bundle wird geladen. Bitte in 1-2 Sekunden erneut klicken.'
+            : 'Bundle is loading. Please click again in 1-2 seconds.',
+          'info'
+        );
+        return;
+      }
+
+      const bundle = `${preface}\n\n${jsonText}\n`;
+      setStatus(button, lang === 'de' ? 'Kopiere Plain-Text-Bundle ...' : 'Copying plain-text bundle ...', 'info');
+
+      const onCopySuccess = () => {
+        setStatus(
+          button,
+          lang === 'de'
+            ? 'Init-Vortext + kompaktes JSON als Plain-Text kopiert.'
+            : 'Init preface + compact JSON copied as plain text.',
           'success'
         );
-      } catch (error) {
+      };
+
+      const onCopyFailure = () => {
+        if (copyFallback(bundle)) {
+          onCopySuccess();
+          return;
+        }
+        if (manualPromptFallback(bundle, lang)) {
+          setStatus(
+            button,
+            lang === 'de'
+              ? 'Automatisches Kopieren blockiert. Manueller Kopierdialog wurde geoeffnet.'
+              : 'Automatic copy blocked. Manual copy dialog was opened.',
+            'error'
+          );
+          return;
+        }
         setStatus(
           button,
           lang === 'de'
@@ -173,7 +247,14 @@ Hier ist das Regelwerk:`;
             : 'Copy failed. Use preface block and JSON link manually.',
           'error'
         );
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(bundle).then(onCopySuccess).catch(onCopyFailure);
+        return;
       }
+
+      onCopyFailure();
     });
   });
 })();

@@ -198,13 +198,18 @@
             data-lang="de"
             data-json-path="data/Comm-SCI-v20.2.0.json"
           >
-            Init + aktuelles JSON kopieren (DE)
+            Init + kompaktes JSON als Plain-Text kopieren (DE)
           </button>
+          <p class="concept-note">
+            Wichtiger Hinweis: Durch Umfang und Regelstrenge des Regelwerks verlangen viele LLM
+            zuerst ein Login, bevor sie die Regeln aktiv ausfuehren.
+            Das ist normal; danach mit den Standalone-Kommandos fortfahren.
+          </p>
           <p class="copy-status" data-copy-status role="status" aria-live="polite"></p>
         </div>
         <div class="start-grid">
           <pre><code>1. Init-Vortext (Block unten) einfügen
-2. JSON/Comm-SCI-v20.2.0.json einspielen
+2. JSON/Comm-SCI-v20.2.0.min.json einspielen
 3. Comm Start
 4. Profile Expert (SCI-Menue oeffnet automatisch)
 5. Standalone \"B\" senden (Deep-Dive)
@@ -219,18 +224,13 @@
               <h3>Handbuch (DE)</h3>
               <p>Didaktische Tiefenbeschreibung aller Module</p>
             </a>
-            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/JSON/Comm-SCI-v20.2.0.json" target="_blank" rel="noreferrer">
-              <h3>Operational JSON</h3>
-              <p>Aktuelles Deployment-Artefakt v20.2.0</p>
+            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/JSON/Comm-SCI-v20.2.0.min.json" target="_blank" rel="noreferrer">
+              <h3>Operational JSON (compact)</h3>
+              <p>Kompaktes Deployment-Artefakt v20.2.0</p>
             </a>
           </div>
         </div>
-        <p class="concept-note">
-          Wichtiger Hinweis: Durch Umfang und Regelstrenge des Regelwerks verlangen viele LLM
-          zuerst ein Login, bevor sie die Regeln aktiv ausfuehren.
-          Das ist normal; danach mit den Standalone-Kommandos fortfahren.
-        </p>
-        <details class="preface-card reveal" open>
+        <details class="preface-card reveal">
           <summary>Init-Vortext (copy-paste)</summary>
           <pre><code>Kontext für diese Unterhaltung:
 Ich übergebe dir ein externes Governance-Regelwerk für Struktur und Qualität deiner Antworten (z. B. Format, SCI, Unsicherheitskennzeichnung, QC-Matrix, Evidence-Linker, CSC).

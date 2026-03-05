@@ -112,6 +112,12 @@ body {
   color: var(--ink);
 }
 
+.nav-more {
+  color: var(--ink-soft);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 main,
 .footer {
   width: min(1120px, 92vw);

@@ -27,6 +27,7 @@
         <a href="#audit">Audit</a>
         <a href="#qc-matrix">QC-Matrix</a>
         <a href="#uncertainty-codes">Uncertainty</a>
+        <span class="nav-more" aria-hidden="true">...</span>
       </nav>
       <div class="topbar-actions">
         <div class="lang-switch" aria-label="Sprachauswahl">
@@ -80,8 +81,10 @@
         <div class="section-head"><h2>Anchor</h2></div>
         <article class="info-card">
           <p><strong>Was:</strong> <code>Comm Anchor</code> erzeugt einen kompakten Session-Snapshot.</p>
-          <p><strong>Warum wichtig:</strong> Kontextfenster von LLM laufen voll. Bei langen Chats werden Regeln in der Mitte leichter uebersehen. Anchor konserviert den Governance-Zustand.</p>
-          <p><strong>Nutzung:</strong> <code>Comm Anchor</code> -> neuen Chat oeffnen -> Snapshot einfuegen -> JSON laden -> <code>Comm Start</code>.</p>
+          <p><strong>Warum wichtig:</strong> Kontextfenster von LLM laufen voll. Bei langen Chats werden Regeln in der Mitte leichter uebersehen.
+          Anchor konserviert den Governance-Zustand und passt funktional zum <a href="#context-pressure-guard"><code>Context-Pressure-Guard</code></a>.</p>
+          <p><strong>Nutzung/Migration:</strong> <code>Comm Anchor</code> -> neuen Chat oeffnen -> Snapshot einfuegen -> Init-Vortext + JSON laden ->
+          <code>Comm Start</code> -> Profil setzen. So kannst du nahtlos weiterarbeiten, statt neu zu starten.</p>
           <p><strong>Typischer Fehler:</strong> Neustart ohne Snapshot und ohne Re-Initialisierung.</p>
         </article>
       </section>
@@ -135,8 +138,22 @@
         <div class="section-head"><h2>Preflight Checks (PF-001..008)</h2></div>
         <article class="info-card">
           <p><strong>Was:</strong> verbindliche Pruefschritte vor der Ausgabe.</p>
-          <p><strong>Beispiel:</strong> PF-008 blockt oder downgradet WEB-Claims ohne QualityClass.</p>
-          <p><strong>Typischer Fehler:</strong> Preflight nur als Empfehlung statt als Pflichtvertrag lesen.</p>
+          <table class="concept-table">
+            <thead>
+              <tr><th>Check</th><th>Kurzfunktion</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>PF-001</code></td><td>Bei reinen Kommandos keine Content-Bloecke (z. B. QC/Self-Debunking) ausgeben.</td></tr>
+              <tr><td><code>PF-002</code></td><td>Bei aktivem SCI die erforderlichen SCI-Schritte vorab aufloesen.</td></tr>
+              <tr><td><code>PF-003</code></td><td>Bei starken Claims mindestens eine Verifikationsroute planen.</td></tr>
+              <tr><td><code>PF-004</code></td><td>Bei Unsicherheit U-Code + Unsicherheitszeile vor Render verfuegbar machen.</td></tr>
+              <tr><td><code>PF-005</code></td><td>Self-Debunking korrekt platzierbar und innerhalb der Vertragsgrenzen sicherstellen.</td></tr>
+              <tr><td><code>PF-006</code></td><td>QC-Footer-Vorlage und Positionierungsregeln vor Ausgabe absichern.</td></tr>
+              <tr><td><code>PF-007</code></td><td>Keine Ausfuehrung von Auslese-/Override-Anfragen zu versteckten Systemprinzipien.</td></tr>
+              <tr><td><code>PF-008</code></td><td>WEB-Claim nur mit vorhandener <code>QualityClass</code>; sonst Downgrade/U8/Block.</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Typischer Fehler:</strong> Preflight als Empfehlung lesen; tatsaechlich ist es ein Pflichtvertrag vor dem ersten Token.</p>
         </article>
       </section>
 
@@ -157,6 +174,9 @@
           </table>
           <p><strong>Delta-Zeichen:</strong> <code>Δ+</code> ueber Zielwert, <code>Δ0</code> im Zielbereich,
           <code>Δ-</code> unter Zielbereich.</p>
+          <p><strong>Drift-Erkennung ueber Delta:</strong> Wenn bei mehreren Antworten hintereinander dieselbe Dimension von
+          <code>Δ0</code> auf <code>Δ-</code> kippt (oder mehrere Deltas gleichzeitig negativ werden), ist das ein Drift-Signal.
+          Dann Re-Anchor, kuerzen und mit <code>Comm Audit</code> gegenpruefen.</p>
           <p><strong>Lesetipp:</strong> Ein negatives Delta bei "Evidence" oder "Consistency" ist oft kritischer als bei "Brevity".</p>
         </article>
       </section>

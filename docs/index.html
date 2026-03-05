@@ -197,13 +197,18 @@
             data-lang="en"
             data-json-path="data/Comm-SCI-v20.2.0.json"
           >
-            Copy init + current JSON (EN)
+            Copy init + compact JSON as plain text (EN)
           </button>
+          <p class="concept-note">
+            Important note: Because of the ruleset size and strict constraints, many LLMs require a login/authentication step
+            before they fully execute the governance rules.
+            This is expected; continue with standalone commands after that.
+          </p>
           <p class="copy-status" data-copy-status role="status" aria-live="polite"></p>
         </div>
         <div class="start-grid">
           <pre><code>1. Paste init preface (block below)
-2. Load JSON/Comm-SCI-v20.2.0.json
+2. Load JSON/Comm-SCI-v20.2.0.min.json
 3. Comm Start
 4. Profile Expert (SCI menu opens automatically)
 5. Send standalone "B" (Deep-Dive)
@@ -218,18 +223,13 @@
               <h3>Handbook (EN)</h3>
               <p>Detailed conceptual and architectural guide</p>
             </a>
-            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/JSON/Comm-SCI-v20.2.0.json" target="_blank" rel="noreferrer">
-              <h3>Operational JSON</h3>
-              <p>Current deployment artifact v20.2.0</p>
+            <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/JSON/Comm-SCI-v20.2.0.min.json" target="_blank" rel="noreferrer">
+              <h3>Operational JSON (compact)</h3>
+              <p>Compact deployment artifact v20.2.0</p>
             </a>
           </div>
         </div>
-        <p class="concept-note">
-          Important note: Because of the ruleset size and strict constraints, many LLMs require a login/authentication step
-          before they fully execute the governance rules.
-          This is expected; continue with standalone commands after that.
-        </p>
-        <details class="preface-card reveal" open>
+        <details class="preface-card reveal">
           <summary>Init preface (copy-paste)</summary>
           <pre><code>Context for this conversation:
 I am providing an external governance ruleset for response structure and quality (e.g., format, SCI, uncertainty labels, QC matrix, evidence coloring, CSC).
