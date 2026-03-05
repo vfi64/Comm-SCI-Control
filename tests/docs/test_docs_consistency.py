@@ -44,6 +44,17 @@ class TestDocsConsistency(unittest.TestCase):
         self.assertGreaterEqual(len(versions), len(self.EXPECTED_CHANGELOG_PREFIX))
         self.assertEqual(self.EXPECTED_CHANGELOG_PREFIX, versions[: len(self.EXPECTED_CHANGELOG_PREFIX)])
 
+    def test_readmes_have_no_merge_conflict_markers(self) -> None:
+        for name, content in (("README.md", self.readme_en), ("README.de.md", self.readme_de)):
+            with self.subTest(file=name):
+                self.assertNotIn("<<<<<<<", content)
+                self.assertNotIn(">>>>>>>", content)
+                self.assertNotIn("=======", content)
+
+    def test_readmes_contain_single_init_preface_section(self) -> None:
+        self.assertEqual(1, self.readme_en.count("### Init preface (recommended)"))
+        self.assertEqual(1, self.readme_de.count("### Init-Vortext (empfohlen)"))
+
 
 if __name__ == "__main__":
     unittest.main()

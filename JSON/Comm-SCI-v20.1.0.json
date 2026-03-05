@@ -1746,8 +1746,11 @@
         "explanatory_text": "conversation_language_with_en_fallback"
       },
       "localized_source_path": "meta.rendering.l10n.comm_help",
+      "force_section_labels_conversation_language_when_supported": true,
+      "force_function_column_conversation_language_when_supported": true,
       "requires_localized_help_text_when_supported": true,
       "function_text_language_policy": "translate_to_conversation_language_with_en_fallback_command_tokens_unchanged",
+      "translation_gap_uncertainty": "U1",
       "on_missing_localized_help_text": "translate_runtime_and_mark_U1_on_translation_gap",
       "allow_filtering_or_omissions": false
     },
@@ -2867,7 +2870,8 @@
         },
         "failure_conditions": [
           "explanatory/status/help/menu text not aligned to conversation_language_or_fallback",
-          "command token translated/localized"
+          "command token translated/localized",
+          "Comm Help function column remains English although conversation_language is supported and not English"
         ],
         "on_failure": {
           "action": "Repair within the same output: re-render explanatory/status/help/menu text in conversation language when supported, otherwise English fallback with Uncertainty U1 (translation gap). Keep command tokens canonical English-only.",

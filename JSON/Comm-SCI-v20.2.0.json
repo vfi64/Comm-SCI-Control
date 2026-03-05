@@ -762,6 +762,8 @@
         "tokens": "canonical_english_only",
         "explanatory_text": "conversation_language_with_en_fallback"
       },
+      "force_function_column_conversation_language_when_supported": true,
+      "force_section_labels_conversation_language_when_supported": true,
       "requires_localized_help_text_when_supported": true,
       "on_missing_localized_help_text": "translate_runtime_and_mark_U1_on_translation_gap",
       "allow_filtering_or_omissions": false,
@@ -1333,7 +1335,8 @@
           "translation_gap_uncertainty": "U1",
           "rendering_guards": {
             "command_tokens_must_remain_canonical_english": true,
-            "allow_translated_explanatory_text_only": true
+            "allow_translated_explanatory_text_only": true,
+            "force_function_column_conversation_language_when_supported": true
           },
           "prohibited_blocks": [
             "anchor_snapshot",
@@ -2292,6 +2295,18 @@
         "when": "command_or_status_output OR content_answer",
         "requirement": "Render explanatory/status/help/menu text in conversation language when supported (English fallback). Command tokens remain canonical English-only.",
         "failure_action": "repair_language_by_output_type"
+      },
+      {
+        "id": "R-LANG-002",
+        "modality": "MUST",
+        "priority": 825,
+        "source_paths": [
+          "command_model.help_rendering_policy",
+          "contracts.output_contract.response_contracts.comm_help_full"
+        ],
+        "when": "on_command:'Comm Help' and conversation_language!='en'",
+        "requirement": "In Comm Help output, keep command tokens canonical English-only but render section labels and Function-column explanations in conversation language when supported (English fallback + U1 on translation gap).",
+        "failure_action": "repair_comm_help_language_and_preserve_command_tokens"
       },
       {
         "id": "R-U-001",
@@ -3325,5 +3340,5 @@
       "sci_mode": "off"
     }
   },
-  "operational_sha256_sorted_json": "8f068f84ae467df36831888d1acc1b4d9bdbe2548b13a1b6d449d0dd86771b92"
+  "operational_sha256_sorted_json": "4c52a92771bc8d0ef0704d0858caf840770655e823faf969f43e0229c11c7cf7"
 }

@@ -44,6 +44,10 @@ class TestCommandOutputContracts(unittest.TestCase):
             "comm_help_full",
             self.v20_2["command_model"]["command_output_contract_overrides"]["Comm Help"],
         )
+        self.assertTrue(help_policy_20_1["force_function_column_conversation_language_when_supported"])
+        self.assertTrue(help_policy_20_2["force_function_column_conversation_language_when_supported"])
+        self.assertTrue(help_policy_20_1["force_section_labels_conversation_language_when_supported"])
+        self.assertTrue(help_policy_20_2["force_section_labels_conversation_language_when_supported"])
 
         rc_20_1 = self.v20_1["global_defaults"]["output_contract"]["response_contracts"]["comm_help_full"]
         rc_20_2 = self.v20_2["contracts"]["output_contract"]["response_contracts"]["comm_help_full"]
@@ -120,6 +124,10 @@ class TestCommandOutputContracts(unittest.TestCase):
         localized_sources_20_2 = set(language_contract_20_2["localized_sources"])
         self.assertIn("command_model.help_rendering_policy.localized", localized_sources_20_2)
         self.assertIn("command_model.command_descriptions_localized", localized_sources_20_2)
+
+        rules_20_2 = {entry["id"]: entry for entry in self.v20_2["normative_model"]["rules"]}
+        self.assertIn("R-LANG-002", rules_20_2)
+        self.assertIn("Comm Help", rules_20_2["R-LANG-002"]["when"])
 
     def test_uncertainty_trigger_heuristics_are_defined(self) -> None:
         enforcement_20_1 = self.v20_1["global_defaults"]["uncertainty_enforcement"]
