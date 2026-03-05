@@ -178,14 +178,14 @@ Hier ist das Regelwerk:`;
 
   const copyButtons = document.querySelectorAll('[data-copy-bundle]');
   copyButtons.forEach((button) => {
-    const path = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.json';
+    const path = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.min.json';
     preloadJson(path);
   });
 
   copyButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const lang = button.dataset.lang === 'de' ? 'de' : 'en';
-      const jsonPath = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.json';
+      const jsonPath = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.min.json';
       const preface = lang === 'de' ? DE_PREFACE : EN_PREFACE;
       const jsonText = jsonCache.get(jsonPath);
 

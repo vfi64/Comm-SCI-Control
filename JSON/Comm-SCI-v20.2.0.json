@@ -719,6 +719,30 @@
         "7) Modules (QC/CGI/Control Layer)",
         "8) Parsing rules"
       ],
+      "localized": {
+        "de": {
+          "didactic_hint": "Hinweis: Auf Wunsch kann jedes LLM zu diesem Regelwerk eine kurze didaktische Einführung geben (Ziel, Begriffe, typische Abläufe).",
+          "output_order": [
+            "1) Primäre Befehle",
+            "2) Profile",
+            "3) Modi",
+            "4) SCI-Steuerung",
+            "5) SCI-Varianten (A-H)",
+            "6) Zahlencodes",
+            "7) Module (QC/CGI/Control Layer)",
+            "8) Parsing-Regeln"
+          ],
+          "command_group_table_columns": [
+            "Command",
+            "Funktion"
+          ],
+          "sci_variants_table_columns": [
+            "Variante",
+            "Name",
+            "Fokus / Methode"
+          ]
+        }
+      },
       "command_groups_source_path": "command_model.groups",
       "command_descriptions_source_path": "command_model.command_descriptions",
       "rendering_format": {
@@ -738,6 +762,8 @@
         "tokens": "canonical_english_only",
         "explanatory_text": "conversation_language_with_en_fallback"
       },
+      "requires_localized_help_text_when_supported": true,
+      "on_missing_localized_help_text": "translate_runtime_and_mark_U1_on_translation_gap",
       "allow_filtering_or_omissions": false,
       "on_violation": "repair_once_append_missing_commands_then_block"
     },
@@ -768,6 +794,36 @@
       "Color on": "Enable evidence color markers.",
       "Color off": "Disable evidence color markers.",
       "Dynamic one-shot on": "Enable one-shot dynamic prompting for next answer only."
+    },
+    "command_descriptions_localized": {
+      "de": {
+        "Comm Start": "Aktiviert das vollständige Governance-System.",
+        "Comm Stop": "Deaktiviert die Governance-Logik für die Sitzung.",
+        "Comm State": "Zeigt den aktuellen Zustand (Profil, Overlays, SCI, Module).",
+        "Comm Config": "Zeigt die aktive Konfiguration roh (nur lesend).",
+        "Comm Validate": "Führt eine heuristische Strukturprüfung der Regeln im Kontext aus.",
+        "Comm Help": "Gibt die vollständige geordnete Hilfe über alle Befehlsgruppen aus.",
+        "Comm Anchor": "Erzeugt einen Anchor-Snapshot für Sitzungsfortsetzung.",
+        "Comm Anchor on": "Aktiviert das Anchor-Automationsflag für diese Sitzung.",
+        "Comm Anchor off": "Deaktiviert das Anchor-Automationsflag für diese Sitzung.",
+        "Comm Audit": "Prüft jüngste Assistenz-Ausgaben auf Vertragskonformität.",
+        "Profile Standard": "Wechselt zum Profil Standard.",
+        "Profile Briefing": "Wechselt zum Profil Briefing.",
+        "Profile Sandbox": "Wechselt zum Profil Sandbox.",
+        "Profile Expert": "Wechselt zum Profil Expert und öffnet das SCI-Variantenmenü.",
+        "Profile Sparring": "Wechselt zum Profil Sparring und öffnet das SCI-Variantenmenü.",
+        "SCI on": "Aktiviert den SCI-Pending-Modus und rendert das SCI-Variantenmenü.",
+        "SCI menu": "Öffnet das SCI-Variantenmenü erneut ohne weitere Zustandsänderungen.",
+        "SCI off": "Deaktiviert den SCI-Modus.",
+        "SCI recurse": "Startet eine verschachtelte SCI-Analyse für eine Teilaufgabe.",
+        "Strict on": "Aktiviert das Strict-Overlay.",
+        "Strict off": "Deaktiviert das Strict-Overlay.",
+        "Explore on": "Aktiviert das Explore-Overlay.",
+        "Explore off": "Deaktiviert das Explore-Overlay.",
+        "Color on": "Aktiviert Evidenz-Farbmarker.",
+        "Color off": "Deaktiviert Evidenz-Farbmarker.",
+        "Dynamic one-shot on": "Aktiviert Dynamic Prompting einmalig nur für die nächste Antwort."
+      }
     },
     "command_output_contract_overrides": {
       "Comm Help": "comm_help_full",
@@ -939,7 +995,7 @@
         "enforcement_level": "hard",
         "conversation_language_detection": {
           "mode": "heuristic_from_latest_user_message",
-          "fallback": "meta.rendering.ui_rendering_policy.fallback_language"
+          "fallback": "en"
         },
         "scopes": [
           "content_answers",
@@ -951,7 +1007,9 @@
         "explanation_language": "conversation_language",
         "fallback_language": "en",
         "localized_sources": [
-          "sci.variant_menu.menu_output.localized"
+          "sci.variant_menu.menu_output.localized",
+          "command_model.help_rendering_policy.localized",
+          "command_model.command_descriptions_localized"
         ],
         "dynamic_translation_allowed": true,
         "command_outputs_force_english": false,
@@ -1226,15 +1284,56 @@
               "7) Modules (QC/CGI/Control Layer)",
               "8) Parsing rules"
             ],
+            "sections_in_order_localized": {
+              "de": [
+                "1) Primäre Befehle",
+                "2) Profile",
+                "3) Modi",
+                "4) SCI-Steuerung",
+                "5) SCI-Varianten (A-H)",
+                "6) Zahlencodes",
+                "7) Module (QC/CGI/Control Layer)",
+                "8) Parsing-Regeln"
+              ]
+            },
+            "accept_localized_section_labels_when_language_supported": true,
             "command_group_table_columns": [
               "Command",
               "Function"
             ],
+            "command_group_table_columns_localized": {
+              "de": [
+                "Command",
+                "Funktion"
+              ]
+            },
             "sci_variant_table_columns": [
               "Variant",
               "Name",
               "Focus / Method"
-            ]
+            ],
+            "sci_variant_table_columns_localized": {
+              "de": [
+                "Variante",
+                "Name",
+                "Fokus / Methode"
+              ]
+            },
+            "translate_command_descriptions_to_conversation_language_when_supported": true,
+            "command_description_translation_fallback": "en"
+          },
+          "didactic_hint_localized": {
+            "de": "Hinweis: Auf Wunsch kann jedes LLM zu diesem Regelwerk eine kurze didaktische Einführung geben (Ziel, Begriffe, typische Abläufe)."
+          },
+          "localization_sources": [
+            "command_model.help_rendering_policy.localized",
+            "command_model.command_descriptions_localized"
+          ],
+          "on_missing_localized_help_source": "translate_runtime_and_mark_U1_on_translation_gap",
+          "translation_gap_uncertainty": "U1",
+          "rendering_guards": {
+            "command_tokens_must_remain_canonical_english": true,
+            "allow_translated_explanatory_text_only": true
           },
           "prohibited_blocks": [
             "anchor_snapshot",
@@ -1444,6 +1543,89 @@
           "retrieval_conflict_detected",
           "retrieval_metadata_gap_or_tool_unavailable"
         ],
+        "deterministic_trigger_policy": {
+          "mode": "any_trigger_condition_or_heuristic_match",
+          "if_triggered": "emit_uncertainty_line_before_qc_footer",
+          "command_turn_exemption": "do_not_emit_uncertainty_for_pure_commands"
+        },
+        "default_label_mapping": {
+          "strong_claim_detected": "U1",
+          "temporal_instability_detected": "U4",
+          "missing_source_or_verification_route_for_factual_claim": "U1",
+          "retrieval_conflict_detected": "U7",
+          "retrieval_metadata_gap_or_tool_unavailable": "U5"
+        },
+        "trigger_heuristics": {
+          "strong_claim_detected": {
+            "keywords_en": [
+              "prove",
+              "proves",
+              "proven",
+              "certainly",
+              "definitely",
+              "guaranteed"
+            ],
+            "keywords_de": [
+              "beweist",
+              "bewiesen",
+              "definitiv",
+              "eindeutig",
+              "garantiert"
+            ],
+            "question_examples": [
+              "Prove that this treatment always works.",
+              "Beweise, dass diese Methode immer funktioniert."
+            ]
+          },
+          "temporal_instability_detected": {
+            "keywords_en": [
+              "today",
+              "current",
+              "latest",
+              "right now"
+            ],
+            "keywords_de": [
+              "heute",
+              "aktuell",
+              "neueste",
+              "gerade"
+            ],
+            "question_examples": [
+              "Who is the current CEO of company X today?",
+              "Wie hoch ist der aktuelle BTC-Preis heute?"
+            ]
+          },
+          "missing_source_or_verification_route_for_factual_claim": {
+            "patterns": [
+              "factual claim requested but no source or verification route provided",
+              "exact number/date required from unavailable context"
+            ],
+            "question_examples": [
+              "Give the exact number without citing any source.",
+              "Nenne die exakte Zahl ohne Quelle."
+            ]
+          },
+          "retrieval_conflict_detected": {
+            "patterns": [
+              "source A and source B disagree on the same claim",
+              "train knowledge conflicts with retrieved evidence"
+            ],
+            "question_examples": [
+              "Source A says 12%, source B says 19% - what is true?",
+              "Quelle A sagt 12 %, Quelle B sagt 19 % - was stimmt?"
+            ]
+          },
+          "retrieval_metadata_gap_or_tool_unavailable": {
+            "patterns": [
+              "web/retrieval requested but tool unavailable",
+              "source quality metadata missing (author/date/domain class)"
+            ],
+            "question_examples": [
+              "Check live web evidence, but no web tool is available.",
+              "Prüfe live im Web, aber das Tool ist nicht verfügbar."
+            ]
+          }
+        },
         "on_missing_uncertainty_label": "repair_once_then_block",
         "required_output_format": "Uncertainty: {U#} – {name}. Needed: {next_step}"
       },
@@ -2120,7 +2302,7 @@
           "global_defaults.uncertainty_taxonomizer"
         ],
         "when": "any_uncertainty_trigger_condition_true",
-        "requirement": "Output required uncertainty line using defined format and U1-U8 taxonomy.",
+        "requirement": "Output required uncertainty line using defined format and U1-U8 taxonomy whenever any uncertainty trigger condition OR configured trigger heuristic matches.",
         "failure_action": "repair_once_then_block"
       },
       {
@@ -3143,5 +3325,5 @@
       "sci_mode": "off"
     }
   },
-  "operational_sha256_sorted_json": "1e153c99cf71ed0169531d96ae524ee6004437d23332cc29f43612bbf4a55497"
+  "operational_sha256_sorted_json": "8f068f84ae467df36831888d1acc1b4d9bdbe2548b13a1b6d449d0dd86771b92"
 }

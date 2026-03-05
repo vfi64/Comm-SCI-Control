@@ -55,6 +55,22 @@ class TestCommandOutputContracts(unittest.TestCase):
                     ["Command", "Function"],
                     rc["required_structure"]["command_group_table_columns"],
                 )
+                self.assertTrue(
+                    rc["required_structure"]["accept_localized_section_labels_when_language_supported"]
+                )
+                self.assertEqual(
+                    "Funktion",
+                    rc["required_structure"]["command_group_table_columns_localized"]["de"][1],
+                )
+                self.assertEqual(
+                    "Variante",
+                    rc["required_structure"]["sci_variant_table_columns_localized"]["de"][0],
+                )
+                self.assertTrue(
+                    rc["required_structure"][
+                        "translate_command_descriptions_to_conversation_language_when_supported"
+                    ]
+                )
 
     def test_qc_footer_is_terminal(self) -> None:
         output_20_1 = self.v20_1["global_defaults"]["output_contract"]
@@ -95,6 +111,39 @@ class TestCommandOutputContracts(unittest.TestCase):
 
         language_contract_20_2 = self.v20_2["contracts"]["output_contract"]["dialog_language_contract"]
         self.assertEqual("conversation_language", language_contract_20_2["status_and_command_language"])
+
+        localized_sources_20_1 = set(
+            self.v20_1["global_defaults"]["output_contract"]["dialog_language_contract"]["localized_sources"]
+        )
+        self.assertIn("meta.rendering.l10n.comm_help", localized_sources_20_1)
+
+        localized_sources_20_2 = set(language_contract_20_2["localized_sources"])
+        self.assertIn("command_model.help_rendering_policy.localized", localized_sources_20_2)
+        self.assertIn("command_model.command_descriptions_localized", localized_sources_20_2)
+
+    def test_uncertainty_trigger_heuristics_are_defined(self) -> None:
+        enforcement_20_1 = self.v20_1["global_defaults"]["uncertainty_enforcement"]
+        enforcement_20_2 = self.v20_2["contracts"]["uncertainty"]["enforcement"]
+
+        for enforcement in (enforcement_20_1, enforcement_20_2):
+            with self.subTest(scope=enforcement.get("required_output_format", "unknown")):
+                self.assertEqual(
+                    "any_trigger_condition_or_heuristic_match",
+                    enforcement["deterministic_trigger_policy"]["mode"],
+                )
+                self.assertEqual(
+                    "emit_uncertainty_line_before_qc_footer",
+                    enforcement["deterministic_trigger_policy"]["if_triggered"],
+                )
+                self.assertEqual(
+                    "U4",
+                    enforcement["default_label_mapping"]["temporal_instability_detected"],
+                )
+                self.assertIn("temporal_instability_detected", enforcement["trigger_heuristics"])
+                self.assertIn(
+                    "question_examples",
+                    enforcement["trigger_heuristics"]["retrieval_metadata_gap_or_tool_unavailable"],
+                )
 
 
 if __name__ == "__main__":

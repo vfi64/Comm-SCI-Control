@@ -1145,7 +1145,8 @@
         "explanation_language": "conversation_language",
         "fallback_language": "en",
         "localized_sources": [
-          "sci.variant_menu.menu_output.localized"
+          "sci.variant_menu.menu_output.localized",
+          "meta.rendering.l10n.comm_help"
         ],
         "dynamic_translation_allowed": true,
         "command_outputs_force_english": false,
@@ -1441,15 +1442,52 @@
               "7) Modules (QC/CGI/Control Layer)",
               "8) Parsing rules"
             ],
+            "sections_in_order_localized": {
+              "de": [
+                "1) Primäre Befehle",
+                "2) Profile",
+                "3) Modi",
+                "4) SCI-Steuerung",
+                "5) SCI-Varianten (A-H)",
+                "6) Zahlencodes",
+                "7) Module (QC/CGI/Control Layer)",
+                "8) Parsing-Regeln"
+              ]
+            },
+            "accept_localized_section_labels_when_language_supported": true,
             "command_group_table_columns": [
               "Command",
               "Function"
             ],
+            "command_group_table_columns_localized": {
+              "de": [
+                "Command",
+                "Funktion"
+              ]
+            },
             "sci_variant_table_columns": [
               "Variant",
               "Name",
               "Focus / Method"
-            ]
+            ],
+            "sci_variant_table_columns_localized": {
+              "de": [
+                "Variante",
+                "Name",
+                "Fokus / Methode"
+              ]
+            },
+            "translate_command_descriptions_to_conversation_language_when_supported": true,
+            "command_description_translation_fallback": "en"
+          },
+          "localization_sources": [
+            "meta.rendering.l10n.comm_help"
+          ],
+          "on_missing_localized_help_source": "translate_runtime_and_mark_U1_on_translation_gap",
+          "translation_gap_uncertainty": "U1",
+          "rendering_guards": {
+            "command_tokens_must_remain_canonical_english": true,
+            "allow_translated_explanatory_text_only": true
           },
           "prohibited_blocks": [
             "anchor_snapshot",
@@ -1676,7 +1714,7 @@
         "help_and_codes"
       ],
       "filtering_allowed": false,
-      "logic": "Comm Help rendering is deterministic and exhaustive.\nProcedure:\nA) Resolve any required_output line of the form '{L10N:<path>}' via meta.rendering.l10n with conversation-language selection and English fallback.\nB) For sections 1–4: enumerate all command tokens by iterating over the corresponding 'commands.<group>' object keys in JSON order; for each token, print the token and its 'function' text.\nC) For section 5: enumerate sci.variant_menu.variants A–H (name + focus).\nD) For section 6: render numeric_codes categories/options (including the meaning of '-').\nE) For section 7: render QC/CGI/Control Layer descriptions and visibility rules from global_defaults and control_layer.\nF) For section 8: render syntax_rules parsing rules relevant to command parsing and SCI pending selection.\nNo filtering, omission, or summarization is allowed for Comm Help.\nG) Render sections 1-4 as command tables (columns: Command | Function); render SCI variants as table (Variant | Name | Focus / Method).",
+      "logic": "Comm Help rendering is deterministic and exhaustive.\nProcedure:\nA) Resolve any required_output line of the form '{L10N:<path>}' via meta.rendering.l10n with conversation-language selection and English fallback.\nB) For sections 1–4: enumerate all command tokens by iterating over the corresponding 'commands.<group>' object keys in JSON order; for each token, print the token and its 'function' text translated to conversation language when supported (command token unchanged).\nC) For section 5: enumerate sci.variant_menu.variants A–H (name + focus).\nD) For section 6: render numeric_codes categories/options (including the meaning of '-').\nE) For section 7: render QC/CGI/Control Layer descriptions and visibility rules from global_defaults and control_layer.\nF) For section 8: render syntax_rules parsing rules relevant to command parsing and SCI pending selection.\nNo filtering, omission, or summarization is allowed for Comm Help.\nG) Render sections 1-4 as command tables (columns: Command | Function); render SCI variants as table (Variant | Name | Focus / Method).",
       "token_validation": {
         "enabled": true,
         "scope": "all_outputs",
@@ -1707,6 +1745,10 @@
         "tokens": "canonical_english_only",
         "explanatory_text": "conversation_language_with_en_fallback"
       },
+      "localized_source_path": "meta.rendering.l10n.comm_help",
+      "requires_localized_help_text_when_supported": true,
+      "function_text_language_policy": "translate_to_conversation_language_with_en_fallback_command_tokens_unchanged",
+      "on_missing_localized_help_text": "translate_runtime_and_mark_U1_on_translation_gap",
       "allow_filtering_or_omissions": false
     },
     "comm_start_initialization": {
@@ -2486,6 +2528,89 @@
         "retrieval_conflict_detected",
         "retrieval_metadata_gap_or_tool_unavailable"
       ],
+      "deterministic_trigger_policy": {
+        "mode": "any_trigger_condition_or_heuristic_match",
+        "if_triggered": "emit_uncertainty_line_before_qc_footer",
+        "command_turn_exemption": "do_not_emit_uncertainty_for_pure_commands"
+      },
+      "default_label_mapping": {
+        "strong_claim_detected": "U1",
+        "temporal_instability_detected": "U4",
+        "missing_source_or_verification_route_for_factual_claim": "U1",
+        "retrieval_conflict_detected": "U7",
+        "retrieval_metadata_gap_or_tool_unavailable": "U5"
+      },
+      "trigger_heuristics": {
+        "strong_claim_detected": {
+          "keywords_en": [
+            "prove",
+            "proves",
+            "proven",
+            "certainly",
+            "definitely",
+            "guaranteed"
+          ],
+          "keywords_de": [
+            "beweist",
+            "bewiesen",
+            "definitiv",
+            "eindeutig",
+            "garantiert"
+          ],
+          "question_examples": [
+            "Prove that this treatment always works.",
+            "Beweise, dass diese Methode immer funktioniert."
+          ]
+        },
+        "temporal_instability_detected": {
+          "keywords_en": [
+            "today",
+            "current",
+            "latest",
+            "right now"
+          ],
+          "keywords_de": [
+            "heute",
+            "aktuell",
+            "neueste",
+            "gerade"
+          ],
+          "question_examples": [
+            "Who is the current CEO of company X today?",
+            "Wie hoch ist der aktuelle BTC-Preis heute?"
+          ]
+        },
+        "missing_source_or_verification_route_for_factual_claim": {
+          "patterns": [
+            "factual claim requested but no source or verification route provided",
+            "exact number/date required from unavailable context"
+          ],
+          "question_examples": [
+            "Give the exact number without citing any source.",
+            "Nenne die exakte Zahl ohne Quelle."
+          ]
+        },
+        "retrieval_conflict_detected": {
+          "patterns": [
+            "source A and source B disagree on the same claim",
+            "train knowledge conflicts with retrieved evidence"
+          ],
+          "question_examples": [
+            "Source A says 12%, source B says 19% - what is true?",
+            "Quelle A sagt 12 %, Quelle B sagt 19 % - was stimmt?"
+          ]
+        },
+        "retrieval_metadata_gap_or_tool_unavailable": {
+          "patterns": [
+            "web/retrieval requested but tool unavailable",
+            "source quality metadata missing (author/date/domain class)"
+          ],
+          "question_examples": [
+            "Check live web evidence, but no web tool is available.",
+            "Prüfe live im Web, aber das Tool ist nicht verfügbar."
+          ]
+        }
+      },
       "on_missing_uncertainty_label": "repair_once_then_block",
       "required_output_format": "Uncertainty: {U#} – {name}. Needed: {next_step}",
       "notes": "Deterministic gate: when any trigger condition is true, uncertainty line is mandatory."

@@ -2,3 +2,5 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+RAW_LINKS_*.txt
+analysis-command-log.md
