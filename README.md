@@ -75,8 +75,8 @@ Then paste the **canonical JSON ruleset** directly below it.
 3. **Configure (example):** Send `Profile Expert` and (optionally) `Strict on`.
 4. **Work:** Ask your question. For deep dives: `SCI on` → when the (A–H) menu is shown, reply with a **standalone** letter `A`–`H` → (optional) `SCI recurse`.
 
-> **LLM activation note:** Due to the ruleset size and strict governance constraints, many LLMs first emit a short
-> acknowledgement/confirmation message before fully applying the ruleset.
+> **LLM activation note:** Due to the ruleset size and strict governance constraints, many LLMs require a login/authentication step
+> before fully applying the ruleset.
 > This is expected behavior, not an error.
 
 **Parsing rules (important):**  
