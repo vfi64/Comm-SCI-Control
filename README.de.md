@@ -2,18 +2,9 @@
 **Explizites Regelwerk für kontrollierte Mensch–KI-Interaktion**
 
 **Aktuelle stabile Linie:** v20.2.x (aktuell: **v20.2.0**)
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
 
 > **Projekt-Webseite (EN als Standard, DE umschaltbar)**  
 > https://vfi64.github.io/Comm-SCI-Control/
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
 
 Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Framework**, das das Verhalten eines Modells **explizit, auditierbar und steuerbar** macht. Es trennt *Modellverhalten* von *Prompt-Handwerk* und verhindert stille Anpassung, indem es sichtbare Struktur, Unsicherheitskennzeichnung und Selbstprüfung erzwingt.
 
