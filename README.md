@@ -2,18 +2,9 @@
 **Explicit rule system for controlled human–AI interaction**
 
 **Current stable line:** v20.2.x (current: **v20.2.0**)
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
 
 > **Project Website (EN default, DE switch available)**  
 > https://vfi64.github.io/Comm-SCI-Control/
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
 
 Comm-SCI-Control is an **LLM-agnostic, dialog-internal governance framework** for making large language model behavior **explicit, auditable, and controllable**. It separates *model behavior* from *prompt craftsmanship* and prevents silent adaptation by enforcing visible structure, uncertainty handling, and self-audit.
 
