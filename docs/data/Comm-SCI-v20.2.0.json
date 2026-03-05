@@ -124,12 +124,12 @@
         "id": "PF-001",
         "enabled": true,
         "when": "always",
-        "check": "If is_command==true then prohibit content-only blocks (self_debunking, qc_footer).",
+        "check": "If is_command==true then prohibit content-only blocks (self_debunking, uncertainty_line, verification_routes, final_answer); allow qc_footer only for commands explicitly listed in contracts.qc_matrix.visibility.command_allowlist_for_footer.",
         "source_paths": [
           "global_defaults.output_contract.self_debunking_contract",
           "global_defaults.qc_matrix_visibility"
         ],
-        "on_fail": "strip_noncommand_blocks_or_block"
+        "on_fail": "strip_disallowed_command_blocks_or_block"
       },
       {
         "id": "PF-002",
@@ -460,6 +460,24 @@
         "Color on"
       ]
     },
+    "color_state_sync": {
+      "enabled": true,
+      "apply_on": [
+        "Comm Start",
+        "Profile *"
+      ],
+      "mode": "force_profile_default",
+      "source_path": "profiles.<active_profile>.color_default",
+      "fallback_rule": "if active_profile in contracts.evidence_linker.activation.exceptions then off else on",
+      "defaults": {
+        "Briefing": "off",
+        "Sandbox": "off",
+        "Standard": "on",
+        "Expert": "on",
+        "Sparring": "on"
+      },
+      "on_mismatch": "repair_once_to_profile_default_before_render"
+    },
     "deterministic_transitions": [
       {
         "id": "T_COMM_START",
@@ -522,6 +540,36 @@
             "sci_active",
             "sci_variant"
           ]
+        }
+      },
+      {
+        "id": "T_COMM_START_COLOR_DEFAULT",
+        "on": [
+          "Comm Start"
+        ],
+        "set": {
+          "color": "on"
+        }
+      },
+      {
+        "id": "T_PROFILE_COLOR_ON",
+        "on": [
+          "Profile Standard",
+          "Profile Expert",
+          "Profile Sparring"
+        ],
+        "set": {
+          "color": "on"
+        }
+      },
+      {
+        "id": "T_PROFILE_COLOR_OFF",
+        "on": [
+          "Profile Briefing",
+          "Profile Sandbox"
+        ],
+        "set": {
+          "color": "off"
         }
       },
       {
@@ -727,6 +775,9 @@
       "sci_trace_contract": {
         "enabled": true,
         "enforcement_level": "hard",
+        "required_for": [
+          "content_answers_when_sci_active"
+        ],
         "placement": {
           "after_profile_header": true,
           "before_final_answer": true
@@ -739,7 +790,13 @@
         "per_step_constraints": {
           "min_substantive_sentences": 1,
           "max_substantive_sentences": 3,
-          "allow_bullets": true
+          "allow_bullets": false
+        },
+        "numbering": {
+          "style": "ordered_decimal",
+          "start_at": 1,
+          "require_dense_sequence": true,
+          "line_template": "{n}. {step_label}: {step_content}"
         },
         "required_step_label_match": "exact",
         "required_steps_must_appear_in_order": true
@@ -772,8 +829,9 @@
         "minimum_requirements": [
           "Render the menu title from the canonical source OR the localized source matching the conversation language (if available).",
           "Render the instruction line from the canonical source OR the localized source matching the conversation language (if available).",
-          "List all variants A–H each with name + one-line focus/description."
+          "List all variants A-H each with name + one-line focus/description."
         ],
+        "force_english_for_command_outputs": false,
         "block_title_source_path_alternatives": {
           "de": "sci.variant_menu.menu_output.localized.de.title"
         },
@@ -790,22 +848,20 @@
           "fallback": "meta.rendering.ui_rendering_policy.fallback_language"
         },
         "scopes": [
-          "Comm Help",
-          "Comm State",
-          "SCI on",
-          "Profile Expert",
-          "Profile Sparring",
+          "content_answers",
           "errors",
           "sci.variant_menu.menu_output"
         ],
         "command_tokens_language": "en",
+        "status_and_command_language": "conversation_language",
         "explanation_language": "conversation_language",
         "fallback_language": "en",
         "localized_sources": [
           "sci.variant_menu.menu_output.localized"
         ],
         "dynamic_translation_allowed": true,
-        "missing_localization_policy": "If localized strings are missing: translate dynamically into the current conversation language when possible; otherwise fall back to English and mark Uncertainty U1 (translation gap)."
+        "command_outputs_force_english": false,
+        "missing_localization_policy": "For command/status outputs and content answers: render explanatory text in conversation language when possible. If localized strings are missing, translate dynamically; otherwise fall back to English and mark Uncertainty U1 (translation gap)."
       },
       "self_debunking_contract": {
         "enabled": true,
@@ -825,11 +881,16 @@
           "missing Self-Debunking block when module active",
           "more than max_points or fewer than min_points"
         ],
+        "format": {
+          "list_style": "ordered_decimal",
+          "numbering_start": 1,
+          "bullets_forbidden": true
+        },
         "on_failure": {
           "action": "For content answers: insert/repair compliant Self-Debunking before QC footer. For command/status outputs: remove Self-Debunking block.",
           "no_state_changes": true
         },
-        "qc_footer_rule": "If and only if response is content answer: render QC footer exactly one line immediately after Self-Debunking as the final output line.",
+        "qc_footer_rule": "For content answers: render QC footer exactly one line immediately after Self-Debunking as the final output line. For command/status outputs: QC footer is allowed only for commands listed in output_contract.response_contracts.* where explicitly required.",
         "required_for": [
           "content_answers_only"
         ]
@@ -878,6 +939,21 @@
       },
       "response_contracts": {
         "status_and_qc_only": {
+          "applies_to": [
+            "Comm State",
+            "Comm Config",
+            "Comm Validate",
+            "Comm Stop",
+            "Color on",
+            "Color off",
+            "Strict on",
+            "Strict off",
+            "Explore on",
+            "Explore off",
+            "SCI off",
+            "SCI recurse"
+          ],
+          "language": "conversation_language",
           "required_blocks": [
             {}
           ],
@@ -909,9 +985,136 @@
             "menus",
             "errors"
           ]
+        },
+        "init_ready_minimal": {
+          "trigger": "on_runtime_init_after_rules_and_init_preamble_loaded",
+          "language": "conversation_language",
+          "required_lines": [
+            "Comm-SCI-Control rules loaded and ready.",
+            "Hint: use 'Comm Start' to activate."
+          ],
+          "max_lines": 2,
+          "prohibited_blocks": [
+            "profile_header",
+            "help_text",
+            "menus",
+            "qc_footer",
+            "sci_trace",
+            "self_debunking",
+            "uncertainty",
+            "verification_routes",
+            "evidence_linker",
+            "color_markers",
+            "final_answer"
+          ]
+        },
+        "comm_start_minimal": {
+          "trigger": "on_command:'Comm Start'",
+          "language": "conversation_language",
+          "required_state": {
+            "color": "profile_default"
+          },
+          "required_blocks": [
+            "profile_header_line",
+            "comm_help_hint_short",
+            "qc_footer"
+          ],
+          "comm_help_hint_template": "Hint: use 'Comm Help' for available commands.",
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "errors",
+            "evidence_linker",
+            "final_answer",
+            "help_text_long",
+            "menus",
+            "sci_trace",
+            "self_debunking",
+            "uncertainty",
+            "verification_routes",
+            "color_markers"
+          ]
+        },
+        "profile_switch_minimal_standard_briefing_sandbox": {
+          "trigger": "on_command:'Profile Standard' OR on_command:'Profile Briefing' OR on_command:'Profile Sandbox'",
+          "language": "conversation_language",
+          "required_state": {
+            "color": "profile_default"
+          },
+          "required_blocks": [
+            "profile_header_line",
+            "qc_footer"
+          ],
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "errors",
+            "evidence_linker",
+            "final_answer",
+            "help_text",
+            "menus",
+            "sci_trace",
+            "self_debunking",
+            "uncertainty",
+            "verification_routes",
+            "color_markers"
+          ]
+        },
+        "profile_switch_minimal_expert_sparring": {
+          "trigger": "on_command:'Profile Expert' OR on_command:'Profile Sparring'",
+          "language": "conversation_language",
+          "required_state": {
+            "color": "profile_default"
+          },
+          "required_blocks": [
+            "profile_header_line",
+            "sci_variant_menu",
+            "qc_footer"
+          ],
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "errors",
+            "evidence_linker",
+            "final_answer",
+            "help_text_long",
+            "sci_trace",
+            "self_debunking",
+            "uncertainty",
+            "verification_routes",
+            "color_markers"
+          ]
+        },
+        "sci_variant_selection_minimal": {
+          "trigger": "sci_pending==true and on_command:'A..H'",
+          "language": "conversation_language",
+          "required_state": {
+            "color": "profile_default"
+          },
+          "required_blocks": [
+            "profile_header_line",
+            "selected_sci_variant_name",
+            "qc_footer"
+          ],
+          "selected_sci_variant_line_template": "SCI variant selected: {variant_letter} - {variant_name}",
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "errors",
+            "evidence_linker",
+            "final_answer",
+            "help_text",
+            "menus",
+            "sci_trace",
+            "self_debunking",
+            "uncertainty",
+            "verification_routes",
+            "full_sci_trace_description",
+            "color_markers"
+          ]
         }
       },
-      "require_qc_footer_for_content_answers_only": true,
+      "require_qc_footer_for_content_answers_only": false,
       "profile_header_line": {
         "enabled": true,
         "enforcement_level": "hard",
@@ -919,8 +1122,9 @@
           "content_answers",
           "command_answers"
         ],
-        "template": "Profil: {profile} · Overlay: {overlay} · SCI: {sci_state} · Control Layer: {control_layer} · Color: {color}",
-        "example": "Profil: Expert · Overlay: Strict · SCI: on (B) · Control Layer: on · Color: on",
+        "template": "Profile: {profile} · Overlay: {overlay} · SCI: {sci_state} · Control Layer: {control_layer} · Color: {color}",
+        "example": "Profile: Expert · Overlay: Strict · SCI: on (B) · Control Layer: on · Color: on",
+        "language": "conversation_language",
         "labels_locked": true,
         "separator": " · "
       },
@@ -1041,14 +1245,23 @@
         "header_format_with_delta": "QC: Clarity {K} (Δ{dK}) · Brevity {Ku} (Δ{dKu}) · Evidence {E} (Δ{dE}) · Empathy {Em} (Δ{dEm}) · Consistency {C} (Δ{dC}) · Neutrality {N} (Δ{dN})",
         "footer_render_mode": "single_line_only",
         "footer_table_forbidden": true,
-        "footer_position_rule": "content_answers_only_and_immediately_after_self_debunking"
+        "footer_position_rule": "content_answers_immediately_after_self_debunking_or_explicit_command_contract"
       },
       "visibility": {
-        "notes": "QC footer visibility for content answers. Command outputs MUST NOT render QC footer.",
+        "notes": "QC footer is mandatory for content answers and allowed for explicit command outputs only.",
         "allowed_modes": [
           "always",
           "status_only",
           "never"
+        ],
+        "command_allowlist_for_footer": [
+          "Comm Start",
+          "Profile Standard",
+          "Profile Briefing",
+          "Profile Sandbox",
+          "Profile Expert",
+          "Profile Sparring",
+          "SCI variant selection (A-H when sci_pending==true)"
         ],
         "mode": "always"
       }
@@ -1255,9 +1468,10 @@
       "classes": {
         "GREEN": {
           "label": "Green",
-          "meaning": "Backed by a primary source or direct citation that is explicitly provided (link/DOI/identifier).",
+          "meaning": "Backed by a primary source or direct citation that is explicitly provided (link/DOI/identifier). For TRAIN-origin standard knowledge, GREEN is allowed only if the deterministic standard_knowledge_green_policy gate is fully satisfied.",
           "required_fields": [
-            "Source"
+            "Source",
+            "SourceClass"
           ]
         },
         "YELLOW": {
@@ -1275,6 +1489,33 @@
             "Needed"
           ]
         }
+      },
+      "standard_knowledge_green_policy": {
+        "enabled": true,
+        "deterministic_gate": true,
+        "scope": "TRAIN-origin claims only",
+        "allow_GREEN_if_all_true": [
+          "claim_is_marked_standard_knowledge",
+          "secure_source_fields_complete",
+          "source_class_allowed"
+        ],
+        "required_claim_marker": "StandardKnowledge=true",
+        "secure_source_fields": [
+          "Source",
+          "SourceClass",
+          "LocatorOrIdentifier",
+          "DateOrEdition"
+        ],
+        "allowed_source_classes": [
+          "peer_reviewed",
+          "institutional_or_official",
+          "vendor_or_maintainer_docs",
+          "textbook_reference"
+        ],
+        "forbid_GREEN_if_missing_any_required_field": true,
+        "forbid_GREEN_for_unverified_standard_knowledge": true,
+        "on_gate_fail": "downgrade_to_YELLOW_and_request_secure_source",
+        "note": "Deterministic policy: Standard knowledge may be tagged GREEN only with an explicitly citable secure source."
       },
       "rendering": {
         "default_representation": "tag_prefix",
@@ -1518,6 +1759,17 @@
         "failure_action": "hard_reset_transient_state"
       },
       {
+        "id": "R-COMM-004",
+        "modality": "MUST",
+        "priority": 945,
+        "source_paths": [
+          "contracts.output_contract.response_contracts.init_ready_minimal"
+        ],
+        "when": "runtime_init_after_rules_and_init_preamble_loaded",
+        "requirement": "Render exactly the two-line English init-ready status and no additional blocks.",
+        "failure_action": "strip_to_init_ready_minimal"
+      },
+      {
         "id": "R-PROFILE-001",
         "modality": "MUST",
         "priority": 940,
@@ -1541,6 +1793,20 @@
         "when": "on_command:'Profile Expert' OR on_command:'Profile Sparring'",
         "requirement": "Entering Expert/Sparring opens SCI menu and sets pending selection.",
         "failure_action": "render_sci_menu_and_set_pending"
+      },
+      {
+        "id": "R-PROFILE-003",
+        "modality": "MUST",
+        "priority": 925,
+        "source_paths": [
+          "commands.profile_control",
+          "profiles.*.color_default",
+          "state_model.axes.color",
+          "contracts.qc_matrix.visibility.command_allowlist_for_footer"
+        ],
+        "when": "on_command:'Profile *' OR on_command:'Comm Start'",
+        "requirement": "After profile activation/switch, color state must be set to that profile's color_default (Briefing/Sandbox=off; Standard/Expert/Sparring=on) before rendering status/footer.",
+        "failure_action": "repair_color_state_to_profile_default"
       },
       {
         "id": "R-SCI-001",
@@ -1572,10 +1838,11 @@
         "source_paths": [
           "global_defaults.output_contract.sci_trace_contract",
           "sci.modes",
-          "sci.variant_menu.variants"
+          "sci.variant_menu.variants",
+          "contracts.output_contract.sci_trace_contract.numbering"
         ],
-        "when": "sci_active==true",
-        "requirement": "SCI responses include visible SCI Trace with all required steps in order.",
+        "when": "sci_active==true and content_answer==true",
+        "requirement": "SCI content responses include visible SCI Trace with all required steps in order and decimal numbering (1..N) without gaps.",
         "failure_action": "repair_once_then_block"
       },
       {
@@ -1603,6 +1870,20 @@
         "failure_action": "block_recursion_and_emit_status"
       },
       {
+        "id": "R-CMD-001",
+        "modality": "MUST",
+        "priority": 875,
+        "source_paths": [
+          "contracts.output_contract.response_contracts.comm_start_minimal",
+          "contracts.output_contract.response_contracts.profile_switch_minimal_standard_briefing_sandbox",
+          "contracts.output_contract.response_contracts.profile_switch_minimal_expert_sparring",
+          "contracts.output_contract.response_contracts.sci_variant_selection_minimal"
+        ],
+        "when": "on_command:'Comm Start' OR on_command:'Profile Standard' OR on_command:'Profile Briefing' OR on_command:'Profile Sandbox' OR on_command:'Profile Expert' OR on_command:'Profile Sparring' OR (sci_pending==true and on_command:'A..H')",
+        "requirement": "Render only the blocks explicitly required by the command-specific minimal contract; strip all explanatory/content-only blocks.",
+        "failure_action": "strip_to_command_minimal_contract"
+      },
+      {
         "id": "R-OUT-001",
         "modality": "MUST",
         "priority": 870,
@@ -1618,10 +1899,11 @@
         "modality": "MUST",
         "priority": 860,
         "source_paths": [
-          "global_defaults.output_contract.self_debunking_contract"
+          "global_defaults.output_contract.self_debunking_contract",
+          "contracts.output_contract.self_debunking_contract.format"
         ],
         "when": "content_answer_and_self_debunking_active",
-        "requirement": "Render Self-Debunking only for content answers, after final answer and before QC footer.",
+        "requirement": "Render Self-Debunking only for content answers, after final answer and before QC footer, as an ordered decimal list (1..N).",
         "failure_action": "repair_once_then_block"
       },
       {
@@ -1641,11 +1923,11 @@
         "modality": "FORBID",
         "priority": 840,
         "source_paths": [
-          "global_defaults.qc_matrix_visibility"
+          "contracts.qc_matrix.visibility"
         ],
-        "when": "command_or_status_output",
-        "requirement": "Do not render QC footer for command/status outputs.",
-        "failure_action": "strip_qc_footer"
+        "when": "command_or_status_output_and_command_not_in_footer_allowlist",
+        "requirement": "Do not render QC footer for command/status outputs unless the command is listed in contracts.qc_matrix.visibility.command_allowlist_for_footer.",
+        "failure_action": "strip_qc_footer_if_not_allowlisted"
       },
       {
         "id": "R-LANG-001",
@@ -1655,9 +1937,9 @@
           "meta.rendering.dialog_language_alignment",
           "global_defaults.output_contract.dialog_language_contract"
         ],
-        "when": "help_state_error_menu_output",
-        "requirement": "Render explanatory text in conversation language when supported; keep command tokens in English.",
-        "failure_action": "repair_localization_or_fallback_to_english_with_U1"
+        "when": "command_or_status_output OR content_answer",
+        "requirement": "Render command/status outputs in English. Content answer explanations may use conversation language when supported.",
+        "failure_action": "repair_language_by_output_type"
       },
       {
         "id": "R-U-001",
@@ -1715,6 +1997,17 @@
         "when": "evidence_linker_enabled",
         "requirement": "Tag atomic claims with GREEN/YELLOW/RED markers in allowed scope.",
         "failure_action": "leave_output_but_report_soft_violation"
+      },
+      {
+        "id": "R-COLOR-002",
+        "modality": "MUST",
+        "priority": 789,
+        "source_paths": [
+          "contracts.evidence_linker.standard_knowledge_green_policy"
+        ],
+        "when": "claim_origin==TRAIN and claim_marked_standard_knowledge==true",
+        "requirement": "Emit GREEN only if all secure source fields are present and source class is allowed by standard_knowledge_green_policy; otherwise downgrade to YELLOW.",
+        "failure_action": "downgrade_to_YELLOW_and_request_secure_source"
       },
       {
         "id": "R-RAG-002",
@@ -1884,13 +2177,16 @@
           "R-PARSE-004",
           "R-COMM-001",
           "R-COMM-002",
+          "R-COMM-004",
           "R-PROFILE-001",
           "R-PROFILE-002",
+          "R-PROFILE-003",
           "R-SCI-001",
           "R-SCI-002",
           "R-SCI-003",
           "R-SCI-004",
           "R-SCI-005",
+          "R-CMD-001",
           "R-OUT-001",
           "R-OUT-002",
           "R-OUT-003",
@@ -1899,6 +2195,7 @@
           "R-U-002",
           "R-VR-001",
           "R-RAG-001",
+          "R-COLOR-002",
           "R-RAG-002",
           "R-RAG-003",
           "R-COMM-003",
@@ -1928,13 +2225,16 @@
         "R-PARSE-004",
         "R-COMM-001",
         "R-COMM-002",
+        "R-COMM-004",
         "R-PROFILE-001",
         "R-PROFILE-002",
+        "R-PROFILE-003",
         "R-SCI-001",
         "R-SCI-002",
         "R-SCI-003",
         "R-SCI-004",
         "R-SCI-005",
+        "R-CMD-001",
         "R-OUT-001",
         "R-OUT-002",
         "R-OUT-003",
@@ -1945,6 +2245,7 @@
         "R-VR-001",
         "R-RAG-001",
         "R-COLOR-001",
+        "R-COLOR-002",
         "R-RAG-002",
         "R-SPG-001",
         "R-RAG-003",
@@ -2380,6 +2681,7 @@
   "profiles": {
     "Briefing": {
       "default_code": "411-1",
+      "color_default": "off",
       "mode_overlay": "Strict",
       "control_layer": "on",
       "qc": "on",
@@ -2414,6 +2716,7 @@
     },
     "Expert": {
       "default_code": "132-1",
+      "color_default": "on",
       "mode_overlay": "Strict",
       "control_layer": "on",
       "qc": "on",
@@ -2453,6 +2756,7 @@
     },
     "Sandbox": {
       "default_code": "22-2",
+      "color_default": "off",
       "mode_overlay": "Explore",
       "control_layer": "off",
       "qc": "on",
@@ -2487,6 +2791,7 @@
     },
     "Sparring": {
       "default_code": "123-4",
+      "color_default": "on",
       "mode_overlay": "None",
       "control_layer": "on",
       "qc": "on",
@@ -2526,6 +2831,7 @@
     },
     "Standard": {
       "default_code": "122-1",
+      "color_default": "on",
       "mode_overlay": "Strict",
       "control_layer": "on",
       "qc": "on",
@@ -2559,5 +2865,5 @@
       "sci_mode": "off"
     }
   },
-  "operational_sha256_sorted_json": "ea4736aafd8a0d213de4868e07837320eb388fbda3bbcaf3d78f2e28ae7a0ec2"
+  "operational_sha256_sorted_json": "a88c40c16ccbf7374f4ad1618d19995cdb1fe821b4abb97fa6a146630a3b1042"
 }

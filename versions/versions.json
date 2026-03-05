@@ -55,6 +55,13 @@
       "artifact_type": "canonical",
       "path": "JSON/Comm-SCI-v19.6.8.json",
       "notes": "Legacy line retained for migration comparison."
+    },
+    {
+      "version": "20.1.0.min",
+      "status": "supported",
+      "artifact_type": "canonical_minified",
+      "path": "JSON/Comm-SCI-v20.1.0.min.json",
+      "notes": "Minified canonical source profile for reduced token budget references."
     }
   ]
 }

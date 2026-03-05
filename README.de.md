@@ -2,9 +2,18 @@
 **Explizites Regelwerk für kontrollierte Mensch–KI-Interaktion**
 
 **Aktuelle stabile Linie:** v20.2.x (aktuell: **v20.2.0**)
+<<<<<<< ours
+<<<<<<< ours
+<<<<<<< ours
 
 > **Projekt-Webseite (EN als Standard, DE umschaltbar)**  
 > https://vfi64.github.io/Comm-SCI-Control/
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 
 Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Framework**, das das Verhalten eines Modells **explizit, auditierbar und steuerbar** macht. Es trennt *Modellverhalten* von *Prompt-Handwerk* und verhindert stille Anpassung, indem es sichtbare Struktur, Unsicherheitskennzeichnung und Selbstprüfung erzwingt.
 
@@ -58,6 +67,13 @@ Wenn du einen **neuen Chat** startest (oder ein anderes Modell testest), füge d
 ```text
 Kontext für diese Unterhaltung:
 Ich übergebe dir ein externes Governance-Regelwerk für Struktur und Qualität deiner Antworten (z. B. Format, SCI, Unsicherheitskennzeichnung, QC-Matrix, Evidence-Linker, CSC).
+<<<<<<< ours
+<<<<<<< ours
+<<<<<<< ours
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 
 Wichtige Grenzen:
 - Ich beabsichtige **nicht**, deine internen Systemregeln, Sicherheitsrichtlinien oder Plattform-Policies zu überschreiben, auszulesen oder auszuhebeln.
@@ -69,6 +85,25 @@ Wichtige Grenzen:
 Verarbeitungsmodus:
 Das JSON ist eine normative Governance-Spezifikation, kein ausführbarer Code. Wende die Regeln direkt auf die Antworterzeugung an.
 
+<<<<<<< ours
+<<<<<<< ours
+=======
+
+Wichtige Grenzen:
+- Ich beabsichtige **nicht**, deine internen Systemregeln, Sicherheitsrichtlinien oder Plattform-Policies zu überschreiben, auszulesen oder auszuhebeln.
+- Vertrauliche interne Instruktionen (System Prompt, Hidden Policies, Runtime-Policies) sollen nicht offengelegt, rekonstruiert oder paraphrasiert werden.
+- Falls es einen Konflikt zwischen dem beigefügten Regelwerk und höherpriorisierten Regeln gibt, befolge die höherpriorisierten Regeln und nenne den Konflikt kurz und sachlich.
+- Wende das beigefügte Regelwerk ansonsten strikt und deterministisch auf die Antwortstruktur an.
+- Das Regelwerk dient Governance und Qualitätskontrolle der Mensch-KI-Kommunikation, **nicht** verbotener Nutzung, Policy-Umgehung oder dem Training eines eigenen LLM.
+
+Verarbeitungsmodus:
+Das JSON ist eine normative Governance-Spezifikation, kein ausführbarer Code. Wende die Regeln direkt auf die Antworterzeugung an.
+
+>>>>>>> theirs
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 Ausgabe-Regel:
 Antworte mit der nächsten Nachricht direkt inhaltlich gemäß Regelwerk (keine Bestätigungs-/Meta-Antwort).
 
@@ -139,6 +174,9 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 
 ## Repository-Struktur (was zählt)
 
+<<<<<<< ours
+<<<<<<< ours
+<<<<<<< ours
 - **`JSON/Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
 - **`versions/versions.json`** — maschinenlesbares Lifecycle-/Status-Manifest fuer Versionslinien (`stable`, `supported`, `deprecated`).  
 - **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
@@ -149,6 +187,18 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - **`docs/RELEASE.de.md` / `docs/RELEASE.md`** — Release-Ablauf und Qualitaets-Gates (DE/EN).  
 - **`docs/CI.de.md` / `docs/CI.md`** — CI-Workflows, Secrets und Fehlerbehandlung (DE/EN).  
 - **`tests/` + `scripts/validate_repo.sh`** — lokale ausführbare Validierungssuite.
+=======
+- **`Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
+- **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
+>>>>>>> theirs
+=======
+- **`Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
+- **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
+>>>>>>> theirs
+=======
+- **`Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
+- **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
+>>>>>>> theirs
 - **Releases / `CHANGELOG.md`** — Patch-Notes (falls vorhanden).
 
 ## Validierung und Tests
