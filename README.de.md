@@ -261,6 +261,9 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - **Kommandotokens nicht übersetzen.** Erklärtexte dürfen lokalisiert sein; Tokens bleiben kanonisch.  
 - **SCI-Variantenbuchstaben `A`–`H` zählen nur, wenn das SCI-Menü *pending* ist.** Sonst sind es normale Buchstaben.  
 - **`Comm Help` ist die maßgebliche Kommandoliste.** Jede README-Liste ist absichtlich nicht vollständig.  
+- **`SCI menu` / `Profile Expert` / `Profile Sparring` müssen die Varianten als eine Tabelle ausgeben.** Pflichtspalten: `Variant | Name | Focus / Method`.  
+- **Kommandoturns sind terminal.** Ein Standalone-Command darf nicht nachträglich eine ältere offene Inhaltsfrage beantworten.  
+- **Wenn ein QC-Footer ausgegeben wird, ist er die absolut letzte Zeile.** Danach darf keine Frage/kein Text mehr folgen.
 - **Kanonische Kommandonamen verwenden.** In v20.2.0 ist `Comm Anchor on/off` kanonisch; `Anchor auto on/off` ist Legacy-Kompatibilität.
 - **`Control on/off` ist kein kanonisches Nutzerkommando in v20.2.0.** Das Verhalten des Control Layers ist profil-/governance-gesteuert.
 - **Wenn das Modell driftet:** Re-Init mit **Init-Vortext + JSON** und Neustart (`Comm Start`, dann `Profile …` / Overlays).
@@ -325,6 +328,7 @@ Modelle dürfen hier ausdrücklich eine **geführte Erklärung** liefern.
 
 **Normative Anforderungen:**  
 - `Comm Help` muss **exhaustiv** sein: Es soll die Kommandotokens aus dem kanonischen JSON (`commands.*`) enumerieren.  
+- `Comm Help` soll in einer festen, geordneten Struktur mit Tabellen pro Command-Gruppe ausgegeben werden.
 - Es darf **keine** teilweise erinnerte oder handkuratierte Liste sein.  
 - Kommandotokens sind kanonisch; **keine erfundenen Aliase** hinzufügen, die nicht im JSON existieren.
 

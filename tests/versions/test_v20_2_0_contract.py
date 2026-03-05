@@ -28,7 +28,10 @@ class TestV2020Contract(unittest.TestCase):
         self.assertNotIn("Control off", tokens)
 
     def test_operational_contract_guards(self) -> None:
-        self.assertEqual([f"PF-00{i}" for i in range(1, 9)], self.snapshot["preflight_ids"])
+        self.assertEqual(
+            [f"PF-00{i}" for i in range(1, 10)],
+            self.snapshot["preflight_ids"],
+        )
         self.assertEqual(
             ["R-RAG-001", "R-RAG-002", "R-RAG-003", "R-RAG-004"],
             self.snapshot["rag_rule_ids"],

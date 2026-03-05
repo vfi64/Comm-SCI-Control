@@ -20,7 +20,8 @@
     "PF-005",
     "PF-006",
     "PF-007",
-    "PF-008"
+    "PF-008",
+    "PF-009"
   ],
   "normative_rule_ids": [
     "R-PARSE-001",
@@ -63,7 +64,8 @@
     "R-PREFLIGHT-001",
     "R-PREFLIGHT-002",
     "R-SYM-001",
-    "R-SYM-002"
+    "R-SYM-002",
+    "R-CMD-002"
   ],
   "rag_rule_ids": [
     "R-RAG-001",

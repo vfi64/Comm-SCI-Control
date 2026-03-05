@@ -379,7 +379,15 @@
       }
     },
     "commands_standalone_only": true,
-    "exceptions": []
+    "exceptions": [],
+    "command_turn_policy": {
+      "enabled": true,
+      "recognized_command_turn_is_terminal": true,
+      "retroactive_content_backfill": "forbidden",
+      "requires_new_user_content_turn_after_command": true,
+      "forbid_answering_previous_pending_content_on_command_turn": true,
+      "on_violation": "strip_to_command_contract_then_block_backfill"
+    }
   },
   "default_profile": "Standard",
   "default_code": "122-1",
@@ -1097,14 +1105,12 @@
           "H"
         ],
         "acceptable_formats": [
-          "table",
-          "ordered_list",
-          "bulleted_list"
+          "table"
         ],
         "minimum_requirements": [
           "Render the menu title from the canonical source OR the localized source matching the conversation language (if available).",
           "Render the instruction line from the canonical source OR the localized source matching the conversation language (if available).",
-          "List all variants A-H each with name + one-line focus/description."
+          "Render all variants A-H as one table with columns: Variant | Name | Focus / Method (no list fallback)."
         ],
         "force_english_for_command_outputs": false,
         "block_title_source_path_alternatives": {
@@ -1112,7 +1118,13 @@
         },
         "instructions_source_path_alternatives": {
           "de": "sci.variant_menu.menu_output.localized.de.instructions"
-        }
+        },
+        "required_table_columns": [
+          "Variant",
+          "Name",
+          "Focus / Method"
+        ],
+        "table_row_template": "| {variant} | {name} | {focus} |"
       },
       "require_dialog_language_for_explanations_when_supported": true,
       "dialog_language_contract": {
@@ -1168,7 +1180,7 @@
           "action": "For content answers: insert/repair compliant Self-Debunking before QC footer. For command/status outputs: remove Self-Debunking block.",
           "no_state_changes": true
         },
-        "qc_footer_rule": "For content answers: render QC footer exactly one line immediately after Self-Debunking as the final output line. For command/status outputs: QC footer is allowed only for commands listed in global_defaults.qc_matrix_visibility.command_allowlist_for_footer.",
+        "qc_footer_rule": "For content answers: render QC footer exactly one line immediately after Self-Debunking as the final output line (no trailing question/text). For command/status outputs: QC footer is allowed only for commands listed in global_defaults.qc_matrix_visibility.command_allowlist_for_footer.",
         "required_for": [
           "content_answers_only"
         ]
@@ -1305,7 +1317,8 @@
             "uncertainty",
             "verification_routes",
             "color_markers"
-          ]
+          ],
+          "footer_must_terminate_output": true
         },
         "profile_switch_minimal_standard_briefing_sandbox": {
           "trigger": "on_command:'Profile Standard' OR on_command:'Profile Briefing' OR on_command:'Profile Sandbox'",
@@ -1330,7 +1343,8 @@
             "uncertainty",
             "verification_routes",
             "color_markers"
-          ]
+          ],
+          "footer_must_terminate_output": true
         },
         "profile_switch_minimal_expert_sparring": {
           "trigger": "on_command:'Profile Expert' OR on_command:'Profile Sparring'",
@@ -1340,7 +1354,7 @@
           },
           "required_blocks": [
             "profile_header_line",
-            "sci_variant_menu",
+            "sci_variant_menu_table",
             "qc_footer"
           ],
           "prohibited_blocks": [
@@ -1355,7 +1369,9 @@
             "uncertainty",
             "verification_routes",
             "color_markers"
-          ]
+          ],
+          "sci_menu_format": "table",
+          "footer_must_terminate_output": true
         },
         "sci_variant_selection_minimal": {
           "trigger": "sci_pending==true and on_command:'A..H'",
@@ -1383,7 +1399,8 @@
             "verification_routes",
             "full_sci_trace_description",
             "color_markers"
-          ]
+          ],
+          "footer_must_terminate_output": true
         },
         "anchor_only": {
           "description": "For standalone Comm Anchor: render Anchor Snapshot/status only. Do NOT render QC footer.",
@@ -1404,6 +1421,68 @@
           "notes": [
             "This contract applies only to standalone command token Comm Anchor.",
             "Anchor output is command-only and never automatic."
+          ]
+        },
+        "comm_help_full": {
+          "trigger": "on_command:'Comm Help'",
+          "language": "conversation_language",
+          "required_blocks": [
+            "profile_header_line",
+            "comm_help_sections_1_to_8"
+          ],
+          "required_structure": {
+            "sections_in_order": [
+              "1) Primary commands",
+              "2) Profiles",
+              "3) Modes",
+              "4) SCI control",
+              "5) SCI variants (A-H)",
+              "6) Numeric codes",
+              "7) Modules (QC/CGI/Control Layer)",
+              "8) Parsing rules"
+            ],
+            "command_group_table_columns": [
+              "Command",
+              "Function"
+            ],
+            "sci_variant_table_columns": [
+              "Variant",
+              "Name",
+              "Focus / Method"
+            ]
+          },
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "final_answer",
+            "self_debunking",
+            "sci_trace",
+            "verification_routes",
+            "uncertainty"
+          ]
+        },
+        "sci_menu_full_table": {
+          "trigger": "on_command:'SCI on' OR on_command:'SCI menu'",
+          "language": "conversation_language",
+          "required_blocks": [
+            "profile_header_line",
+            "sci_variant_menu_table"
+          ],
+          "required_structure": {
+            "table_columns": [
+              "Variant",
+              "Name",
+              "Focus / Method"
+            ]
+          },
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "final_answer",
+            "self_debunking",
+            "sci_trace",
+            "verification_routes",
+            "uncertainty"
           ]
         }
       },
@@ -1427,6 +1506,16 @@
         "human_scannability_priority": true,
         "on_format_deviation": "repair_once_then_block",
         "notes": "Formatting contracts are deterministic and mandatory."
+      },
+      "qc_footer_termination_contract": {
+        "enabled": true,
+        "footer_must_be_last_line": true,
+        "no_followup_question_or_text_after_footer": true,
+        "applies_to": [
+          "content_answers",
+          "command_contracts_with_footer"
+        ],
+        "on_violation": "trim_after_footer_or_block"
       }
     },
     "anchor_snapshot": {
@@ -1587,7 +1676,7 @@
         "help_and_codes"
       ],
       "filtering_allowed": false,
-      "logic": "Comm Help rendering is deterministic and exhaustive.\nProcedure:\nA) Resolve any required_output line of the form '{L10N:<path>}' via meta.rendering.l10n with conversation-language selection and English fallback.\nB) For sections 1–4: enumerate all command tokens by iterating over the corresponding 'commands.<group>' object keys in JSON order; for each token, print the token and its 'function' text.\nC) For section 5: enumerate sci.variant_menu.variants A–H (name + focus).\nD) For section 6: render numeric_codes categories/options (including the meaning of '-').\nE) For section 7: render QC/CGI/Control Layer descriptions and visibility rules from global_defaults and control_layer.\nF) For section 8: render syntax_rules parsing rules relevant to command parsing and SCI pending selection.\nNo filtering, omission, or summarization is allowed for Comm Help.",
+      "logic": "Comm Help rendering is deterministic and exhaustive.\nProcedure:\nA) Resolve any required_output line of the form '{L10N:<path>}' via meta.rendering.l10n with conversation-language selection and English fallback.\nB) For sections 1–4: enumerate all command tokens by iterating over the corresponding 'commands.<group>' object keys in JSON order; for each token, print the token and its 'function' text.\nC) For section 5: enumerate sci.variant_menu.variants A–H (name + focus).\nD) For section 6: render numeric_codes categories/options (including the meaning of '-').\nE) For section 7: render QC/CGI/Control Layer descriptions and visibility rules from global_defaults and control_layer.\nF) For section 8: render syntax_rules parsing rules relevant to command parsing and SCI pending selection.\nNo filtering, omission, or summarization is allowed for Comm Help.\nG) Render sections 1-4 as command tables (columns: Command | Function); render SCI variants as table (Variant | Name | Focus / Method).",
       "token_validation": {
         "enabled": true,
         "scope": "all_outputs",
@@ -1598,8 +1687,27 @@
         "enabled": true,
         "expected_tokens_source_path": "commands",
         "rule": "Comm Help output MUST include every command token key from every commands.* group exactly once (grouped by group).",
-        "on_missing": "Repair in the same output: append a 'Missing commands' list containing any omitted tokens."
-      }
+        "on_missing": "Repair in the same output: append a 'Missing commands' list containing any omitted tokens.",
+        "required_output_format": "sectioned_tables_with_all_command_tokens"
+      },
+      "rendering_format": {
+        "command_groups": "table",
+        "command_group_table_columns": [
+          "Command",
+          "Function"
+        ],
+        "sci_variants": "table",
+        "sci_variants_table_columns": [
+          "Variant",
+          "Name",
+          "Focus / Method"
+        ]
+      },
+      "language_policy": {
+        "tokens": "canonical_english_only",
+        "explanatory_text": "conversation_language_with_en_fallback"
+      },
+      "allow_filtering_or_omissions": false
     },
     "comm_start_initialization": {
       "enabled": true,
@@ -1777,7 +1885,8 @@
           "Do NOT render QC footer for command/status outputs unless the active command contract explicitly requires it.",
           "Do NOT render QC footer in tables.",
           "Do NOT render Self-Debunking on command/status outputs.",
-          "Do NOT repeat the SCI menu options in the final answer."
+          "Do NOT repeat the SCI menu options in the final answer.",
+          "Do NOT backfill or retroactively answer an earlier unresolved content question in a command/status turn."
         ]
       },
       "phi_check": {
@@ -1812,6 +1921,21 @@
             "id": "P6_SELF_DEBUNKING_CONTENT_ONLY",
             "check": "Self-Debunking may appear only on content answers; it is forbidden on command/status outputs.",
             "repair": "If Self-Debunking appears on command/status output: remove the block."
+          },
+          {
+            "id": "P7_COMMAND_TURN_TERMINAL",
+            "check": "If current turn is a recognized standalone command/status turn: do not emit retroactive content answer text for prior unresolved user questions.",
+            "repair": "Strip content-answer text and keep only the command contract output. Require a new user content prompt for the next content answer."
+          },
+          {
+            "id": "P8_SCI_MENU_TABLE_FORMAT",
+            "check": "When SCI variant menu is rendered, it must be a single table with columns Variant | Name | Focus / Method and include A-H completely.",
+            "repair": "Re-render SCI variant menu as complete table (A-H) and remove non-table fallback lists."
+          },
+          {
+            "id": "P9_COMM_HELP_EXHAUSTIVE",
+            "check": "Comm Help must enumerate all command tokens from every commands.* group with structured section order and per-group command/function tables.",
+            "repair": "Append missing commands and rebuild section structure/tables in the same output until complete."
           }
         ],
         "post_check_rule": "Only output the draft that passes all checks (after repair).",
@@ -2579,19 +2703,25 @@
           "match_mode": "must_be_visible_in_output",
           "failure_conditions": [
             "pending SCI variant selection but no menu rendered",
-            "menu rendered without complete A–H listing",
+            "menu rendered without complete A-H listing",
             "menu rendered without instruction line",
-            "menu title/instructions not rendered in English for command/status output"
+            "menu not rendered as a table with columns Variant | Name | Focus / Method"
           ],
           "accepted_localized_sources": {
             "de": {
               "menu_title_path": "sci.variant_menu.menu_output.localized.de.title",
               "instruction_path": "sci.variant_menu.menu_output.localized.de.instructions"
             }
-          }
+          },
+          "require_table_format": true,
+          "required_table_columns": [
+            "Variant",
+            "Name",
+            "Focus / Method"
+          ]
         },
         "on_failure": {
-          "action": "Repair within the same output: immediately render the SCI variants menu block (title + instructions + A–H entries). If space is constrained, render a compact list that still includes all A–H with name and focus.",
+          "action": "Repair within the same output: immediately render the SCI variants menu as one table (Variant | Name | Focus / Method) including A-H completely.",
           "no_state_changes": true,
           "no_profile_sci_overlay_switching": true,
           "no_command_token_emission": true
@@ -2603,19 +2733,19 @@
         "policy_source_path": "meta.rendering.ui_rendering_policy",
         "supported_languages_source_path": "meta.rendering.supported_languages",
         "validator": {
-          "requires_explanation_language_alignment": false,
-          "command_and_status_must_be_english": true,
+          "requires_explanation_language_alignment": true,
+          "command_and_status_must_be_english": false,
           "content_explanations_may_follow_conversation_language": true,
           "conversation_language_detection": "heuristic_from_latest_user_message",
-          "acceptable_languages": "English for status/commands; conversation_language OR fallback_language for content explanations",
+          "acceptable_languages": "conversation_language OR fallback_language for explanatory/status/help/menu text; command tokens remain canonical English-only",
           "hard_exception": "Command tokens remain canonical English-only."
         },
         "failure_conditions": [
-          "status/command blocks not rendered in English",
-          "SCI variant menu title/instructions not rendered in English for command/status outputs"
+          "explanatory/status/help/menu text not aligned to conversation_language_or_fallback",
+          "command token translated/localized"
         ],
         "on_failure": {
-          "action": "Repair within the same output: re-render status/command blocks in English (keeping command tokens unchanged). For content explanations: use conversation language when available, otherwise English with Uncertainty U1 (translation gap).",
+          "action": "Repair within the same output: re-render explanatory/status/help/menu text in conversation language when supported, otherwise English fallback with Uncertainty U1 (translation gap). Keep command tokens canonical English-only.",
           "no_state_changes": true,
           "no_profile_sci_overlay_switching": true,
           "no_command_token_emission": true
@@ -3441,7 +3571,8 @@
           "control_layer",
           "qc_matrix",
           "cognitive_gain_indicator"
-        ]
+        ],
+        "response_contract": "comm_help_full"
       }
     },
     "mode_control": {
@@ -3523,7 +3654,7 @@
         "required_output_blocks": [
           "sci.variant_menu.menu_output"
         ],
-        "response_contract": "status_and_qc_only"
+        "response_contract": "sci_menu_full_table"
       },
       "SCI off": {
         "function": "Disables any currently active scientific workflow (SCI/variants/deep-dive) and falls back to the profile's standard behavior.",
@@ -3534,7 +3665,7 @@
         "required_output_blocks": [
           "sci.variant_menu.menu_output"
         ],
-        "response_contract": "status_and_qc_only"
+        "response_contract": "sci_menu_full_table"
       },
       "SCI recurse": {
         "function": "Starts a nested SCI/SCIplus deep-dive for a scoped subtask within the current problem; returns to the parent trace after completion. Does not change profile, Strict/Explore, or other state.",
@@ -3756,7 +3887,7 @@
       "header_format_with_delta": "QC: Clarity {K} (Δ{dK}) · Brevity {Ku} (Δ{dKu}) · Evidence {E} (Δ{dE}) · Empathy {Em} (Δ{dEm}) · Consistency {C} (Δ{dC}) · Neutrality {N} (Δ{dN})",
       "footer_render_mode": "single_line_only",
       "footer_table_forbidden": true,
-      "footer_position_rule": "content_answers_immediately_after_self_debunking_or_explicit_command_contract"
+      "footer_position_rule": "whenever_footer_rendered_it_must_be_absolute_last_output_line"
     }
   },
   "cognitive_gain_indicator": {

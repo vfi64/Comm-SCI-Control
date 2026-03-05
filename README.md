@@ -269,6 +269,9 @@ Then paste the **canonical JSON ruleset** directly below it.
 - **Do not translate command tokens.** Explanations can be localized; command tokens stay canonical.  
 - **SCI variant letters `A`–`H` only count when the SCI menu is pending.** Otherwise they are just letters.  
 - **`Comm Help` is the authoritative command list.** Any README list is non‑exhaustive by design.  
+- **`SCI menu` / `Profile Expert` / `Profile Sparring` must render variants as one table.** Required columns: `Variant | Name | Focus / Method`.  
+- **Command turns are terminal.** A standalone command must not retroactively answer an older unresolved content question.  
+- **If a QC footer is rendered, it is the absolute final line.** No trailing question/text is allowed after `QC-Matrix: ...`.
 - **Use canonical command names.** In v20.2.0, `Comm Anchor on/off` is canonical; `Anchor auto on/off` is legacy compatibility syntax.  
 - **`Control on/off` is not a canonical v20.2.0 user command.** Control Layer behavior is profile/governance-driven.  
 - **If the model drifts:** re‑initialize with the **Init preface + JSON** and restart (`Comm Start`, then `Profile …` / overlays).
@@ -333,6 +336,7 @@ Models are explicitly allowed to provide a **guided explanation** of the system 
 
 **Normative requirements:**  
 - `Comm Help` must be **exhaustive**: it should enumerate the command tokens from the canonical JSON (`commands.*`).  
+- `Comm Help` should be rendered in a fixed ordered structure and use per-group command/function tables.
 - It must not be a partially remembered or hand-curated list.  
 - Command tokens are canonical; **do not invent aliases** that are not present in the JSON.
 

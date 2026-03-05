@@ -124,12 +124,13 @@
         "id": "PF-001",
         "enabled": true,
         "when": "always",
-        "check": "If is_command==true then prohibit content-only blocks (self_debunking, uncertainty_line, verification_routes, final_answer); allow qc_footer only for commands explicitly listed in contracts.qc_matrix.visibility.command_allowlist_for_footer.",
+        "check": "If is_command==true then enforce command-turn terminal output: prohibit content-only blocks (self_debunking, uncertainty_line, verification_routes, final_answer) and prohibit retroactive answering of prior pending content; allow qc_footer only for commands explicitly listed in contracts.qc_matrix.visibility.command_allowlist_for_footer.",
         "source_paths": [
-          "global_defaults.output_contract.self_debunking_contract",
-          "global_defaults.qc_matrix_visibility"
+          "contracts.output_contract.self_debunking_contract",
+          "contracts.qc_matrix.visibility",
+          "parser_contract.command_turn_policy"
         ],
-        "on_fail": "strip_disallowed_command_blocks_or_block"
+        "on_fail": "strip_to_command_contract_then_block_backfill"
       },
       {
         "id": "PF-002",
@@ -178,10 +179,11 @@
         "id": "PF-006",
         "enabled": true,
         "when": "content_answer==true and qc_footer_enabled==true",
-        "check": "QC footer template and placement constraints are available.",
+        "check": "QC footer template, single-line format, and hard terminal placement (last output line) are available.",
         "source_paths": [
-          "qc_matrix.display",
-          "global_defaults.output_contract.self_debunking_contract.qc_footer_rule"
+          "contracts.qc_matrix.display",
+          "contracts.output_contract.self_debunking_contract.qc_footer_rule",
+          "contracts.output_contract.qc_footer_termination_contract"
         ],
         "on_fail": "rebuild_qc_footer_or_block"
       },
@@ -205,6 +207,17 @@
           "global_defaults.retrieval_governance.hardening.rag_strict_policy.rules_by_id.HS-001"
         ],
         "on_fail": "downgrade_claim_and_set_U8_or_block"
+      },
+      {
+        "id": "PF-009",
+        "enabled": true,
+        "when": "is_command==true",
+        "check": "Command turns are terminal: do not generate a delayed/retroactive content answer for any previous user question in the same turn.",
+        "source_paths": [
+          "parser_contract.command_turn_policy",
+          "contracts.output_contract.response_contracts"
+        ],
+        "on_fail": "strip_to_command_contract_then_block_backfill"
       }
     ]
   },
@@ -415,7 +428,15 @@
       "SCI recurse",
       "Strict off",
       "Strict on"
-    ]
+    ],
+    "command_turn_policy": {
+      "enabled": true,
+      "recognized_command_turn_is_terminal": true,
+      "retroactive_content_backfill": "forbidden",
+      "requires_new_user_content_turn_after_command": true,
+      "forbid_answering_previous_pending_content_on_command_turn": true,
+      "on_violation": "strip_to_command_contract_then_block_backfill"
+    }
   },
   "command_model": {
     "groups": {
@@ -685,7 +706,76 @@
           "dynamic_nudge": "one-shot"
         }
       }
-    ]
+    ],
+    "help_rendering_policy": {
+      "completeness": "absolute",
+      "output_order": [
+        "1) Primary commands",
+        "2) Profiles",
+        "3) Modes",
+        "4) SCI control",
+        "5) SCI variants (A-H)",
+        "6) Numeric codes",
+        "7) Modules (QC/CGI/Control Layer)",
+        "8) Parsing rules"
+      ],
+      "command_groups_source_path": "command_model.groups",
+      "command_descriptions_source_path": "command_model.command_descriptions",
+      "rendering_format": {
+        "command_groups": "table",
+        "command_group_table_columns": [
+          "Command",
+          "Function"
+        ],
+        "sci_variants": "table",
+        "sci_variants_table_columns": [
+          "Variant",
+          "Name",
+          "Focus / Method"
+        ]
+      },
+      "language_policy": {
+        "tokens": "canonical_english_only",
+        "explanatory_text": "conversation_language_with_en_fallback"
+      },
+      "allow_filtering_or_omissions": false,
+      "on_violation": "repair_once_append_missing_commands_then_block"
+    },
+    "command_descriptions": {
+      "Comm Start": "Activate the full governance system.",
+      "Comm Stop": "Deactivate governance logic for the session.",
+      "Comm State": "Show current state (profile, overlays, SCI, modules).",
+      "Comm Config": "Show raw active configuration (read-only).",
+      "Comm Validate": "Run heuristic structural validation of the rules in context.",
+      "Comm Help": "Print full ordered help with all command groups.",
+      "Comm Anchor": "Create an anchor snapshot for session continuity.",
+      "Comm Anchor on": "Enable anchor automation flag for this session.",
+      "Comm Anchor off": "Disable anchor automation flag for this session.",
+      "Comm Audit": "Audit recent assistant outputs for contract compliance.",
+      "Profile Standard": "Switch to Standard profile.",
+      "Profile Briefing": "Switch to Briefing profile.",
+      "Profile Sandbox": "Switch to Sandbox profile.",
+      "Profile Expert": "Switch to Expert profile and open SCI variant menu.",
+      "Profile Sparring": "Switch to Sparring profile and open SCI variant menu.",
+      "SCI on": "Enable SCI pending mode and render SCI variant menu.",
+      "SCI menu": "Re-open SCI variant menu without changing other states.",
+      "SCI off": "Disable SCI mode.",
+      "SCI recurse": "Start nested SCI analysis for a scoped subtask.",
+      "Strict on": "Enable Strict overlay.",
+      "Strict off": "Disable Strict overlay.",
+      "Explore on": "Enable Explore overlay.",
+      "Explore off": "Disable Explore overlay.",
+      "Color on": "Enable evidence color markers.",
+      "Color off": "Disable evidence color markers.",
+      "Dynamic one-shot on": "Enable one-shot dynamic prompting for next answer only."
+    },
+    "command_output_contract_overrides": {
+      "Comm Help": "comm_help_full",
+      "SCI on": "sci_menu_full_table",
+      "SCI menu": "sci_menu_full_table",
+      "Profile Expert": "profile_switch_minimal_expert_sparring",
+      "Profile Sparring": "profile_switch_minimal_expert_sparring"
+    }
   },
   "contracts": {
     "rule_priority": {
@@ -822,14 +912,12 @@
           "H"
         ],
         "acceptable_formats": [
-          "table",
-          "ordered_list",
-          "bulleted_list"
+          "table"
         ],
         "minimum_requirements": [
           "Render the menu title from the canonical source OR the localized source matching the conversation language (if available).",
           "Render the instruction line from the canonical source OR the localized source matching the conversation language (if available).",
-          "List all variants A-H each with name + one-line focus/description."
+          "Render all variants A-H as one table with columns: Variant | Name | Focus / Method (no list fallback)."
         ],
         "force_english_for_command_outputs": false,
         "block_title_source_path_alternatives": {
@@ -837,7 +925,13 @@
         },
         "instructions_source_path_alternatives": {
           "de": "sci.variant_menu.menu_output.localized.de.instructions"
-        }
+        },
+        "required_table_columns": [
+          "Variant",
+          "Name",
+          "Focus / Method"
+        ],
+        "table_row_template": "| {variant} | {name} | {focus} |"
       },
       "require_dialog_language_for_explanations_when_supported": true,
       "dialog_language_contract": {
@@ -1068,7 +1162,7 @@
           },
           "required_blocks": [
             "profile_header_line",
-            "sci_variant_menu",
+            "sci_variant_menu_table",
             "qc_footer"
           ],
           "prohibited_blocks": [
@@ -1083,7 +1177,8 @@
             "uncertainty",
             "verification_routes",
             "color_markers"
-          ]
+          ],
+          "sci_menu_format": "table"
         },
         "sci_variant_selection_minimal": {
           "trigger": "sci_pending==true and on_command:'A..H'",
@@ -1112,6 +1207,68 @@
             "full_sci_trace_description",
             "color_markers"
           ]
+        },
+        "comm_help_full": {
+          "trigger": "on_command:'Comm Help'",
+          "language": "conversation_language",
+          "required_blocks": [
+            "profile_header_line",
+            "comm_help_sections_1_to_8"
+          ],
+          "required_structure": {
+            "sections_in_order": [
+              "1) Primary commands",
+              "2) Profiles",
+              "3) Modes",
+              "4) SCI control",
+              "5) SCI variants (A-H)",
+              "6) Numeric codes",
+              "7) Modules (QC/CGI/Control Layer)",
+              "8) Parsing rules"
+            ],
+            "command_group_table_columns": [
+              "Command",
+              "Function"
+            ],
+            "sci_variant_table_columns": [
+              "Variant",
+              "Name",
+              "Focus / Method"
+            ]
+          },
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "final_answer",
+            "self_debunking",
+            "sci_trace",
+            "verification_routes",
+            "uncertainty"
+          ]
+        },
+        "sci_menu_full_table": {
+          "trigger": "on_command:'SCI on' OR on_command:'SCI menu'",
+          "language": "conversation_language",
+          "required_blocks": [
+            "profile_header_line",
+            "sci_variant_menu_table"
+          ],
+          "required_structure": {
+            "table_columns": [
+              "Variant",
+              "Name",
+              "Focus / Method"
+            ]
+          },
+          "prohibited_blocks": [
+            "anchor_snapshot",
+            "audit_report",
+            "final_answer",
+            "self_debunking",
+            "sci_trace",
+            "verification_routes",
+            "uncertainty"
+          ]
         }
       },
       "require_qc_footer_for_content_answers_only": false,
@@ -1133,6 +1290,16 @@
         "must_follow_ruleset_formatting": true,
         "human_scannability_priority": true,
         "on_format_deviation": "repair_once_then_block"
+      },
+      "qc_footer_termination_contract": {
+        "enabled": true,
+        "footer_must_be_last_line": true,
+        "no_followup_question_or_text_after_footer": true,
+        "applies_to": [
+          "content_answers",
+          "command_contracts_with_footer"
+        ],
+        "on_violation": "trim_after_footer_or_block"
       }
     },
     "qc_matrix": {
@@ -1245,7 +1412,7 @@
         "header_format_with_delta": "QC: Clarity {K} (Δ{dK}) · Brevity {Ku} (Δ{dKu}) · Evidence {E} (Δ{dE}) · Empathy {Em} (Δ{dEm}) · Consistency {C} (Δ{dC}) · Neutrality {N} (Δ{dN})",
         "footer_render_mode": "single_line_only",
         "footer_table_forbidden": true,
-        "footer_position_rule": "content_answers_immediately_after_self_debunking_or_explicit_command_contract"
+        "footer_position_rule": "whenever_footer_rendered_it_must_be_absolute_last_output_line"
       },
       "visibility": {
         "notes": "QC footer is mandatory for content answers and allowed for explicit command outputs only.",
@@ -1828,7 +1995,7 @@
           "global_defaults.output_contract.sci_variant_menu_contract"
         ],
         "when": "sci_pending==true",
-        "requirement": "SCI menu must contain title, instructions, and all variants A-H with name/focus.",
+        "requirement": "SCI menu must contain title, instructions, and all variants A-H rendered as a table (Variant | Name | Focus / Method).",
         "failure_action": "repair_once_then_block"
       },
       {
@@ -1877,11 +2044,13 @@
           "contracts.output_contract.response_contracts.comm_start_minimal",
           "contracts.output_contract.response_contracts.profile_switch_minimal_standard_briefing_sandbox",
           "contracts.output_contract.response_contracts.profile_switch_minimal_expert_sparring",
-          "contracts.output_contract.response_contracts.sci_variant_selection_minimal"
+          "contracts.output_contract.response_contracts.sci_variant_selection_minimal",
+          "contracts.output_contract.response_contracts.sci_menu_full_table",
+          "contracts.output_contract.response_contracts.comm_help_full"
         ],
-        "when": "on_command:'Comm Start' OR on_command:'Profile Standard' OR on_command:'Profile Briefing' OR on_command:'Profile Sandbox' OR on_command:'Profile Expert' OR on_command:'Profile Sparring' OR (sci_pending==true and on_command:'A..H')",
-        "requirement": "Render only the blocks explicitly required by the command-specific minimal contract; strip all explanatory/content-only blocks.",
-        "failure_action": "strip_to_command_minimal_contract"
+        "when": "on_command:'Comm Start' OR on_command:'Profile Standard' OR on_command:'Profile Briefing' OR on_command:'Profile Sandbox' OR on_command:'Profile Expert' OR on_command:'Profile Sparring' OR on_command:'SCI on' OR on_command:'SCI menu' OR on_command:'Comm Help' OR (sci_pending==true and on_command:'A..H')",
+        "requirement": "Render only the blocks explicitly required by the matching command contract and never backfill/answer any previous pending content question in that same command turn.",
+        "failure_action": "strip_to_command_contract_then_block_backfill"
       },
       {
         "id": "R-OUT-001",
@@ -1911,11 +2080,12 @@
         "modality": "MUST",
         "priority": 850,
         "source_paths": [
-          "qc_matrix.display.footer_format_with_delta",
-          "global_defaults.output_contract.self_debunking_contract.qc_footer_rule"
+          "contracts.qc_matrix.display.footer_format_with_delta",
+          "contracts.output_contract.self_debunking_contract.qc_footer_rule",
+          "contracts.output_contract.qc_footer_termination_contract"
         ],
         "when": "content_answer_and_qc_footer_enabled",
-        "requirement": "Render exactly one single-line QC-Matrix footer as last output line after Self-Debunking.",
+        "requirement": "Render exactly one single-line QC-Matrix footer and enforce it as the absolute final output line (no trailing text/questions).",
         "failure_action": "repair_once_then_block"
       },
       {
@@ -1934,11 +2104,11 @@
         "modality": "MUST",
         "priority": 830,
         "source_paths": [
-          "meta.rendering.dialog_language_alignment",
-          "global_defaults.output_contract.dialog_language_contract"
+          "contracts.output_contract.dialog_language_contract",
+          "parser_contract.command_tokens"
         ],
         "when": "command_or_status_output OR content_answer",
-        "requirement": "Render command/status outputs in English. Content answer explanations may use conversation language when supported.",
+        "requirement": "Render explanatory/status/help/menu text in conversation language when supported (English fallback). Command tokens remain canonical English-only.",
         "failure_action": "repair_language_by_output_type"
       },
       {
@@ -2166,6 +2336,18 @@
         "when": "symbolic_mode_active",
         "requirement": "Never execute unresolved or unknown symbolic macros.",
         "failure_action": "fallback_to_canonical_rule_ids_or_block"
+      },
+      {
+        "id": "R-CMD-002",
+        "modality": "MUST",
+        "priority": 874,
+        "source_paths": [
+          "parser_contract.command_turn_policy",
+          "contracts.output_contract.response_contracts"
+        ],
+        "when": "is_command==true",
+        "requirement": "Command turn is terminal: do not emit delayed/retroactive answer content for earlier unresolved user questions in the same turn.",
+        "failure_action": "strip_to_command_contract_and_block_retroactive_backfill"
       }
     ],
     "index": {
@@ -2235,6 +2417,102 @@
         "R-SCI-004",
         "R-SCI-005",
         "R-CMD-001",
+        "R-OUT-001",
+        "R-OUT-002",
+        "R-OUT-003",
+        "R-OUT-004",
+        "R-LANG-001",
+        "R-U-001",
+        "R-U-002",
+        "R-VR-001",
+        "R-RAG-001",
+        "R-COLOR-001",
+        "R-COLOR-002",
+        "R-RAG-002",
+        "R-SPG-001",
+        "R-RAG-003",
+        "R-COMM-003",
+        "R-RAG-004",
+        "R-CSC-001",
+        "R-CSC-002",
+        "R-PRIO-001",
+        "R-CTX-001",
+        "R-CTX-002",
+        "R-PREFLIGHT-001",
+        "R-PREFLIGHT-002",
+        "R-SYM-001",
+        "R-SYM-002"
+      ]
+    },
+    "summary": {
+      "by_modality": {
+        "MUST": [
+          "R-PARSE-001",
+          "R-PARSE-002",
+          "R-PARSE-003",
+          "R-PARSE-004",
+          "R-COMM-001",
+          "R-COMM-002",
+          "R-COMM-004",
+          "R-PROFILE-001",
+          "R-PROFILE-002",
+          "R-PROFILE-003",
+          "R-SCI-001",
+          "R-SCI-002",
+          "R-SCI-003",
+          "R-SCI-004",
+          "R-SCI-005",
+          "R-CMD-001",
+          "R-OUT-001",
+          "R-OUT-002",
+          "R-OUT-003",
+          "R-LANG-001",
+          "R-U-001",
+          "R-U-002",
+          "R-VR-001",
+          "R-RAG-001",
+          "R-COLOR-002",
+          "R-RAG-002",
+          "R-RAG-003",
+          "R-COMM-003",
+          "R-RAG-004",
+          "R-CSC-002",
+          "R-PRIO-001",
+          "R-CTX-001",
+          "R-PREFLIGHT-001",
+          "R-PREFLIGHT-002",
+          "R-SYM-001",
+          "R-CMD-002"
+        ],
+        "SHOULD": [
+          "R-COLOR-001",
+          "R-CTX-002"
+        ],
+        "FORBID": [
+          "R-OUT-004",
+          "R-SPG-001",
+          "R-CSC-001",
+          "R-SYM-002"
+        ]
+      },
+      "priority_desc": [
+        "R-PARSE-001",
+        "R-PARSE-002",
+        "R-PARSE-003",
+        "R-PARSE-004",
+        "R-COMM-001",
+        "R-COMM-002",
+        "R-COMM-004",
+        "R-PROFILE-001",
+        "R-PROFILE-002",
+        "R-PROFILE-003",
+        "R-SCI-001",
+        "R-SCI-002",
+        "R-SCI-003",
+        "R-SCI-004",
+        "R-SCI-005",
+        "R-CMD-001",
+        "R-CMD-002",
         "R-OUT-001",
         "R-OUT-002",
         "R-OUT-003",
@@ -2865,5 +3143,5 @@
       "sci_mode": "off"
     }
   },
-  "operational_sha256_sorted_json": "a88c40c16ccbf7374f4ad1618d19995cdb1fe821b4abb97fa6a146630a3b1042"
+  "operational_sha256_sorted_json": "1e153c99cf71ed0169531d96ae524ee6004437d23332cc29f43612bbf4a55497"
 }

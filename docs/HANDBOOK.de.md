@@ -520,14 +520,47 @@ Naechster Schritt:
 - Retrieval-Metadaten vervollstaendigen (`QualityClass`, `RetrievedAt`, Provenienz pro Claim)
 - Claim erst danach hochstufen.
 
-### 26.4 Drift in langen Sessions
+### 26.4 SCI Menu erscheint als Liste statt Tabelle
+
+Pruefen:
+1. `SCI menu` erneut ausfuehren (oder erneut auf `Profile Expert`/`Profile Sparring` wechseln).
+2. Tabellen-Spalten pruefen: `Variant | Name | Focus / Method`.
+3. `Comm Audit` ausfuehren und SCI/Menu-Befunde pruefen.
+
+### 26.5 `Comm Help` ist unvollstaendig
+
+Pruefen:
+1. `Comm Help` als Standalone-Prompt senden.
+2. Alle Command-Gruppen vorhanden (primary, profiles, modes, SCI, color, dynamic, help)?
+3. Command/Funktion als Tabellenzeilen gerendert und nicht abgekuerzt?
+
+### 26.6 Command-Turn beantwortet alte Inhaltsfrage nachtraeglich
+
+Soll-Verhalten:
+- Standalone-Command-Turns sind terminal und duerfen keine alte offene Inhaltsfrage nachtraeglich beantworten.
+
+Pruefen:
+1. Command erneut strikt als Standalone senden.
+2. Sicherstellen, dass keine retroaktive Final-Answer im Command-Output auftaucht.
+3. Fuer Inhalt mit neuer expliziter Frage fortsetzen.
+
+### 26.7 Text nach `QC-Matrix`-Footer
+
+Soll-Verhalten:
+- wenn Footer gerendert wird, ist `QC-Matrix: ...` die absolut letzte Zeile.
+
+Pruefen:
+1. Keine Folgefrage/kein Folgetext nach dem Footer.
+2. Bei Verstoessen `Comm Audit` ausfuehren und Footer-Placement pruefen.
+
+### 26.8 Drift in langen Sessions
 
 Pruefen:
 1. `Comm Anchor` fuer State-Snapshot.
 2. `Comm Audit` fuer Compliance-Verletzungen.
 3. Kontextdruck beachten (lange Threads ggf. in neuen Chat ueberfuehren).
 
-### 26.5 Regelwerk-/Repo-Validierung faellt lokal fehl
+### 26.9 Regelwerk-/Repo-Validierung faellt lokal fehl
 
 ```bash
 bash scripts/validate_repo.sh
@@ -538,7 +571,7 @@ Wenn fehlerhaft:
 2. Fixtures bei absichtlicher Regelwerksaenderung regenerieren.
 3. Danach Validierung erneut laufen lassen.
 
-### 26.6 Minimaler Debugging-Flow
+### 26.10 Minimaler Debugging-Flow
 
 ```text
 Comm State -> Comm Anchor -> Comm Audit -> Comm Validate

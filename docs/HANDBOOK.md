@@ -520,14 +520,47 @@ Next step:
 - complete retrieval metadata (`QualityClass`, `RetrievedAt`, per-claim provenance)
 - only then consider claim upgrade.
 
-### 26.4 Drift in long sessions
+### 26.4 SCI menu appears as list instead of table
+
+Check:
+1. Run `SCI menu` again (or switch to `Profile Expert`/`Profile Sparring` again).
+2. Verify table columns are present: `Variant | Name | Focus / Method`.
+3. Run `Comm Audit` and inspect SCI/menu contract findings.
+
+### 26.5 `Comm Help` is incomplete
+
+Check:
+1. Run `Comm Help` in a standalone prompt.
+2. Verify all command groups are present (primary, profiles, modes, SCI, color, dynamic, help).
+3. Verify command/function rows are rendered as tables and not shortened.
+
+### 26.6 Command turn answered an older content question
+
+Expected behavior:
+- standalone command turns are terminal and must not backfill older unresolved content prompts.
+
+Check:
+1. Send command again as standalone input only.
+2. Confirm command output contains no retroactive final-answer block.
+3. Continue content work with a fresh explicit question.
+
+### 26.7 Text appears after `QC-Matrix` footer
+
+Expected behavior:
+- if a footer is rendered, `QC-Matrix: ...` is the absolute final line.
+
+Check:
+1. Ensure no follow-up sentence/question appears after footer.
+2. If it happens, run `Comm Audit` and inspect footer placement finding.
+
+### 26.8 Drift in long sessions
 
 Check:
 1. `Comm Anchor` for a state snapshot.
 2. `Comm Audit` for compliance drift.
 3. Watch context pressure; migrate to a fresh chat if thread size is too large.
 
-### 26.5 Local ruleset/repo validation fails
+### 26.9 Local ruleset/repo validation fails
 
 ```bash
 bash scripts/validate_repo.sh
@@ -538,7 +571,7 @@ If failing:
 2. regenerate fixtures for intentional ruleset changes
 3. rerun validation.
 
-### 26.6 Minimal debugging sequence
+### 26.10 Minimal debugging sequence
 
 ```text
 Comm State -> Comm Anchor -> Comm Audit -> Comm Validate
