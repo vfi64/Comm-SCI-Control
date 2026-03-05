@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="Step 2 · Load JSON ruleset">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7f4ea"/>
+      <stop offset="100%" stop-color="#eef5f7"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f7b8b"/>
+      <stop offset="100%" stop-color="#2c9bad"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <rect x="52" y="38" width="1096" height="624" rx="22" fill="#ffffff" stroke="#dce7ea"/>
+  <rect x="52" y="38" width="1096" height="72" rx="22" fill="url(#bar)"/>
+  <text x="88" y="82" font-family="Space Grotesk, Arial, sans-serif" font-size="28" fill="#ffffff" font-weight="700">Comm-SCI-Control Demo</text>
+  <text x="780" y="82" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" fill="#dff4f8">Step 2 · Load JSON ruleset</text>
+
+  <rect x="90" y="150" width="1020" height="480" rx="18" fill="#f9fbfc" stroke="#dce7ea"/>
+
+  <rect x="120" y="188" width="900" height="92" rx="14" fill="#e7f2f5"/>
+  <text x="148" y="222" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21" fill="#2b4a52" font-weight="700">User</text>
+  <text x="148" y="252" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" fill="#1f2a2e">Paste JSON/Comm-SCI-v20.2.0</text>
+
+  <rect x="180" y="308" width="900" height="170" rx="14" fill="#ffffff" stroke="#d5e4e8"/>
+  <text x="208" y="346" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21" fill="#2b4a52" font-weight="700">Assistant</text>
+  <text x="208" y="378" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" fill="#1f2a2e">Ruleset instantiated as active governance</text>
+  <text x="208" y="416" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20" fill="#5a7078">Output follows Comm-SCI contracts, uncertainty rules, and audit constraints.</text>
+
+  <rect x="120" y="520" width="240" height="72" rx="12" fill="#0f7b8b"/>
+  <text x="146" y="566" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" fill="#ffffff" font-weight="700">Proceed</text>
+
+  <rect x="390" y="520" width="300" height="72" rx="12" fill="#ecf3f6" stroke="#dce7ea"/>
+  <text x="420" y="566" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" fill="#2b4a52">Trace visible</text>
+
+  <rect x="720" y="520" width="300" height="72" rx="12" fill="#fdf4ec" stroke="#f0d9c4"/>
+  <text x="748" y="566" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" fill="#8b4f25">Evidence-aware</text>
+</svg>

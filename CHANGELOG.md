@@ -3,6 +3,42 @@
 All notable changes to this project are documented in this file.  
 The format follows common conventions: **newest versions first**, additive patch releases only.
 
+## [20.2.5] – 2026-03-05
+### Security-Oriented Onboarding Hardening (Web Entry)
+
+#### Added
+- **Bilingual entry website expansion (EN default / DE switch)**:
+  - Added dedicated pedagogical concept pages:
+    - `docs/concepts/index.html`
+    - `docs/concepts/index.de.html`
+  - Added focused explanations for:
+    - Uncertainty Codes, Execution Pipeline, Preflight Checks, SCI Trace, QC Matrix,
+      Anchor, Audit, Context-Pressure-Guard, P0-P5 phases, RAG Governance, Self-Debunking.
+- **Copy bundle workflow for safer initialization**:
+  - Added one-click copy action on the landing pages that copies:
+    - init preface (language-specific)
+    - current operational ruleset (`docs/data/Comm-SCI-v20.2.0.json`)
+  - Added visible copy-status feedback and clipboard fallback handling.
+- **Visual onboarding step gallery (1–7)**:
+  - Added screenshot-style illustrative step assets in `docs/assets/screens/step1.svg ... step7.svg`.
+
+#### Changed
+- **Quick-start logic corrected for Expert flow**:
+  - Sequence now reflects operational behavior:
+    1. init preface
+    2. load JSON
+    3. `Comm Start`
+    4. `Profile Expert` (SCI menu pending opens automatically)
+    5. standalone `B` selection (Deep-Dive)
+    6. ask task
+    7. `Comm Anchor` / `Comm Audit` for long sessions.
+- **Terminology discoverability improved**:
+  - Hero metric labels now deep-link to concept explanations.
+
+#### Notes
+- This is a **security and onboarding quality patch** in the `v20.2.x` line.
+- No breaking change to command tokens or normative JSON contracts.
+
 ## [20.2.0] – 2026-03-04
 ### Operational Governance Architecture (Current Stable)
 

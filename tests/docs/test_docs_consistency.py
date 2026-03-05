@@ -6,7 +6,7 @@ from tests.helpers import ROOT_DIR
 
 class TestDocsConsistency(unittest.TestCase):
     CURRENT_VERSION = "20.2.0"
-    EXPECTED_CHANGELOG_PREFIX = ["20.2.0", "20.1.0", "20.0.0", "19.6.9", "19.6.8"]
+    EXPECTED_CHANGELOG_PREFIX = ["20.2.5", "20.2.0", "20.1.0", "20.0.0", "19.6.9"]
     CURRENT_JSON_REL_PATH = "JSON/Comm-SCI-v20.2.0.json"
 
     @classmethod
@@ -42,7 +42,7 @@ class TestDocsConsistency(unittest.TestCase):
     def test_changelog_version_order_prefix(self) -> None:
         versions = re.findall(r"(?m)^## \[(\d+\.\d+\.\d+)\]", self.changelog)
         self.assertGreaterEqual(len(versions), len(self.EXPECTED_CHANGELOG_PREFIX))
-        self.assertEqual(self.EXPECTED_CHANGELOG_PREFIX, versions[:5])
+        self.assertEqual(self.EXPECTED_CHANGELOG_PREFIX, versions[: len(self.EXPECTED_CHANGELOG_PREFIX)])
 
 
 if __name__ == "__main__":

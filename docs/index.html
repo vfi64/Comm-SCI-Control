@@ -60,15 +60,15 @@
         <div class="hero-metrics">
           <article class="metric-card reveal">
             <p class="metric-value" data-count="8" data-animate-from="0">8</p>
-            <p class="metric-label">Uncertainty Codes (U1-U8)</p>
+            <p class="metric-label"><a class="metric-link" href="concepts/index.html#uncertainty-codes">Uncertainty Codes (U1-U8)</a></p>
           </article>
           <article class="metric-card reveal">
             <p class="metric-value" data-count="6" data-animate-from="0">6</p>
-            <p class="metric-label">Execution Phases (P0-P5)</p>
+            <p class="metric-label"><a class="metric-link" href="concepts/index.html#p0-p5">Execution Phases (P0-P5)</a></p>
           </article>
           <article class="metric-card reveal">
             <p class="metric-value" data-count="8" data-animate-from="0">8</p>
-            <p class="metric-label">Preflight Checks (PF-001..008)</p>
+            <p class="metric-label"><a class="metric-link" href="concepts/index.html#preflight-checks">Preflight Checks (PF-001..008)</a></p>
           </article>
         </div>
       </section>
@@ -169,18 +169,45 @@
         </div>
       </section>
 
+      <section id="concepts" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Learn the terms</p>
+          <h2>Pedagogical concept pages</h2>
+        </div>
+        <p class="hero-copy">
+          New to terms like SCI trace, QC matrix, context-pressure guard, or RAG governance?
+          Use the concept guide with plain-language explanations and examples.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="concepts/index.html">Open concepts (EN)</a>
+          <a class="btn btn-soft" href="concepts/index.de.html">Open concepts (DE)</a>
+        </div>
+      </section>
+
       <section id="start" class="section reveal">
         <div class="section-head">
           <p class="eyebrow">Quick start</p>
           <h2>Live in 90 seconds</h2>
         </div>
+        <div class="bundle-actions">
+          <button
+            class="btn btn-solid"
+            type="button"
+            data-copy-bundle
+            data-lang="en"
+            data-json-path="data/Comm-SCI-v20.2.0.json"
+          >
+            Copy init + current JSON (EN)
+          </button>
+          <p class="copy-status" data-copy-status role="status" aria-live="polite"></p>
+        </div>
         <div class="start-grid">
           <pre><code>1. Paste init preface (block below)
 2. Load JSON/Comm-SCI-v20.2.0.json
 3. Comm Start
-4. Profile Expert
-5. Optional: Strict on
-6. Ask your task, optionally: SCI on
+4. Profile Expert (SCI menu opens automatically)
+5. Send standalone "B" (Deep-Dive)
+6. Ask your task
 7. In long sessions: Comm Anchor / Comm Audit</code></pre>
           <div class="start-actions">
             <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/README.md" target="_blank" rel="noreferrer">
@@ -217,6 +244,39 @@ In your next message, respond with task content according to the ruleset (no con
 
 Here is the ruleset:</code></pre>
         </details>
+        <div class="section-head screenshot-head">
+          <h3>Example screenshots (steps 1-7)</h3>
+        </div>
+        <div class="shot-grid">
+          <figure class="shot-card">
+            <img src="assets/screens/step1.svg" alt="Step 1: Init preface" loading="lazy" />
+            <figcaption>1. Paste init preface</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step2.svg" alt="Step 2: Load JSON ruleset" loading="lazy" />
+            <figcaption>2. Paste current JSON ruleset</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step3.svg" alt="Step 3: Comm Start" loading="lazy" />
+            <figcaption>3. Activate with Comm Start</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step4.svg" alt="Step 4: Profile Expert" loading="lazy" />
+            <figcaption>4. Set Profile Expert (SCI menu pending)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step5.svg" alt="Step 5: Choose B Deep-Dive" loading="lazy" />
+            <figcaption>5. Choose variant B (Deep-Dive)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step6.svg" alt="Step 6: Ask task" loading="lazy" />
+            <figcaption>6. Ask your task</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step7.svg" alt="Step 7: Anchor and Audit" loading="lazy" />
+            <figcaption>7. Use Anchor / Audit in long sessions</figcaption>
+          </figure>
+        </div>
       </section>
     </main>
 

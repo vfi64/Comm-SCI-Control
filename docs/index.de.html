@@ -60,15 +60,15 @@
         <div class="hero-metrics">
           <article class="metric-card reveal">
             <p class="metric-value" data-count="8" data-animate-from="0">8</p>
-            <p class="metric-label">Uncertainty Codes (U1-U8)</p>
+            <p class="metric-label"><a class="metric-link" href="concepts/index.de.html#uncertainty-codes">Uncertainty Codes (U1-U8)</a></p>
           </article>
           <article class="metric-card reveal">
             <p class="metric-value" data-count="6" data-animate-from="0">6</p>
-            <p class="metric-label">Execution Phases (P0-P5)</p>
+            <p class="metric-label"><a class="metric-link" href="concepts/index.de.html#p0-p5">Execution Phases (P0-P5)</a></p>
           </article>
           <article class="metric-card reveal">
             <p class="metric-value" data-count="8" data-animate-from="0">8</p>
-            <p class="metric-label">Preflight Checks (PF-001..008)</p>
+            <p class="metric-label"><a class="metric-link" href="concepts/index.de.html#preflight-checks">Preflight Checks (PF-001..008)</a></p>
           </article>
         </div>
       </section>
@@ -170,18 +170,45 @@
         </div>
       </section>
 
+      <section id="concepts" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Begriffe lernen</p>
+          <h2>Didaktische Erklaerseiten</h2>
+        </div>
+        <p class="hero-copy">
+          Unklar bei SCI-Trace, QC-Matrix, Context-Pressure-Guard oder RAG Governance?
+          Nutze den Begriffsleitfaden mit anschaulichen Erklaerungen und Mini-Beispielen.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="concepts/index.de.html">Begriffe (DE)</a>
+          <a class="btn btn-soft" href="concepts/index.html">Concepts (EN)</a>
+        </div>
+      </section>
+
       <section id="start" class="section reveal">
         <div class="section-head">
           <p class="eyebrow">Schneller Einstieg</p>
           <h2>In 90 Sekunden live</h2>
         </div>
+        <div class="bundle-actions">
+          <button
+            class="btn btn-solid"
+            type="button"
+            data-copy-bundle
+            data-lang="de"
+            data-json-path="data/Comm-SCI-v20.2.0.json"
+          >
+            Init + aktuelles JSON kopieren (DE)
+          </button>
+          <p class="copy-status" data-copy-status role="status" aria-live="polite"></p>
+        </div>
         <div class="start-grid">
           <pre><code>1. Init-Vortext (Block unten) einfügen
 2. JSON/Comm-SCI-v20.2.0.json einspielen
 3. Comm Start
-4. Profile Expert
-5. Optional: Strict on
-6. Task stellen, bei Bedarf: SCI on
+4. Profile Expert (SCI-Menue oeffnet automatisch)
+5. Standalone \"B\" senden (Deep-Dive)
+6. Task stellen
 7. Bei langen Sessions: Comm Anchor / Comm Audit</code></pre>
           <div class="start-actions">
             <a class="link-card" href="https://github.com/vfi64/Comm-SCI-Control/blob/main/README.de.md" target="_blank" rel="noreferrer">
@@ -218,6 +245,39 @@ Antworte mit der nächsten Nachricht direkt inhaltlich gemäß Regelwerk (keine 
 
 Hier ist das Regelwerk:</code></pre>
         </details>
+        <div class="section-head screenshot-head">
+          <h3>Beispielbilder (Schritt 1-7)</h3>
+        </div>
+        <div class="shot-grid">
+          <figure class="shot-card">
+            <img src="assets/screens/step1.svg" alt="Schritt 1: Init-Vortext" loading="lazy" />
+            <figcaption>1. Init-Vortext einfuegen</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step2.svg" alt="Schritt 2: JSON einspielen" loading="lazy" />
+            <figcaption>2. Aktuelles JSON-Regelwerk einfuegen</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step3.svg" alt="Schritt 3: Comm Start" loading="lazy" />
+            <figcaption>3. Mit Comm Start aktivieren</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step4.svg" alt="Schritt 4: Profile Expert" loading="lazy" />
+            <figcaption>4. Profile Expert setzen (SCI pending)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step5.svg" alt="Schritt 5: B waehlen" loading="lazy" />
+            <figcaption>5. Variante B waehlen (Deep-Dive)</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step6.svg" alt="Schritt 6: Task stellen" loading="lazy" />
+            <figcaption>6. Task stellen</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="assets/screens/step7.svg" alt="Schritt 7: Anchor und Audit" loading="lazy" />
+            <figcaption>7. In langen Sessions Anchor / Audit nutzen</figcaption>
+          </figure>
+        </div>
       </section>
     </main>
 

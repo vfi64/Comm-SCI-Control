@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comm-SCI Concepts | Comm-SCI-Control</title>
+    <meta
+      name="description"
+      content="Pedagogical concept guide for Comm-SCI-Control terms: uncertainty codes, execution pipeline, preflight checks, SCI trace, QC matrix, anchor, audit, context-pressure guard, RAG governance, and self-debunking."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;700&family=Source+Serif+4:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/landing.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">CSC</span>
+        <span class="brand-text">Comm-SCI Concepts</span>
+      </a>
+      <nav class="nav-links" aria-label="Concept navigation">
+        <a href="#uncertainty-codes">Uncertainty</a>
+        <a href="#execution-pipeline">Pipeline</a>
+        <a href="#anchor">Anchor</a>
+        <a href="#rag-governance">RAG</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="lang-switch" aria-label="Language switch">
+          <a class="lang-link is-active" href="index.html">EN</a>
+          <span aria-hidden="true">|</span>
+          <a class="lang-link" href="index.de.html">DE</a>
+        </div>
+        <a class="btn btn-line" href="../index.html">Landing</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero reveal is-visible">
+        <p class="eyebrow">Pedagogical guide</p>
+        <h1>
+          Core Terms Explained
+          <span>for semi-professional users and interested learners</span>
+        </h1>
+        <p class="hero-copy">
+          Each module below explains what the term means, why it matters,
+          what a minimal example looks like, and where users usually make mistakes.
+        </p>
+      </section>
+
+      <section class="section reveal is-visible">
+        <div class="section-head">
+          <p class="eyebrow">Quick jump</p>
+          <h2>Concept index</h2>
+        </div>
+        <div class="matrix">
+          <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 labeling system.</p></a>
+          <a class="link-card" href="#execution-pipeline"><h3>Execution Pipeline</h3><p>Deterministic processing order.</p></a>
+          <a class="link-card" href="#preflight-checks"><h3>Preflight Checks</h3><p>Checks before first token.</p></a>
+          <a class="link-card" href="#sci-trace"><h3>SCI Trace</h3><p>Visible reasoning structure.</p></a>
+          <a class="link-card" href="#qc-matrix"><h3>QC Matrix</h3><p>Quality dimensions and deltas.</p></a>
+          <a class="link-card" href="#anchor"><h3>Anchor</h3><p>Session continuity handover.</p></a>
+          <a class="link-card" href="#audit"><h3>Audit</h3><p>Compliance check after output.</p></a>
+          <a class="link-card" href="#context-pressure-guard"><h3>Context-Pressure-Guard</h3><p>Long-context drift protection.</p></a>
+          <a class="link-card" href="#p0-p5"><h3>P0-P5 phases</h3><p>Phase-by-phase execution model.</p></a>
+          <a class="link-card" href="#rag-governance"><h3>RAG Governance</h3><p>Source-quality hardening rules.</p></a>
+          <a class="link-card" href="#self-debunking"><h3>Self-Debunking</h3><p>Forced counter-check section.</p></a>
+        </div>
+      </section>
+
+      <section id="uncertainty-codes" class="section reveal is-visible">
+        <div class="section-head"><h2>Uncertainty Codes (U1-U8)</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> A mandatory label set that marks why certainty is limited.</p>
+          <p><strong>Why:</strong> Prevents hidden guessing and makes risk explicit.</p>
+          <p><strong>Mini example:</strong> "U7: Source A conflicts with Source B."</p>
+          <p><strong>Common mistake:</strong> reporting uncertainty without naming the code.</p>
+        </article>
+      </section>
+
+      <section id="execution-pipeline" class="section reveal is-visible">
+        <div class="section-head"><h2>Execution Pipeline</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> Fixed processing order from parse to render.</p>
+          <p><strong>Why:</strong> Avoids random order changes and improves reproducibility.</p>
+          <p><strong>Mini example:</strong> parse command first, then run preflight before generating output.</p>
+          <p><strong>Common mistake:</strong> mixing rendering decisions before preflight passes.</p>
+        </article>
+      </section>
+
+      <section id="preflight-checks" class="section reveal is-visible">
+        <div class="section-head"><h2>Preflight Checks (PF-001..008)</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> Validation gates before the first output token.</p>
+          <p><strong>Why:</strong> catches structural failures early (e.g., missing uncertainty line).</p>
+          <p><strong>Mini example:</strong> PF-008 blocks WEB claims without QualityClass.</p>
+          <p><strong>Common mistake:</strong> treating preflight as optional instead of mandatory contract.</p>
+        </article>
+      </section>
+
+      <section id="sci-trace" class="section reveal is-visible">
+        <div class="section-head"><h2>SCI Trace</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> Structured reasoning trace (variant-dependent).</p>
+          <p><strong>Why:</strong> improves answer traceability and reviewability.</p>
+          <p><strong>Mini example:</strong> "Plan -> Solution -> Critic -> Learn" in Deep Dive mode.</p>
+          <p><strong>Common mistake:</strong> saying "SCI on" but not selecting a variant letter.</p>
+        </article>
+      </section>
+
+      <section id="qc-matrix" class="section reveal is-visible">
+        <div class="section-head"><h2>QC Matrix</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> six quality dimensions with score and delta.</p>
+          <p><strong>Why:</strong> gives a compact, comparable quality signal.</p>
+          <p><strong>Mini example:</strong> "Evidence 3 (Δ0), Brevity 2 (Δ-1)".</p>
+          <p><strong>Common mistake:</strong> reporting scores without explaining negative deltas.</p>
+        </article>
+      </section>
+
+      <section id="anchor" class="section reveal is-visible">
+        <div class="section-head"><h2>Anchor</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> session snapshot for context transfer and re-start.</p>
+          <p><strong>Why:</strong> keeps governance state stable across chat restarts.</p>
+          <p><strong>Mini example:</strong> use <code>Comm Anchor</code>, paste snapshot into new chat.</p>
+          <p><strong>Common mistake:</strong> restarting without re-instantiating JSON + profile state.</p>
+        </article>
+      </section>
+
+      <section id="audit" class="section reveal is-visible">
+        <div class="section-head"><h2>Audit</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> compliance check for recent assistant outputs.</p>
+          <p><strong>Why:</strong> detects drift and contract violations post-output.</p>
+          <p><strong>Mini example:</strong> <code>Comm Audit</code> after a long analytical turn.</p>
+          <p><strong>Common mistake:</strong> using audit only when failures are already obvious.</p>
+        </article>
+      </section>
+
+      <section id="context-pressure-guard" class="section reveal is-visible">
+        <div class="section-head"><h2>Context-Pressure-Guard</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> threshold-based defense against long-context degradation.</p>
+          <p><strong>Why:</strong> lowers "lost-in-the-middle" risk in long sessions.</p>
+          <p><strong>Mini example:</strong> switch to compact/macro mode at high pressure.</p>
+          <p><strong>Common mistake:</strong> ignoring pressure warnings and continuing in verbose mode.</p>
+        </article>
+      </section>
+
+      <section id="p0-p5" class="section reveal is-visible">
+        <div class="section-head"><h2>P0-P5 phases</h2></div>
+        <article class="info-card">
+          <p><strong>P0 Parse:</strong> commands and control tokens.</p>
+          <p><strong>P1 Route:</strong> map request to workflow path.</p>
+          <p><strong>P2 State:</strong> apply profile/overlays/context state.</p>
+          <p><strong>P2B Preflight:</strong> enforce output prerequisites.</p>
+          <p><strong>P3-P5:</strong> output contract, one-shot repair, final render.</p>
+        </article>
+      </section>
+
+      <section id="rag-governance" class="section reveal is-visible">
+        <div class="section-head"><h2>RAG Governance</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> hardening rules for source use (WEB/DOC/TRAIN).</p>
+          <p><strong>Why:</strong> prevents low-quality source mixing and false "green" confidence.</p>
+          <p><strong>Mini example:</strong> R-RAG-001 + PF-008 require WEB QualityClass.</p>
+          <p><strong>Common mistake:</strong> mixing source types without per-claim provenance.</p>
+        </article>
+      </section>
+
+      <section id="self-debunking" class="section reveal is-visible">
+        <div class="section-head"><h2>Self-Debunking</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> explicit counter-check of own assumptions and weak points.</p>
+          <p><strong>Why:</strong> reduces overconfidence and makes limitations transparent.</p>
+          <p><strong>Mini example:</strong> add "Self-Debunking" with strongest counterargument.</p>
+          <p><strong>Common mistake:</strong> writing only cosmetic caveats instead of real falsification pressure.</p>
+        </article>
+      </section>
+
+      <section class="section reveal is-visible">
+        <a class="btn btn-solid" href="../index.html">Back to landing page</a>
+      </section>
+    </main>
+
+    <script src="../assets/landing.js"></script>
+  </body>
+</html>
