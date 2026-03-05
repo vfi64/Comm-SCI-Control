@@ -75,6 +75,10 @@ Then paste the **canonical JSON ruleset** directly below it.
 3. **Configure (example):** Send `Profile Expert` and (optionally) `Strict on`.
 4. **Work:** Ask your question. For deep dives: `SCI on` → when the (A–H) menu is shown, reply with a **standalone** letter `A`–`H` → (optional) `SCI recurse`.
 
+> **LLM activation note:** Due to the ruleset size and strict governance constraints, many LLMs first emit a short
+> acknowledgement/confirmation message before fully applying the ruleset.
+> This is expected behavior, not an error.
+
 **Parsing rules (important):**  
 - Commands are recognized **only** when sent as **standalone prompts**.  
 - Variant letters `A`–`H` are treated as a selection **only** while the SCI menu is explicitly pending; otherwise they are normal text.

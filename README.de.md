@@ -73,6 +73,10 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 3. **Konfigurieren (Beispiel):** `Profile Expert` und optional `Strict on` senden.
 4. **Arbeiten:** Frage stellen. Für Deep Dives: `SCI on` → wenn das (A–H)-Menü erscheint, mit einem **Standalone**-Buchstaben `A`–`H` antworten → optional `SCI recurse`.
 
+> **Hinweis zu LLM-Aktivierung:** Wegen Groesse und Regelstrenge des Regelwerks geben viele LLM
+> zunaechst eine kurze Bestaetigungs-/Anmeldenachricht aus, bevor sie das Regelwerk voll anwenden.
+> Das ist erwartbar und kein Fehler.
+
 **Parsing-Regeln (wichtig):**  
 - Kommandos werden **nur** erkannt, wenn sie als **Standalone-Prompts** gesendet werden.  
 - Variantenbuchstaben `A`–`H` zählen **nur**, solange das SCI-Menü explizit *pending* ist; sonst sind es normale Zeichen.
