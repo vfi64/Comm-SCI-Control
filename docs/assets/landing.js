@@ -115,8 +115,16 @@ Hier ist das Regelwerk:`;
     textarea.style.left = '-9999px';
     document.body.appendChild(textarea);
     textarea.select();
-    document.execCommand('copy');
+
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch (_error) {
+      copied = false;
+    }
+
     document.body.removeChild(textarea);
+    return copied;
   };
 
   document.querySelectorAll('[data-copy-bundle]').forEach((button) => {
@@ -133,11 +141,22 @@ Hier ist das Regelwerk:`;
         const jsonText = (await response.text()).trim();
         const bundle = `${preface}\n\n${jsonText}\n`;
 
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(bundle);
-        } else {
-          copyFallback(bundle);
+        let copied = false;
+
+        if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+          try {
+            await navigator.clipboard.writeText(bundle);
+            copied = true;
+          } catch (_error) {
+            copied = false;
+          }
         }
+
+        if (!copied) {
+          copied = copyFallback(bundle);
+        }
+
+        if (!copied) throw new Error('Clipboard write blocked');
 
         setStatus(
           button,

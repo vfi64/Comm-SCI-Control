@@ -6,7 +6,7 @@
     <title>Comm-SCI Concepts | Comm-SCI-Control</title>
     <meta
       name="description"
-      content="Pedagogical concept guide for Comm-SCI-Control terms: uncertainty codes, execution pipeline, preflight checks, SCI trace, QC matrix, anchor, audit, context-pressure guard, RAG governance, and self-debunking."
+      content="Pedagogical concept guide for Comm-SCI-Control terms: Anchor, Audit, Context-Pressure-Guard, Execution Pipeline, P0-P5 phases, Preflight Checks, QC Matrix, RAG Governance, SCI variants, Self-Debunking, and Uncertainty Codes."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,10 +23,10 @@
         <span class="brand-text">Comm-SCI Concepts</span>
       </a>
       <nav class="nav-links" aria-label="Concept navigation">
-        <a href="#uncertainty-codes">Uncertainty</a>
-        <a href="#execution-pipeline">Pipeline</a>
         <a href="#anchor">Anchor</a>
-        <a href="#rag-governance">RAG</a>
+        <a href="#audit">Audit</a>
+        <a href="#qc-matrix">QC Matrix</a>
+        <a href="#uncertainty-codes">Uncertainty</a>
       </nav>
       <div class="topbar-actions">
         <div class="lang-switch" aria-label="Language switch">
@@ -42,143 +42,189 @@
       <section class="hero reveal is-visible">
         <p class="eyebrow">Pedagogical guide</p>
         <h1>
-          Core Terms Explained
-          <span>for semi-professional users and interested learners</span>
+          Core terms explained
+          <span>clear enough for learners, precise enough for professionals</span>
         </h1>
         <p class="hero-copy">
-          Each module below explains what the term means, why it matters,
-          what a minimal example looks like, and where users usually make mistakes.
+          This page is intentionally written for interested non-specialists, students,
+          and interdisciplinary researchers while keeping technical accuracy.
+        </p>
+        <p class="concept-note">
+          If you are an expert reader: this is a didactic quick map, not a replacement
+          for the full normative JSON or handbook.
         </p>
       </section>
 
       <section class="section reveal is-visible">
         <div class="section-head">
-          <p class="eyebrow">Quick jump</p>
-          <h2>Concept index</h2>
+          <p class="eyebrow">A-Z jump</p>
+          <h2>Concept index (alphabetical)</h2>
         </div>
         <div class="matrix">
-          <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 labeling system.</p></a>
+          <a class="link-card" href="#anchor"><h3>Anchor</h3><p>Session handover and reset continuity.</p></a>
+          <a class="link-card" href="#audit"><h3>Audit</h3><p>Read compliance after output.</p></a>
+          <a class="link-card" href="#context-pressure-guard"><h3>Context-Pressure-Guard</h3><p>Threshold-based drift defense.</p></a>
           <a class="link-card" href="#execution-pipeline"><h3>Execution Pipeline</h3><p>Deterministic processing order.</p></a>
+          <a class="link-card" href="#p0-p5"><h3>P0-P5 Phases</h3><p>Operational stage-by-stage model.</p></a>
           <a class="link-card" href="#preflight-checks"><h3>Preflight Checks</h3><p>Checks before first token.</p></a>
-          <a class="link-card" href="#sci-trace"><h3>SCI Trace</h3><p>Visible reasoning structure.</p></a>
-          <a class="link-card" href="#qc-matrix"><h3>QC Matrix</h3><p>Quality dimensions and deltas.</p></a>
-          <a class="link-card" href="#anchor"><h3>Anchor</h3><p>Session continuity handover.</p></a>
-          <a class="link-card" href="#audit"><h3>Audit</h3><p>Compliance check after output.</p></a>
-          <a class="link-card" href="#context-pressure-guard"><h3>Context-Pressure-Guard</h3><p>Long-context drift protection.</p></a>
-          <a class="link-card" href="#p0-p5"><h3>P0-P5 phases</h3><p>Phase-by-phase execution model.</p></a>
-          <a class="link-card" href="#rag-governance"><h3>RAG Governance</h3><p>Source-quality hardening rules.</p></a>
-          <a class="link-card" href="#self-debunking"><h3>Self-Debunking</h3><p>Forced counter-check section.</p></a>
+          <a class="link-card" href="#qc-matrix"><h3>QC Matrix</h3><p>Scores, deltas, and interpretation.</p></a>
+          <a class="link-card" href="#rag-governance"><h3>RAG Governance</h3><p>Source hardening for non-experts.</p></a>
+          <a class="link-card" href="#sci-trace"><h3>SCI Trace + Variants</h3><p>Which variant fits which problem.</p></a>
+          <a class="link-card" href="#self-debunking"><h3>Self-Debunking</h3><p>Forced counter-check of assumptions.</p></a>
+          <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 with concrete examples.</p></a>
         </div>
-      </section>
-
-      <section id="uncertainty-codes" class="section reveal is-visible">
-        <div class="section-head"><h2>Uncertainty Codes (U1-U8)</h2></div>
-        <article class="info-card">
-          <p><strong>What:</strong> A mandatory label set that marks why certainty is limited.</p>
-          <p><strong>Why:</strong> Prevents hidden guessing and makes risk explicit.</p>
-          <p><strong>Mini example:</strong> "U7: Source A conflicts with Source B."</p>
-          <p><strong>Common mistake:</strong> reporting uncertainty without naming the code.</p>
-        </article>
-      </section>
-
-      <section id="execution-pipeline" class="section reveal is-visible">
-        <div class="section-head"><h2>Execution Pipeline</h2></div>
-        <article class="info-card">
-          <p><strong>What:</strong> Fixed processing order from parse to render.</p>
-          <p><strong>Why:</strong> Avoids random order changes and improves reproducibility.</p>
-          <p><strong>Mini example:</strong> parse command first, then run preflight before generating output.</p>
-          <p><strong>Common mistake:</strong> mixing rendering decisions before preflight passes.</p>
-        </article>
-      </section>
-
-      <section id="preflight-checks" class="section reveal is-visible">
-        <div class="section-head"><h2>Preflight Checks (PF-001..008)</h2></div>
-        <article class="info-card">
-          <p><strong>What:</strong> Validation gates before the first output token.</p>
-          <p><strong>Why:</strong> catches structural failures early (e.g., missing uncertainty line).</p>
-          <p><strong>Mini example:</strong> PF-008 blocks WEB claims without QualityClass.</p>
-          <p><strong>Common mistake:</strong> treating preflight as optional instead of mandatory contract.</p>
-        </article>
-      </section>
-
-      <section id="sci-trace" class="section reveal is-visible">
-        <div class="section-head"><h2>SCI Trace</h2></div>
-        <article class="info-card">
-          <p><strong>What:</strong> Structured reasoning trace (variant-dependent).</p>
-          <p><strong>Why:</strong> improves answer traceability and reviewability.</p>
-          <p><strong>Mini example:</strong> "Plan -> Solution -> Critic -> Learn" in Deep Dive mode.</p>
-          <p><strong>Common mistake:</strong> saying "SCI on" but not selecting a variant letter.</p>
-        </article>
-      </section>
-
-      <section id="qc-matrix" class="section reveal is-visible">
-        <div class="section-head"><h2>QC Matrix</h2></div>
-        <article class="info-card">
-          <p><strong>What:</strong> six quality dimensions with score and delta.</p>
-          <p><strong>Why:</strong> gives a compact, comparable quality signal.</p>
-          <p><strong>Mini example:</strong> "Evidence 3 (Δ0), Brevity 2 (Δ-1)".</p>
-          <p><strong>Common mistake:</strong> reporting scores without explaining negative deltas.</p>
-        </article>
       </section>
 
       <section id="anchor" class="section reveal is-visible">
         <div class="section-head"><h2>Anchor</h2></div>
         <article class="info-card">
-          <p><strong>What:</strong> session snapshot for context transfer and re-start.</p>
-          <p><strong>Why:</strong> keeps governance state stable across chat restarts.</p>
-          <p><strong>Mini example:</strong> use <code>Comm Anchor</code>, paste snapshot into new chat.</p>
-          <p><strong>Common mistake:</strong> restarting without re-instantiating JSON + profile state.</p>
+          <p><strong>What:</strong> <code>Comm Anchor</code> creates a compact session snapshot.</p>
+          <p><strong>Why it matters:</strong> LLM context windows fill up. When context gets long,
+          important constraints can be diluted. Anchor preserves governance-critical state.</p>
+          <p><strong>How to use:</strong> run <code>Comm Anchor</code>, start a new chat, paste snapshot,
+          then re-load JSON and run <code>Comm Start</code>.</p>
+          <p><strong>Typical mistake:</strong> opening a fresh chat without snapshot + re-init,
+          then expecting identical behavior.</p>
         </article>
       </section>
 
       <section id="audit" class="section reveal is-visible">
         <div class="section-head"><h2>Audit</h2></div>
         <article class="info-card">
-          <p><strong>What:</strong> compliance check for recent assistant outputs.</p>
-          <p><strong>Why:</strong> detects drift and contract violations post-output.</p>
-          <p><strong>Mini example:</strong> <code>Comm Audit</code> after a long analytical turn.</p>
-          <p><strong>Common mistake:</strong> using audit only when failures are already obvious.</p>
+          <p><strong>What:</strong> <code>Comm Audit</code> checks recent answers for governance compliance.</p>
+          <p><strong>How to read it:</strong> look for violated requirement IDs, missing blocks,
+          missing uncertainty labels, and evidence mismatches.</p>
+          <p><strong>Practical reading order:</strong> findings severity -> violated contract ->
+          exact repair action suggested.</p>
+          <p><strong>Typical mistake:</strong> only checking final score and ignoring the concrete violation list.</p>
         </article>
       </section>
 
       <section id="context-pressure-guard" class="section reveal is-visible">
         <div class="section-head"><h2>Context-Pressure-Guard</h2></div>
         <article class="info-card">
-          <p><strong>What:</strong> threshold-based defense against long-context degradation.</p>
-          <p><strong>Why:</strong> lowers "lost-in-the-middle" risk in long sessions.</p>
-          <p><strong>Mini example:</strong> switch to compact/macro mode at high pressure.</p>
-          <p><strong>Common mistake:</strong> ignoring pressure warnings and continuing in verbose mode.</p>
+          <p><strong>Threshold mechanism:</strong> when conversation length passes configured limits,
+          behavior switches to compact modes to protect rule adherence.</p>
+          <p><strong>Lost-in-the-middle risk:</strong> in very long prompts, models may overlook middle content.
+          This guard reduces that by re-anchoring and compressing non-critical text.</p>
+          <p><strong>Typical mistake:</strong> ignoring pressure warnings and adding more verbose context.</p>
+        </article>
+      </section>
+
+      <section id="execution-pipeline" class="section reveal is-visible">
+        <div class="section-head"><h2>Execution Pipeline</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> fixed order from parse to render; not a loose style suggestion.</p>
+          <p><strong>Why:</strong> deterministic order reduces silent rule drift.</p>
+          <p><strong>Simple mental model:</strong> detect command -> load state -> verify preconditions -> produce output.</p>
         </article>
       </section>
 
       <section id="p0-p5" class="section reveal is-visible">
         <div class="section-head"><h2>P0-P5 phases</h2></div>
         <article class="info-card">
-          <p><strong>P0 Parse:</strong> commands and control tokens.</p>
-          <p><strong>P1 Route:</strong> map request to workflow path.</p>
-          <p><strong>P2 State:</strong> apply profile/overlays/context state.</p>
-          <p><strong>P2B Preflight:</strong> enforce output prerequisites.</p>
-          <p><strong>P3-P5:</strong> output contract, one-shot repair, final render.</p>
+          <p><strong>P0 Parse:</strong> command and token recognition.</p>
+          <p><strong>P1 Route:</strong> choose processing path (normal/SCI/etc.).</p>
+          <p><strong>P2 State:</strong> apply profile, overlays, control flags.</p>
+          <p><strong>P2B Preflight:</strong> run mandatory pre-output checks.</p>
+          <p><strong>P3 Output Contract:</strong> enforce required output structure.</p>
+          <p><strong>P4 Repair:</strong> one-shot repair if contract is violated.</p>
+          <p><strong>P5 Render:</strong> final formatting and presentation.</p>
+        </article>
+      </section>
+
+      <section id="preflight-checks" class="section reveal is-visible">
+        <div class="section-head"><h2>Preflight Checks (PF-001..008)</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> mandatory checks before first output token.</p>
+          <p><strong>Example:</strong> PF-008 blocks or downgrades WEB claims without source quality class.</p>
+          <p><strong>Typical mistake:</strong> treating preflight as optional editorial advice.</p>
+        </article>
+      </section>
+
+      <section id="qc-matrix" class="section reveal is-visible">
+        <div class="section-head"><h2>QC Matrix</h2></div>
+        <article class="info-card">
+          <p><strong>Purpose:</strong> compact quality dashboard for each answer.</p>
+          <table class="concept-table">
+            <thead>
+              <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>0</code></td><td>insufficient / missing</td></tr>
+              <tr><td><code>1</code></td><td>basic / weak</td></tr>
+              <tr><td><code>2</code></td><td>solid / acceptable</td></tr>
+              <tr><td><code>3</code></td><td>strong / target-level</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Delta signs:</strong> <code>Δ+</code> better than baseline target, <code>Δ0</code> on target,
+          <code>Δ-</code> below target.</p>
+          <p><strong>Interpretation tip:</strong> one negative delta in "Evidence" or "Consistency"
+          is usually more critical than a negative delta in "Brevity".</p>
         </article>
       </section>
 
       <section id="rag-governance" class="section reveal is-visible">
         <div class="section-head"><h2>RAG Governance</h2></div>
         <article class="info-card">
-          <p><strong>What:</strong> hardening rules for source use (WEB/DOC/TRAIN).</p>
-          <p><strong>Why:</strong> prevents low-quality source mixing and false "green" confidence.</p>
-          <p><strong>Mini example:</strong> R-RAG-001 + PF-008 require WEB QualityClass.</p>
-          <p><strong>Common mistake:</strong> mixing source types without per-claim provenance.</p>
+          <p><strong>Beginner summary:</strong> RAG governance is quality control for source-based answers.</p>
+          <p><strong>Core rules:</strong> no strong WEB claims without quality class, no false "green"
+          confidence from anonymous sources, provenance per claim when sources are mixed.</p>
+          <p><strong>Simple checklist:</strong> "Where did this claim come from?", "How strong is this source?",
+          "Do two sources conflict?"</p>
+        </article>
+      </section>
+
+      <section id="sci-trace" class="section reveal is-visible">
+        <div class="section-head"><h2>SCI Trace + variant selection</h2></div>
+        <article class="info-card">
+          <p><strong>What:</strong> structured reasoning format selected via SCI variant letters.</p>
+          <table class="concept-table">
+            <thead>
+              <tr><th>Variant</th><th>Use when...</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>A</code></td><td>you need a quick but structured analysis.</td></tr>
+              <tr><td><code>B</code></td><td>you need deep-dive dialectical analysis.</td></tr>
+              <tr><td><code>C</code></td><td>you compare multiple branches/options.</td></tr>
+              <tr><td><code>D</code></td><td>you stress-test assumptions under critique.</td></tr>
+              <tr><td><code>E</code></td><td>you want concise expert synthesis.</td></tr>
+              <tr><td><code>F</code></td><td>you need evidence-first route selection.</td></tr>
+              <tr><td><code>G</code></td><td>you optimize for explainability/teaching.</td></tr>
+              <tr><td><code>H</code></td><td>you need strict audit-style traceability.</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Rule:</strong> variant letters only work as standalone input while SCI menu is pending.</p>
         </article>
       </section>
 
       <section id="self-debunking" class="section reveal is-visible">
         <div class="section-head"><h2>Self-Debunking</h2></div>
         <article class="info-card">
-          <p><strong>What:</strong> explicit counter-check of own assumptions and weak points.</p>
-          <p><strong>Why:</strong> reduces overconfidence and makes limitations transparent.</p>
-          <p><strong>Mini example:</strong> add "Self-Debunking" with strongest counterargument.</p>
-          <p><strong>Common mistake:</strong> writing only cosmetic caveats instead of real falsification pressure.</p>
+          <p><strong>What:</strong> required counter-check of own answer and assumptions.</p>
+          <p><strong>Why:</strong> reduces overconfidence and reveals weak spots early.</p>
+          <p><strong>Good pattern:</strong> strongest counterargument + where current answer might fail.</p>
+        </article>
+      </section>
+
+      <section id="uncertainty-codes" class="section reveal is-visible">
+        <div class="section-head"><h2>Uncertainty Codes (U1-U8)</h2></div>
+        <article class="info-card">
+          <table class="concept-table">
+            <thead>
+              <tr><th>Code</th><th>Meaning</th><th>Example</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>U1</code></td><td>Data gap</td><td>"I do not have the required dataset."</td></tr>
+              <tr><td><code>U2</code></td><td>Method uncertainty</td><td>"Result depends on chosen model assumptions."</td></tr>
+              <tr><td><code>U3</code></td><td>Calculation uncertainty</td><td>"Approximation introduces error range."</td></tr>
+              <tr><td><code>U4</code></td><td>Temporal instability</td><td>"This value may have changed since last update."</td></tr>
+              <tr><td><code>U5</code></td><td>Tool unavailable</td><td>"Live retrieval not available in this session."</td></tr>
+              <tr><td><code>U6</code></td><td>Ambiguous query</td><td>"The request has multiple possible interpretations."</td></tr>
+              <tr><td><code>U7</code></td><td>Retrieval conflict</td><td>"Source A contradicts Source B on the same claim."</td></tr>
+              <tr><td><code>U8</code></td><td>Source quality unassessed</td><td>"WEB claim has no quality class assigned."</td></tr>
+            </tbody>
+          </table>
         </article>
       </section>
 

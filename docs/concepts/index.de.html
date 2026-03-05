@@ -6,7 +6,7 @@
     <title>Comm-SCI Begriffe | Comm-SCI-Control</title>
     <meta
       name="description"
-      content="Didaktischer Begriffsleitfaden zu Comm-SCI-Control: Uncertainty Codes, Execution Pipeline, Preflight Checks, SCI-Trace, QC-Matrix, Anchor, Audit, Context-Pressure-Guard, RAG Governance und Self-Debunking."
+      content="Didaktischer Begriffsleitfaden zu Comm-SCI-Control: Anchor, Audit, Context-Pressure-Guard, Execution Pipeline, P0-P5 Stufen, Preflight Checks, QC-Matrix, RAG Governance, SCI-Varianten, Self-Debunking und Uncertainty Codes."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,10 +23,10 @@
         <span class="brand-text">Comm-SCI Begriffe</span>
       </a>
       <nav class="nav-links" aria-label="Begriffsnavigation">
-        <a href="#uncertainty-codes">Uncertainty</a>
-        <a href="#execution-pipeline">Pipeline</a>
         <a href="#anchor">Anchor</a>
-        <a href="#rag-governance">RAG</a>
+        <a href="#audit">Audit</a>
+        <a href="#qc-matrix">QC-Matrix</a>
+        <a href="#uncertainty-codes">Uncertainty</a>
       </nav>
       <div class="topbar-actions">
         <div class="lang-switch" aria-label="Sprachauswahl">
@@ -43,111 +43,77 @@
         <p class="eyebrow">Didaktischer Leitfaden</p>
         <h1>
           Kernbegriffe anschaulich erklaert
-          <span>fuer semiprofessionelle Nutzer und interessierte Laien</span>
+          <span>verstaendlich fuer Einsteiger, praezise fuer Fachnutzer</span>
         </h1>
         <p class="hero-copy">
-          Jedes Modul unten erklaert den Begriff, den praktischen Nutzen,
-          ein Mini-Beispiel und typische Fehlanwendungen.
+          Diese Seite richtet sich bewusst auch an interessierte Laien, Schueler,
+          Studierende und fachfremde Wissenschaftler, ohne den fachlichen Kern zu verlieren.
+        </p>
+        <p class="concept-note">
+          Fuer Experten: Diese Uebersicht ist ein didaktischer Einstieg.
+          Die normative Detailtiefe bleibt im JSON-Regelwerk und im Handbuch.
         </p>
       </section>
 
       <section class="section reveal is-visible">
         <div class="section-head">
-          <p class="eyebrow">Schnellzugriff</p>
-          <h2>Begriffsindex</h2>
+          <p class="eyebrow">A-Z Zugriff</p>
+          <h2>Begriffsindex (alphabetisch)</h2>
         </div>
         <div class="matrix">
-          <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 Kennzeichnungssystem.</p></a>
-          <a class="link-card" href="#execution-pipeline"><h3>Execution Pipeline</h3><p>Deterministische Reihenfolge.</p></a>
-          <a class="link-card" href="#preflight-checks"><h3>Preflight Checks</h3><p>Pruefung vor erstem Token.</p></a>
-          <a class="link-card" href="#sci-trace"><h3>SCI-Trace</h3><p>Sichtbare Denkstruktur.</p></a>
-          <a class="link-card" href="#qc-matrix"><h3>QC-Matrix</h3><p>Qualitaetsdimensionen + Delta.</p></a>
           <a class="link-card" href="#anchor"><h3>Anchor</h3><p>Session-Uebergabe und Re-Anchor.</p></a>
-          <a class="link-card" href="#audit"><h3>Audit</h3><p>Konformitaetspruefung nach Output.</p></a>
-          <a class="link-card" href="#context-pressure-guard"><h3>Context-Pressure-Guard</h3><p>Drift-Schutz in langen Kontexten.</p></a>
-          <a class="link-card" href="#p0-p5"><h3>P0-P5 Stufen</h3><p>Ablauf nach Ausfuehrungsstufen.</p></a>
-          <a class="link-card" href="#rag-governance"><h3>RAG Governance</h3><p>Regeln fuer Quellenhaertung.</p></a>
+          <a class="link-card" href="#audit"><h3>Audit</h3><p>Konformitaet nach Ausgabe lesen.</p></a>
+          <a class="link-card" href="#context-pressure-guard"><h3>Context-Pressure-Guard</h3><p>Schwellwertbasierter Drift-Schutz.</p></a>
+          <a class="link-card" href="#execution-pipeline"><h3>Execution Pipeline</h3><p>Deterministische Reihenfolge.</p></a>
+          <a class="link-card" href="#p0-p5"><h3>P0-P5 Stufen</h3><p>Ablauf als feste Verarbeitungsstufen.</p></a>
+          <a class="link-card" href="#preflight-checks"><h3>Preflight Checks</h3><p>Checks vor erstem Token.</p></a>
+          <a class="link-card" href="#qc-matrix"><h3>QC-Matrix</h3><p>Scores, Delta und Deutung.</p></a>
+          <a class="link-card" href="#rag-governance"><h3>RAG Governance</h3><p>Quellenhaertung fuer Einsteiger erklaert.</p></a>
+          <a class="link-card" href="#sci-trace"><h3>SCI-Trace + Varianten</h3><p>Welche Variante fuer welches Problem.</p></a>
           <a class="link-card" href="#self-debunking"><h3>Self-Debunking</h3><p>Erzwungene Gegenpruefung.</p></a>
+          <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 mit konkreten Beispielen.</p></a>
         </div>
-      </section>
-
-      <section id="uncertainty-codes" class="section reveal is-visible">
-        <div class="section-head"><h2>Uncertainty Codes (U1-U8)</h2></div>
-        <article class="info-card">
-          <p><strong>Was:</strong> Verpflichtendes Label-Set, das den Grund begrenzter Sicherheit markiert.</p>
-          <p><strong>Warum:</strong> verhindert verstecktes Raten und macht Risiko sichtbar.</p>
-          <p><strong>Mini-Beispiel:</strong> "U7: Quelle A widerspricht Quelle B."</p>
-          <p><strong>Typischer Fehler:</strong> Unsicherheit nennen, aber keinen U-Code setzen.</p>
-        </article>
-      </section>
-
-      <section id="execution-pipeline" class="section reveal is-visible">
-        <div class="section-head"><h2>Execution Pipeline</h2></div>
-        <article class="info-card">
-          <p><strong>Was:</strong> feste Verarbeitungsreihenfolge von Parse bis Render.</p>
-          <p><strong>Warum:</strong> reduziert zufaellige Ablaufdrift und erhoeht Reproduzierbarkeit.</p>
-          <p><strong>Mini-Beispiel:</strong> Kommando erst parsen, dann Preflight vor Generierung.</p>
-          <p><strong>Typischer Fehler:</strong> Render-Entscheidungen vor erfolgreichem Preflight treffen.</p>
-        </article>
-      </section>
-
-      <section id="preflight-checks" class="section reveal is-visible">
-        <div class="section-head"><h2>Preflight Checks (PF-001..008)</h2></div>
-        <article class="info-card">
-          <p><strong>Was:</strong> Validierungs-Gates vor dem ersten Output-Token.</p>
-          <p><strong>Warum:</strong> faengt Strukturfehler frueh ab (z. B. fehlende Unsicherheitszeile).</p>
-          <p><strong>Mini-Beispiel:</strong> PF-008 blockt WEB-Claims ohne QualityClass.</p>
-          <p><strong>Typischer Fehler:</strong> Preflight als optional statt verpflichtenden Vertrag lesen.</p>
-        </article>
-      </section>
-
-      <section id="sci-trace" class="section reveal is-visible">
-        <div class="section-head"><h2>SCI-Trace</h2></div>
-        <article class="info-card">
-          <p><strong>Was:</strong> strukturierte Denkschritt-Ausgabe (variantenabhaengig).</p>
-          <p><strong>Warum:</strong> verbessert Nachvollziehbarkeit und Reviewbarkeit.</p>
-          <p><strong>Mini-Beispiel:</strong> "Plan -> Solution -> Critic -> Learn" im Deep-Dive-Modus.</p>
-          <p><strong>Typischer Fehler:</strong> "SCI on" setzen, aber keine Variantenwahl A-H treffen.</p>
-        </article>
-      </section>
-
-      <section id="qc-matrix" class="section reveal is-visible">
-        <div class="section-head"><h2>QC-Matrix</h2></div>
-        <article class="info-card">
-          <p><strong>Was:</strong> sechs Qualitaetsdimensionen mit Score und Delta.</p>
-          <p><strong>Warum:</strong> liefert kompaktes, vergleichbares Qualitaetssignal.</p>
-          <p><strong>Mini-Beispiel:</strong> "Evidence 3 (Δ0), Brevity 2 (Δ-1)".</p>
-          <p><strong>Typischer Fehler:</strong> Scores nennen, aber negative Delta nicht deuten.</p>
-        </article>
       </section>
 
       <section id="anchor" class="section reveal is-visible">
         <div class="section-head"><h2>Anchor</h2></div>
         <article class="info-card">
-          <p><strong>Was:</strong> Session-Snapshot fuer Kontextuebergabe und Neustart.</p>
-          <p><strong>Warum:</strong> haelt Governance-Zustand ueber Chatwechsel stabil.</p>
-          <p><strong>Mini-Beispiel:</strong> <code>Comm Anchor</code>, Snapshot in neuen Chat kopieren.</p>
-          <p><strong>Typischer Fehler:</strong> Neustart ohne Re-Instanzierung von JSON + Profilzustand.</p>
+          <p><strong>Was:</strong> <code>Comm Anchor</code> erzeugt einen kompakten Session-Snapshot.</p>
+          <p><strong>Warum wichtig:</strong> Kontextfenster von LLM laufen voll. Bei langen Chats werden Regeln in der Mitte leichter uebersehen. Anchor konserviert den Governance-Zustand.</p>
+          <p><strong>Nutzung:</strong> <code>Comm Anchor</code> -> neuen Chat oeffnen -> Snapshot einfuegen -> JSON laden -> <code>Comm Start</code>.</p>
+          <p><strong>Typischer Fehler:</strong> Neustart ohne Snapshot und ohne Re-Initialisierung.</p>
         </article>
       </section>
 
       <section id="audit" class="section reveal is-visible">
         <div class="section-head"><h2>Audit</h2></div>
         <article class="info-card">
-          <p><strong>Was:</strong> Konformitaetspruefung fuer juengste Assistant-Ausgaben.</p>
-          <p><strong>Warum:</strong> erkennt Drift und Vertragsverletzungen nach der Ausgabe.</p>
-          <p><strong>Mini-Beispiel:</strong> <code>Comm Audit</code> nach langem Analyse-Turn.</p>
-          <p><strong>Typischer Fehler:</strong> Audit erst nutzen, wenn Fehler schon sichtbar eskaliert sind.</p>
+          <p><strong>Was:</strong> <code>Comm Audit</code> prueft juengste Antworten auf Regelkonformitaet.</p>
+          <p><strong>Wie lesen:</strong> zuerst Schwere/Fundliste, dann verletzte Requirement IDs,
+          dann konkrete Repair-Hinweise.</p>
+          <p><strong>Praxisnutzen:</strong> Du erkennst, ob z. B. Unsicherheitslabel fehlen,
+          Struktur verletzt ist oder Evidenzmarkierung nicht passt.</p>
+          <p><strong>Typischer Fehler:</strong> nur die Gesamtnote lesen und die Befunddetails ignorieren.</p>
         </article>
       </section>
 
       <section id="context-pressure-guard" class="section reveal is-visible">
         <div class="section-head"><h2>Context-Pressure-Guard</h2></div>
         <article class="info-card">
-          <p><strong>Was:</strong> Schwellwert-Mechanismus gegen Kontextdegradation.</p>
-          <p><strong>Warum:</strong> reduziert das Lost-in-the-Middle-Risiko in langen Sessions.</p>
-          <p><strong>Mini-Beispiel:</strong> Wechsel in compact/macro mode bei hohem Druck.</p>
-          <p><strong>Typischer Fehler:</strong> Warnungen ignorieren und weiter im Vollmodus schreiben.</p>
+          <p><strong>Schwellwert-Mechanismus:</strong> Sobald definierte Grenzwerte fuer Kontextlaenge erreicht sind,
+          schaltet das System in kompaktere Modi und priorisiert Kernregeln.</p>
+          <p><strong>Lost-in-the-Middle-Risiko:</strong> In langen Eingaben uebersehen LLM oft Inhalte aus dem Mittelteil.
+          Der Guard reduziert dieses Risiko durch Re-Anchor und Textkompression.</p>
+          <p><strong>Typischer Fehler:</strong> Warnhinweise ignorieren und immer weiter im Vollmodus schreiben.</p>
+        </article>
+      </section>
+
+      <section id="execution-pipeline" class="section reveal is-visible">
+        <div class="section-head"><h2>Execution Pipeline</h2></div>
+        <article class="info-card">
+          <p><strong>Was:</strong> feste Reihenfolge von Parse bis Render; kein loses Prompting.</p>
+          <p><strong>Warum:</strong> senkt Zufallsdrift und erhoeht Reproduzierbarkeit.</p>
+          <p><strong>Merksatz:</strong> Befehl erkennen -> Zustand setzen -> Voraussetzungen pruefen -> Ausgabe erzeugen.</p>
         </article>
       </section>
 
@@ -155,30 +121,106 @@
         <div class="section-head"><h2>P0-P5 Stufen</h2></div>
         <article class="info-card">
           <p><strong>P0 Parse:</strong> Kommandos und Kontrolltokens erkennen.</p>
-          <p><strong>P1 Route:</strong> Request auf Workflow-Pfad mappen.</p>
-          <p><strong>P2 State:</strong> Profil/Overlay/Kontextzustand anwenden.</p>
-          <p><strong>P2B Preflight:</strong> Ausgabevoraussetzungen erzwingen.</p>
-          <p><strong>P3-P5:</strong> Output-Vertrag, einmalige Reparatur, finales Rendern.</p>
+          <p><strong>P1 Route:</strong> Anfrage auf den passenden Workflow-Pfad leiten.</p>
+          <p><strong>P2 State:</strong> Profil, Overlay und Status anwenden.</p>
+          <p><strong>P2B Preflight:</strong> Pflichtchecks vor dem ersten Token.</p>
+          <p><strong>P3 Output Contract:</strong> notwendige Ausgabestruktur erzwingen.</p>
+          <p><strong>P4 Repair:</strong> einmaliger Reparaturversuch bei Vertragsbruch.</p>
+          <p><strong>P5 Render:</strong> finale Darstellung und Formatierung.</p>
+        </article>
+      </section>
+
+      <section id="preflight-checks" class="section reveal is-visible">
+        <div class="section-head"><h2>Preflight Checks (PF-001..008)</h2></div>
+        <article class="info-card">
+          <p><strong>Was:</strong> verbindliche Pruefschritte vor der Ausgabe.</p>
+          <p><strong>Beispiel:</strong> PF-008 blockt oder downgradet WEB-Claims ohne QualityClass.</p>
+          <p><strong>Typischer Fehler:</strong> Preflight nur als Empfehlung statt als Pflichtvertrag lesen.</p>
+        </article>
+      </section>
+
+      <section id="qc-matrix" class="section reveal is-visible">
+        <div class="section-head"><h2>QC-Matrix</h2></div>
+        <article class="info-card">
+          <p><strong>Zweck:</strong> kompakter Qualitaetsueberblick pro Antwort.</p>
+          <table class="concept-table">
+            <thead>
+              <tr><th>Code</th><th>Bedeutung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>0</code></td><td>unzureichend / fehlt</td></tr>
+              <tr><td><code>1</code></td><td>grundlegend / schwach</td></tr>
+              <tr><td><code>2</code></td><td>solide / akzeptabel</td></tr>
+              <tr><td><code>3</code></td><td>stark / Zielniveau</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Delta-Zeichen:</strong> <code>Δ+</code> ueber Zielwert, <code>Δ0</code> im Zielbereich,
+          <code>Δ-</code> unter Zielbereich.</p>
+          <p><strong>Lesetipp:</strong> Ein negatives Delta bei "Evidence" oder "Consistency" ist oft kritischer als bei "Brevity".</p>
         </article>
       </section>
 
       <section id="rag-governance" class="section reveal is-visible">
         <div class="section-head"><h2>RAG Governance</h2></div>
         <article class="info-card">
-          <p><strong>Was:</strong> Haertungsregeln fuer Quellnutzung (WEB/DOC/TRAIN).</p>
-          <p><strong>Warum:</strong> verhindert schwache Quellmischung und falsches "green"-Vertrauen.</p>
-          <p><strong>Mini-Beispiel:</strong> R-RAG-001 + PF-008 erzwingen WEB-QualityClass.</p>
-          <p><strong>Typischer Fehler:</strong> Quelltypen mischen ohne claim-genaue Provenienz.</p>
+          <p><strong>Einsteiger-Erklaerung:</strong> RAG Governance ist Qualitaetskontrolle fuer quellenbasierte Aussagen.</p>
+          <p><strong>Kernregeln:</strong> keine starken WEB-Claims ohne QualityClass,
+          kein falsches "green" bei anonymen Quellen,
+          claim-genaue Provenienz bei Quellmix.</p>
+          <p><strong>Mini-Checkliste:</strong> "Woher kommt die Aussage?", "Wie belastbar ist die Quelle?", "Gibt es Quellkonflikte?"</p>
+        </article>
+      </section>
+
+      <section id="sci-trace" class="section reveal is-visible">
+        <div class="section-head"><h2>SCI-Trace + Variantenwahl</h2></div>
+        <article class="info-card">
+          <p><strong>Was:</strong> strukturierte Denkschritt-Ausgabe, gewaehlt ueber SCI-Variantenbuchstaben.</p>
+          <table class="concept-table">
+            <thead>
+              <tr><th>Variante</th><th>Geeignet wenn...</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>A</code></td><td>du eine schnelle, aber strukturierte Analyse willst.</td></tr>
+              <tr><td><code>B</code></td><td>du eine tiefe dialektische Analyse brauchst.</td></tr>
+              <tr><td><code>C</code></td><td>du mehrere Optionen/Baeume vergleichst.</td></tr>
+              <tr><td><code>D</code></td><td>du Annahmen kritisch stresstesten willst.</td></tr>
+              <tr><td><code>E</code></td><td>du eine kompakte Expertensynthese willst.</td></tr>
+              <tr><td><code>F</code></td><td>du evidenzgetriebene Verifikationsrouten priorisierst.</td></tr>
+              <tr><td><code>G</code></td><td>du Erklaerbarkeit/Lehrbarkeit maximieren willst.</td></tr>
+              <tr><td><code>H</code></td><td>du maximale Auditierbarkeit benoetigst.</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Regel:</strong> Variantenbuchstaben wirken nur als Standalone-Eingabe bei pending SCI-Menue.</p>
         </article>
       </section>
 
       <section id="self-debunking" class="section reveal is-visible">
         <div class="section-head"><h2>Self-Debunking</h2></div>
         <article class="info-card">
-          <p><strong>Was:</strong> explizite Gegenpruefung eigener Annahmen und Schwachstellen.</p>
+          <p><strong>Was:</strong> verpflichtende Gegenpruefung eigener Annahmen und Schwachstellen.</p>
           <p><strong>Warum:</strong> reduziert Uebervertrauen und macht Grenzen transparent.</p>
-          <p><strong>Mini-Beispiel:</strong> Abschnitt "Self-Debunking" mit staerkstem Gegenargument.</p>
-          <p><strong>Typischer Fehler:</strong> nur kosmetische Caveats statt echter Falsifikationspruefung.</p>
+          <p><strong>Gute Praxis:</strong> staerkstes Gegenargument + Situation, in der die eigene Antwort scheitern kann.</p>
+        </article>
+      </section>
+
+      <section id="uncertainty-codes" class="section reveal is-visible">
+        <div class="section-head"><h2>Uncertainty Codes (U1-U8)</h2></div>
+        <article class="info-card">
+          <table class="concept-table">
+            <thead>
+              <tr><th>Code</th><th>Bedeutung</th><th>Beispiel</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>U1</code></td><td>Data gap</td><td>"Mir fehlt der noetige Datensatz."</td></tr>
+              <tr><td><code>U2</code></td><td>Method uncertainty</td><td>"Ergebnis haengt von Modellannahmen ab."</td></tr>
+              <tr><td><code>U3</code></td><td>Calculation uncertainty</td><td>"Naeherung erzeugt Fehlerspanne."</td></tr>
+              <tr><td><code>U4</code></td><td>Temporal instability</td><td>"Wert kann sich seit letztem Stand geaendert haben."</td></tr>
+              <tr><td><code>U5</code></td><td>Tool unavailable</td><td>"Live-Retrieval ist in dieser Session nicht verfuegbar."</td></tr>
+              <tr><td><code>U6</code></td><td>Ambiguous query</td><td>"Die Frage ist mehrdeutig formuliert."</td></tr>
+              <tr><td><code>U7</code></td><td>Retrieval conflict</td><td>"Quelle A widerspricht Quelle B zur selben Aussage."</td></tr>
+              <tr><td><code>U8</code></td><td>Source quality unassessed</td><td>"WEB-Claim ohne QualityClass."</td></tr>
+            </tbody>
+          </table>
         </article>
       </section>
 
