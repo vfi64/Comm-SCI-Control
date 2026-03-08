@@ -29,6 +29,34 @@
       "notes": "Minified operational profile for strict token budgets."
     },
     {
+      "version": "20.2.1",
+      "status": "supported",
+      "artifact_type": "operational_det_hardened",
+      "path": "JSON/Comm-SCI-v20.2.1.json",
+      "notes": "Deterministic hardening profile derived from v20.2.0."
+    },
+    {
+      "version": "20.2.1.min",
+      "status": "supported",
+      "artifact_type": "operational_det_hardened_minified",
+      "path": "JSON/Comm-SCI-v20.2.1.min.json",
+      "notes": "Minified deterministic hardening profile derived from v20.2.0."
+    },
+    {
+      "version": "20.2.2",
+      "status": "supported",
+      "artifact_type": "operational_det_hardened",
+      "path": "JSON/Comm-SCI-v20.2.2.json",
+      "notes": "Soft-hardened operational profile emphasizing depth retention guidance."
+    },
+    {
+      "version": "20.2.2.min",
+      "status": "supported",
+      "artifact_type": "operational_det_hardened_minified",
+      "path": "JSON/Comm-SCI-v20.2.2.min.json",
+      "notes": "Minified soft-hardened operational profile emphasizing depth retention guidance."
+    },
+    {
       "version": "20.1.0",
       "status": "supported",
       "artifact_type": "canonical",

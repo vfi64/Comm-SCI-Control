@@ -4,7 +4,9 @@
     "19.6.9",
     "20.0.0",
     "20.1.0",
-    "20.2.0"
+    "20.2.0",
+    "20.2.1",
+    "20.2.2"
   ],
   "features_by_version": {
     "19.6.8": {
@@ -122,6 +124,96 @@
       "rag_rule_ids": [
         "R-RAG-001",
         "R-RAG-002",
+        "R-RAG-003",
+        "R-RAG-004"
+      ],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6",
+        "U7",
+        "U8"
+      ]
+    },
+    "20.2.1": {
+      "version": "20.2.1",
+      "artifact_type": "operational",
+      "has_comm_validate": true,
+      "has_anchor_auto_off": false,
+      "has_comm_anchor_on": true,
+      "has_comm_anchor_off": true,
+      "has_phi_compliance_block": false,
+      "has_u7": true,
+      "has_u8": true,
+      "has_retrieval_check_active": true,
+      "preflight_ids": [
+        "PF-001",
+        "PF-002",
+        "PF-003",
+        "PF-004",
+        "PF-005",
+        "PF-006",
+        "PF-007",
+        "PF-008",
+        "PF-009",
+        "PF-010",
+        "PF-011",
+        "PF-012",
+        "PF-013"
+      ],
+      "rag_rule_ids": [
+        "R-RAG-001",
+        "R-RAG-002",
+        "R-RAG-005",
+        "R-RAG-006",
+        "R-RAG-003",
+        "R-RAG-004"
+      ],
+      "uncertainty_labels": [
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6",
+        "U7",
+        "U8"
+      ]
+    },
+    "20.2.2": {
+      "version": "20.2.2",
+      "artifact_type": "operational",
+      "has_comm_validate": true,
+      "has_anchor_auto_off": false,
+      "has_comm_anchor_on": true,
+      "has_comm_anchor_off": true,
+      "has_phi_compliance_block": false,
+      "has_u7": true,
+      "has_u8": true,
+      "has_retrieval_check_active": true,
+      "preflight_ids": [
+        "PF-001",
+        "PF-002",
+        "PF-003",
+        "PF-004",
+        "PF-005",
+        "PF-006",
+        "PF-007",
+        "PF-008",
+        "PF-009",
+        "PF-010",
+        "PF-011",
+        "PF-012",
+        "PF-013"
+      ],
+      "rag_rule_ids": [
+        "R-RAG-001",
+        "R-RAG-002",
+        "R-RAG-005",
+        "R-RAG-006",
         "R-RAG-003",
         "R-RAG-004"
       ],

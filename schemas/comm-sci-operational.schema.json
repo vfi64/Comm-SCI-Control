@@ -17,7 +17,7 @@
   "properties": {
     "schema": {
       "type": "string",
-      "pattern": "^comm-sci\\.operational\\.v\\d+\\.\\d+\\.\\d+$"
+      "pattern": "^comm-sci\\.(det-hardened-)?operational\\.v\\d+\\.\\d+\\.\\d+$"
     },
     "source": {
       "type": "object",
