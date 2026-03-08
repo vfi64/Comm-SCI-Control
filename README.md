@@ -15,6 +15,41 @@ Comm-SCI-Control is an **LLM-agnostic, dialog-internal governance framework** fo
 > If this README conflicts with the canonical JSON ruleset, **the JSON wins**.  
 > For patch notes, use **GitHub Releases** and/or **CHANGELOG.md** (if present in the repo).
 
+## Positioning
+
+**Not more autonomy at any price, but more control per answer.**
+
+**Not mere linguistic plausibility, but visible classification, fallibility, and inspectability.**
+
+Comm-SCI-Control is a counterweight to the tendency to mistake smooth LLM output for reliable knowledge.
+
+## Scope by intent
+
+Comm-SCI-Control is primarily for contexts where answers should not only be useful, but also inspectable and critically assessable:
+
+- education and lesson preparation,
+- technical analysis,
+- critical review and model comparison,
+- conceptually demanding or controversial questions.
+
+For casual everyday conversation, the formal overhead can be unnecessary.
+
+## Quick usage orientation
+
+- Explain: `Profile Standard` + `Strict on`
+- Check deeply: `Profile Expert` + `SCI on` (A) + `Strict on`
+- Challenge claims: `Profile Sparring` + `Strict on`
+- Explore ideas: `Profile Sandbox` + `Explore on`
+- Condense: `Profile Briefing` + `Strict on`
+
+Extended guidance:
+
+- [Motivation and Scope](docs/motivation-and-scope.en.md)
+- [Use Cases and Application Matrix](docs/use-cases.en.md)
+- [Website: Why](https://vfi64.github.io/Comm-SCI-Control/why.html)
+- [Website: Use Cases](https://vfi64.github.io/Comm-SCI-Control/use-cases.html)
+- [Website: Limits](https://vfi64.github.io/Comm-SCI-Control/limits.html)
+
 ## Which JSON should I use?
 
 Comm-SCI-Control ships two artifact types with different purposes:

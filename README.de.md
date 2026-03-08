@@ -15,6 +15,41 @@ Comm-SCI-Control ist ein **LLM-agnostisches, rein dialoginternes Governance-Fram
 > Falls diese README dem kanonischen JSON-Regelwerk widerspricht, gilt: **Das JSON hat Vorrang**.  
 > Für Patch-Notes nutze **GitHub Releases** und/oder **CHANGELOG.md** (falls im Repo vorhanden).
 
+## Positionierung
+
+**Nicht mehr Autonomie um jeden Preis, sondern mehr Kontrolle pro Antwort.**
+
+**Nicht bloss sprachliche Plausibilitaet, sondern sichtbare Einordnung, Fehlbarkeit und Pruefbarkeit.**
+
+Comm-SCI-Control ist ein Gegenentwurf zur Tendenz, glatte LLM-Ausgaben mit belastbarem Wissen zu verwechseln.
+
+## Zielkontext
+
+Comm-SCI-Control ist primaer fuer Kontexte gedacht, in denen Antworten nicht nur nuetzlich, sondern auch pruefbar und kritisch einschaetzbar sein sollen:
+
+- Bildung und Unterrichtsvorbereitung,
+- fachliche Analyse,
+- kritische Gegenpruefung und Modellvergleich,
+- theoretisch anspruchsvolle oder kontroverse Fragen.
+
+Fuer lockere Alltagskommunikation kann der formale Overhead unnoetig sein.
+
+## Kurze Nutzungsorientierung
+
+- Erklaeren: `Profile Standard` + `Strict on`
+- Tief pruefen: `Profile Expert` + `SCI on` (A) + `Strict on`
+- Behauptungen angreifen: `Profile Sparring` + `Strict on`
+- Ideenraum oeffnen: `Profile Sandbox` + `Explore on`
+- Verdichten: `Profile Briefing` + `Strict on`
+
+Vertiefung:
+
+- [Motivation und Geltungsbereich](docs/motivation-and-scope.de.md)
+- [Use Cases und Anwendungsmatrix](docs/use-cases.de.md)
+- [Webseite: Why](https://vfi64.github.io/Comm-SCI-Control/why.de.html)
+- [Webseite: Use Cases](https://vfi64.github.io/Comm-SCI-Control/use-cases.de.html)
+- [Webseite: Limits](https://vfi64.github.io/Comm-SCI-Control/limits.de.html)
+
 ## Welches JSON soll ich verwenden?
 
 Comm-SCI-Control liefert zwei Artefakttypen mit unterschiedlichem Zweck:
