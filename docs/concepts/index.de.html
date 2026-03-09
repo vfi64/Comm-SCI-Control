@@ -26,7 +26,7 @@
         <a href="#anchor">Anchor</a>
         <a href="#audit">Audit</a>
         <a href="#qc-matrix">QC-Matrix</a>
-        <a href="#uncertainty-codes">Uncertainty</a>
+        <a href="#uncertainty-codes">Unsicherheit</a>
         <span class="nav-more" aria-hidden="true">...</span>
       </nav>
       <div class="topbar-actions">
@@ -35,7 +35,7 @@
           <span aria-hidden="true">|</span>
           <a class="lang-link is-active" href="index.de.html">DE</a>
         </div>
-        <a class="btn btn-line" href="../index.de.html">Landing</a>
+        <a class="btn btn-line" href="../index.de.html">Startseite</a>
       </div>
     </header>
 
@@ -74,6 +74,7 @@
           <a class="link-card" href="#sci-trace"><h3>SCI-Trace + Varianten</h3><p>Welche Variante fuer welches Problem.</p></a>
           <a class="link-card" href="#self-debunking"><h3>Self-Debunking</h3><p>Erzwungene Gegenpruefung.</p></a>
           <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 mit konkreten Beispielen.</p></a>
+          <a class="link-card" href="#weitere-kernbegriffe"><h3>Weitere Kernbegriffe</h3><p>Provenienz, Token, Constraints, JSON und mehr.</p></a>
         </div>
       </section>
 
@@ -93,10 +94,12 @@
         <div class="section-head"><h2>Audit</h2></div>
         <article class="info-card">
           <p><strong>Was:</strong> <code>Comm Audit</code> prueft juengste Antworten auf Regelkonformitaet.</p>
+          <p><strong>Laienformulierung:</strong> Audit ist eine Checkliste nach der Antwort: Was wurde eingehalten, was fehlt, was muss korrigiert werden?</p>
           <p><strong>Wie lesen:</strong> zuerst Schwere/Fundliste, dann verletzte Requirement IDs,
           dann konkrete Repair-Hinweise.</p>
           <p><strong>Praxisnutzen:</strong> Du erkennst, ob z. B. Unsicherheitslabel fehlen,
           Struktur verletzt ist oder Evidenzmarkierung nicht passt.</p>
+          <p><strong>Audit-Faehigkeit:</strong> Antworten bleiben nachvollziehbar, weil Begruendungen, Quellenbezug und Vertragsverletzungen systematisch pruefbar sind.</p>
           <p><strong>Typischer Fehler:</strong> nur die Gesamtnote lesen und die Befunddetails ignorieren.</p>
         </article>
       </section>
@@ -241,6 +244,31 @@
               <tr><td><code>U6</code></td><td>Ambiguous query</td><td>"Die Frage ist mehrdeutig formuliert."</td></tr>
               <tr><td><code>U7</code></td><td>Retrieval conflict</td><td>"Quelle A widerspricht Quelle B zur selben Aussage."</td></tr>
               <tr><td><code>U8</code></td><td>Source quality unassessed</td><td>"WEB-Claim ohne QualityClass."</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="weitere-kernbegriffe" class="section reveal is-visible">
+        <div class="section-head"><h2>Weitere Kernbegriffe (Kurzdefinitionen)</h2></div>
+        <article class="info-card">
+          <table class="concept-table">
+            <thead>
+              <tr><th>Begriff</th><th>Kurzdefinition</th><th>Praxisbezug</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Provenienz</td><td>Nachvollziehbare Herkunft einer Aussage oder Teilbehauptung.</td><td>Ermoeglicht claim-genaue Quellenpruefung und Konfliktanalyse.</td></tr>
+              <tr><td>R-RAG-Regeln</td><td>Regeln fuer robustes Retrieval-Augmented Generation mit belastbarer Quellenhaertung.</td><td>Verhindert starke Claims ohne belastbare Quellenklasse.</td></tr>
+              <tr><td>Anchor Snapshot</td><td>Kompakte Zustandszusammenfassung aus <code>Comm Anchor</code>.</td><td>Stabilisiert Sitzungen beim Chat-Wechsel oder nach Kontextdruck.</td></tr>
+              <tr><td>Audit-Faehigkeit</td><td>Grad, in dem eine Antwort fuer Dritte pruefbar und begruendbar bleibt.</td><td>Hilft auch Laien: Man sieht schnell, was belegt ist und was unsicher bleibt.</td></tr>
+              <tr><td>Constraints</td><td>Verbindliche Grenzen und Vorgaben fuer Inhalt, Struktur und Nachweise.</td><td>Reduziert Regelbruch und stille Drift bei langen Antworten.</td></tr>
+              <tr><td>Pressure</td><td>Kontextdruck durch hohe Laenge, viele Teilziele oder widerspruechliche Anforderungen.</td><td>Signal fuer Kompression, Re-Anchor oder Moduswechsel.</td></tr>
+              <tr><td>Token</td><td>Kleinste Verarbeitungseinheit, aus der Modelle Eingaben und Ausgaben zusammensetzen.</td><td>Token-Budget begrenzt Kontext und beeinflusst die Antwortqualitaet.</td></tr>
+              <tr><td>Context-Pressure-Guard</td><td><a href="#context-pressure-guard">Schutzmechanismus</a> gegen Drift bei ueberlastetem Kontext.</td><td>Aktiviert kompakteres Verhalten bevor Regeln verwischen.</td></tr>
+              <tr><td>RAG Governance</td><td><a href="#rag-governance">Qualitaetsregeln</a> fuer quellenbasierte Aussagen.</td><td>Sichert Herkunft, Belastbarkeit und Konfliktbehandlung von Quellen.</td></tr>
+              <tr><td>JSON</td><td>Maschinenlesbares Regel- und Datenformat fuer Comm-SCI-Vertraege.</td><td>Haelt Konfiguration und Governance versionierbar und reproduzierbar.</td></tr>
+              <tr><td>Execution-Pipeline</td><td><a href="#execution-pipeline">Feste Abfolge</a> von Parse bis Render.</td><td>Macht Verhalten vorhersehbar statt zufaellig promptgetrieben.</td></tr>
+              <tr><td>Unsicherheitskennzeichnung U1-U8</td><td><a href="#uncertainty-codes">Standardisierte Unsicherheitscodes</a> mit klaren Ausloesern.</td><td>Trennt gesicherte Aussagen von offenen Daten-/Methodenluecken.</td></tr>
             </tbody>
           </table>
         </article>

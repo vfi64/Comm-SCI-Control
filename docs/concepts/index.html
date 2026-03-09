@@ -74,6 +74,7 @@
           <a class="link-card" href="#sci-trace"><h3>SCI Trace + Variants</h3><p>Which variant fits which problem.</p></a>
           <a class="link-card" href="#self-debunking"><h3>Self-Debunking</h3><p>Forced counter-check of assumptions.</p></a>
           <a class="link-card" href="#uncertainty-codes"><h3>Uncertainty Codes</h3><p>U1-U8 with concrete examples.</p></a>
+          <a class="link-card" href="#additional-core-terms"><h3>Additional core terms</h3><p>Provenance, token, constraints, JSON, and more.</p></a>
         </div>
       </section>
 
@@ -96,10 +97,12 @@
         <div class="section-head"><h2>Audit</h2></div>
         <article class="info-card">
           <p><strong>What:</strong> <code>Comm Audit</code> checks recent answers for governance compliance.</p>
+          <p><strong>Plain-language view:</strong> an audit is a post-answer checklist: what is compliant, what is missing, and what must be fixed.</p>
           <p><strong>How to read it:</strong> look for violated requirement IDs, missing blocks,
           missing uncertainty labels, and evidence mismatches.</p>
           <p><strong>Practical reading order:</strong> findings severity -> violated contract ->
           exact repair action suggested.</p>
+          <p><strong>Auditability:</strong> responses stay inspectable because rationale, evidence mapping, and contract violations are checkable by others.</p>
           <p><strong>Typical mistake:</strong> only checking final score and ignoring the concrete violation list.</p>
         </article>
       </section>
@@ -245,6 +248,31 @@
               <tr><td><code>U6</code></td><td>Ambiguous query</td><td>"The request has multiple possible interpretations."</td></tr>
               <tr><td><code>U7</code></td><td>Retrieval conflict</td><td>"Source A contradicts Source B on the same claim."</td></tr>
               <tr><td><code>U8</code></td><td>Source quality unassessed</td><td>"WEB claim has no quality class assigned."</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="additional-core-terms" class="section reveal is-visible">
+        <div class="section-head"><h2>Additional core terms (quick definitions)</h2></div>
+        <article class="info-card">
+          <table class="concept-table">
+            <thead>
+              <tr><th>Term</th><th>Short definition</th><th>Operational use</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Provenance</td><td>Traceable origin of a claim or sub-claim.</td><td>Enables claim-level source checks and conflict analysis.</td></tr>
+              <tr><td>R-RAG rules</td><td>Rules for robust retrieval-augmented generation with explicit source hardening.</td><td>Prevents strong claims without a reliable source class.</td></tr>
+              <tr><td>Anchor snapshot</td><td>Compact state summary produced by <code>Comm Anchor</code>.</td><td>Stabilizes sessions during chat migration or context pressure.</td></tr>
+              <tr><td>Auditability</td><td>Degree to which an answer remains inspectable and verifiable by others.</td><td>Useful for non-experts: they can quickly see what is supported vs uncertain.</td></tr>
+              <tr><td>Constraints</td><td>Binding limits for content, structure, and evidence handling.</td><td>Reduces rule drift and accidental contract violations.</td></tr>
+              <tr><td>Pressure</td><td>Context load from long inputs, many objectives, or conflicting instructions.</td><td>Signals when to compress, re-anchor, or switch mode.</td></tr>
+              <tr><td>Token</td><td>Smallest processing unit used by models for input/output text.</td><td>Token budgets cap context size and affect answer quality.</td></tr>
+              <tr><td>Context-Pressure-Guard</td><td><a href="#context-pressure-guard">Safeguard mechanism</a> against drift in overloaded contexts.</td><td>Activates compact behavior before constraints dissolve.</td></tr>
+              <tr><td>RAG Governance</td><td><a href="#rag-governance">Quality control rules</a> for source-grounded claims.</td><td>Protects provenance clarity, source quality, and conflict handling.</td></tr>
+              <tr><td>JSON</td><td>Machine-readable contract/data format for Comm-SCI rules.</td><td>Keeps governance configuration versioned and reproducible.</td></tr>
+              <tr><td>Execution pipeline</td><td><a href="#execution-pipeline">Fixed stage order</a> from parse to render.</td><td>Makes behavior predictable instead of style-driven randomness.</td></tr>
+              <tr><td>Uncertainty labeling U1-U8</td><td><a href="#uncertainty-codes">Standardized uncertainty codes</a> with explicit triggers.</td><td>Separates supported claims from unresolved data/method limits.</td></tr>
             </tbody>
           </table>
         </article>
