@@ -27,7 +27,7 @@ Before creating a release:
 
 ## Tag and Release Naming
 
-- Tag format: `v<major>.<minor>.<patch>` (example: `v20.2.0`)
+- Tag format: `v<major>.<minor>.<patch>` (example: `v20.2.2`)
 - Release title format:
   - `Comm-SCI-Control V<major>.<minor>.<patch>`
 

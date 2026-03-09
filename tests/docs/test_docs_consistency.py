@@ -5,9 +5,9 @@ from tests.helpers import ROOT_DIR
 
 
 class TestDocsConsistency(unittest.TestCase):
-    CURRENT_VERSION = "20.2.0"
+    CURRENT_VERSION = "20.2.2"
     EXPECTED_CHANGELOG_PREFIX = ["20.2.5", "20.2.0", "20.1.0", "20.0.0", "19.6.9"]
-    CURRENT_JSON_REL_PATH = "JSON/Comm-SCI-v20.2.0.json"
+    CURRENT_JSON_REL_PATH = "JSON/Comm-SCI-v20.2.2.json"
 
     @classmethod
     def setUpClass(cls) -> None:

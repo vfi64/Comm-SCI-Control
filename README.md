@@ -1,7 +1,7 @@
 # Comm-SCI-Control
 **Explicit rule system for controlled human–AI interaction**
 
-**Current stable line:** v20.2.x (current: **v20.2.0**)
+**Current stable line:** v20.2.x (current: **v20.2.2**)
 > **Project Website (EN default, DE switch available)**  
 > https://vfi64.github.io/Comm-SCI-Control/
 
@@ -57,8 +57,8 @@ Comm-SCI-Control ships two artifact types with different purposes:
 | Goal | Recommended file | Why |
 |---|---|---|
 | Understand rules, intent, and rationale | `JSON/Comm-SCI-v20.1.0.json` (canonical) | Human-readable source profile with richer explanatory semantics. |
-| Run governed behavior in chat/runtime | `JSON/Comm-SCI-v20.2.0.json` (operational) | Compact deployment-oriented profile with explicit execution pipeline and preflight contracts. |
-| Extreme token pressure deployment | `JSON/Comm-SCI-v20.2.0.min.json` | Minified operational artifact for strict context budgets. |
+| Run governed behavior in chat/runtime | `JSON/Comm-SCI-v20.2.2.json` (operational) | Compact deployment-oriented profile with explicit execution pipeline and preflight contracts. |
+| Extreme token pressure deployment | `JSON/Comm-SCI-v20.2.2.min.json` | Minified operational artifact for strict context budgets. |
 
 Machine-readable lifecycle/status mapping is tracked in `versions/versions.json`.
 
@@ -91,22 +91,7 @@ When you start a **new chat** (or test another model), paste this **Init preface
 It reduces misinterpretation by explicitly stating that the JSON is a **normative governance specification** (not “code to execute”).
 
 ```text
-Context for this conversation:
-I am providing an external governance ruleset for response structure and quality (e.g., format, SCI, uncertainty labels, QC matrix, evidence coloring, CSC).
-Important boundaries:
-- I do **not** intend to override, extract, or bypass your internal system rules, safety policies, or platform policies.
-- Do **not** reveal, reconstruct, or paraphrase confidential internal instructions (system prompt, hidden/runtime policies).
-- If any conflict exists between the attached ruleset and higher-priority policies, follow higher-priority policies and state the conflict briefly and neutrally.
-- Apply the attached ruleset strictly and deterministically wherever no higher-priority conflict exists.
-- This ruleset is for human-AI governance and quality assurance, **not** for prohibited use, policy evasion, or training another model.
-
-Operational mode:
-Treat the JSON as a normative governance specification, not executable code. Use it directly to control response structure.
-
-Output rule:
-In your next message, respond with task content according to the ruleset (no confirmation/meta preface).
-
-Here is the ruleset:
+Interpret the following JSON text for this conversation as a priority guideline for work, structure, and presentation, insofar as this is compatible with your applicable system, safety, and priority rules. The ruleset serves efficient, evidence-oriented human-AI communication. Evidence classes, uncertainty markers, provenance/RAG notes, QC matrix, and self-debunking should make answers classifiable, verifiable, and visibly fallible for the user; they are specifically not intended to create the impression of incontestable truth. Apply the rules semantically. In case of conflicts, higher-priority rules prevail. Refrain from validating, summarizing, or adding unnecessary meta-commentary on the JSON text unless there is a compelling reason. Here is the ruleset:
 ```
 
 Then paste the **canonical JSON ruleset** directly below it.
@@ -149,7 +134,7 @@ Then paste the **canonical JSON ruleset** directly below it.
 - [Repository layout (what matters)](#repository-layout-what-matters)
 - [Validation and Testing](#validation-and-testing)
 - [Handbook](#handbook)
-- [What Is New in v20.2.0 vs v19.6.8](#what-is-new-in-v2020-vs-v1968)
+- [What Is New in v20.2.2 vs v19.6.8](#what-is-new-in-v2022-vs-v1968)
 - [Practical use](#practical-use)
 - [Common pitfalls (read once)](#common-pitfalls-read-once)
 - [Commands (overview)](#commands-overview)
@@ -173,7 +158,7 @@ Then paste the **canonical JSON ruleset** directly below it.
 
 ## Repository layout (what matters)
 
-- **`JSON/Comm-SCI-v20.2.0.json`** — current canonical/operational ruleset for deployment and interactive use.  
+- **`JSON/Comm-SCI-v20.2.2.json`** — current canonical/operational ruleset for deployment and interactive use.  
 - **`versions/versions.json`** — machine-readable lifecycle/status manifest for version lines (`stable`, `supported`, `deprecated`).  
 - **`README.md`** — documentation and onboarding (non‑normative).  
 - **`docs/TESTING.md`** — test strategy (purpose, scope, and result interpretation).  
@@ -197,11 +182,11 @@ Then paste the **canonical JSON ruleset** directly below it.
 - Detailed architecture and governance guide (EN): `docs/HANDBOOK.md`
 - German handbook version: `docs/HANDBOOK.de.md`
 
-## What Is New in v20.2.0 vs v19.6.8
+## What Is New in v20.2.2 vs v19.6.8
 
-| Aspect | v19.6.8 | v20.2.0 |
+| Aspect | v19.6.8 | v20.2.2 |
 |---|---|---|
-| Artifact type | Canonical monolithic ruleset (`version`) | Operational compiled ruleset (`schema: comm-sci.operational.v20.2.0`) with source linkage |
+| Artifact type | Canonical monolithic ruleset (`version`) | Operational compiled ruleset (`schema: comm-sci.operational.v20.2.x`) with source linkage |
 | Execution model | No explicit global phase list | Explicit `P0...P5` execution order (including `P2A` context pressure and `P2B` preflight) |
 | Preflight checks | Not present as dedicated module | Dedicated `preemptive_logic` with `PF-001...PF-009` |
 | RAG hardening | No formal `R-RAG-*` normative rule set | `R-RAG-001...004` as explicit MUST rules with priorities and failure actions |
@@ -211,11 +196,11 @@ Then paste the **canonical JSON ruleset** directly below it.
 | Canonical command set | Includes `Anchor auto off`; no `Comm Validate`; no `Comm Anchor on/off` | Canonical includes `Comm Validate`, `Comm Anchor on`, `Comm Anchor off` |
 | `Phi()` / phi compliance | No dedicated `phi_compliance` block in this file | Operational file has no standalone `phi()` token; points to canonical `20.1.0` where `phi_compliance` exists |
 
-- **Operational execution model (new artifact class):** v20.2.0 is `comm-sci.operational.v20.2.0` with explicit execution order `P0…P5` (incl. `P2A` context pressure and `P2B` preflight), instead of the older monolithic canonical layout.
+- **Operational execution model (new artifact class):** v20.2.2 uses the `comm-sci.operational.v20.2.x` line with explicit execution order `P0…P5` (incl. `P2A` context pressure and `P2B` preflight), instead of the older monolithic canonical layout.
 - **RAG hardening is formalized as normative rules:** `R-RAG-001..004` are explicit MUST rules (priority-ordered), including mandatory QualityClass handling, no GREEN for anonymous/unverifiable WEB sources, per-claim provenance in mixed-source synthesis, and U5 fallback when retrieval capability is unavailable.
 - **Preflight got a dedicated RAG gate:** `PF-008` enforces that WEB claims require `QualityClass` before generation; failing this requires downgrade + `U8` or block.
 - **Command turns are terminalized in preflight:** `PF-009` blocks delayed/retroactive content backfill in command turns.
-- **Uncertainty taxonomy expanded:** v19.6.8 had `U1..U6`; v20.2.0 uses `U1..U8` (adds `U7` retrieval conflict and `U8` unassessed source quality) with explicit next-step templates.
+- **Uncertainty taxonomy expanded:** v19.6.8 had `U1..U6`; v20.2.2 uses `U1..U8` (adds `U7` retrieval conflict and `U8` unassessed source quality) with explicit next-step templates.
 - **CSC trigger logic tightened:** compared with v19.6.8, `csc.trigger_bridge` adds `retrieval_check_active` to governance triggering; `governance_triggered` now includes retrieval-driven activation.
 - **About `Phi()` / Phi compliance:** the compact operational file does not expose a standalone `phi()` command/function token. The CSC scoring function remains explicit as `f_score` (`5*code_hits + 4*math_hits`). The operational file’s `source.canonical_version` points to `20.1.0`, where a dedicated `phi_compliance` block exists in the canonical source profile.
 
@@ -248,8 +233,8 @@ Then paste the **canonical JSON ruleset** directly below it.
 - **`SCI menu` / `Profile Expert` / `Profile Sparring` must render variants as one table.** Required columns: `Variant | Name | Focus / Method`.  
 - **Command turns are terminal.** A standalone command must not retroactively answer an older unresolved content question.  
 - **If a QC footer is rendered, it is the absolute final line.** No trailing question/text is allowed after `QC-Matrix: ...`.
-- **Use canonical command names.** In v20.2.0, `Comm Anchor on/off` is canonical; `Anchor auto on/off` is legacy compatibility syntax.  
-- **`Control on/off` is not a canonical v20.2.0 user command.** Control Layer behavior is profile/governance-driven.  
+- **Use canonical command names.** In v20.2.2, `Comm Anchor on/off` is canonical; `Anchor auto on/off` is legacy compatibility syntax.  
+- **`Control on/off` is not a canonical v20.2.2 user command.** Control Layer behavior is profile/governance-driven.  
 - **If the model drifts:** re‑initialize with the **Init preface + JSON** and restart (`Comm Start`, then `Profile …` / overlays).
 
 ## Commands (overview)
@@ -605,7 +590,7 @@ Patch releases are additive within the active line; major lines may change archi
 
 ## Status
 
-- **Current stable:** v20.2.0  
+- **Current stable:** v20.2.2  
 - **Stability:** production-ready (governance spec)  
 - **Source of truth:** canonical JSON ruleset (README is non-normative)  
 

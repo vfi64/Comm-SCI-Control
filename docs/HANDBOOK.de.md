@@ -468,7 +468,7 @@ Das Regelwerk kann auf zwei Arten genutzt werden: direkt als JSON-Governance im 
 
 ### 25.1 Minimal-Setup (JSON direkt im Chat)
 
-1. Aktuelles Ruleset verwenden (`JSON/Comm-SCI-v20.2.0.json`).
+1. Aktuelles Ruleset verwenden (`JSON/Comm-SCI-v20.2.2.json`).
 2. Init-Preface + JSON in einen neuen Chat einspielen.
 3. Mit `Comm Start` aktivieren.
 4. Profil und Modus setzen (`Profile ...`, optional `Strict on` oder `Explore on`).

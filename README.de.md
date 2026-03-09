@@ -1,7 +1,7 @@
 # Comm-SCI-Control
 **Explizites Regelwerk für kontrollierte Mensch–KI-Interaktion**
 
-**Aktuelle stabile Linie:** v20.2.x (aktuell: **v20.2.0**)
+**Aktuelle stabile Linie:** v20.2.x (aktuell: **v20.2.2**)
 > **Projekt-Webseite (EN als Standard, DE umschaltbar)**  
 > https://vfi64.github.io/Comm-SCI-Control/
 
@@ -57,8 +57,8 @@ Comm-SCI-Control liefert zwei Artefakttypen mit unterschiedlichem Zweck:
 | Ziel | Empfohlene Datei | Warum |
 |---|---|---|
 | Regeln, Intention und Semantik verstehen | `JSON/Comm-SCI-v20.1.0.json` (canonical) | Menschenlesbares Quellprofil mit reichhaltigerer Erklaerungsebene. |
-| Governed Verhalten im Chat/Runtime nutzen | `JSON/Comm-SCI-v20.2.0.json` (operational) | Kompaktes Deployment-Profil mit expliziter Execution Pipeline und Preflight Contracts. |
-| Deployment unter extremer Tokenknappheit | `JSON/Comm-SCI-v20.2.0.min.json` | Minifiziertes operationales Artefakt fuer enge Kontextbudgets. |
+| Governed Verhalten im Chat/Runtime nutzen | `JSON/Comm-SCI-v20.2.2.json` (operational) | Kompaktes Deployment-Profil mit expliziter Execution Pipeline und Preflight Contracts. |
+| Deployment unter extremer Tokenknappheit | `JSON/Comm-SCI-v20.2.2.min.json` | Minifiziertes operationales Artefakt fuer enge Kontextbudgets. |
 
 Das maschinenlesbare Lifecycle-/Status-Mapping liegt in `versions/versions.json`.
 
@@ -90,23 +90,7 @@ LLM-Verhalten bleibt probabilistisch; optionale Live-E2E-Checks sind advisory un
 Wenn du einen **neuen Chat** startest (oder ein anderes Modell testest), füge diesen **Init-Vortext** *direkt vor* dem JSON-Regelwerk ein. Er reduziert Fehlinterpretationen, weil er explizit sagt, dass das JSON eine **normative Governance-Spezifikation** ist (kein „auszuführender Code“).
 
 ```text
-Kontext für diese Unterhaltung:
-Ich übergebe dir ein externes Governance-Regelwerk für Struktur und Qualität deiner Antworten (z. B. Format, SCI, Unsicherheitskennzeichnung, QC-Matrix, Evidence-Linker, CSC).
-
-Wichtige Grenzen:
-- Ich beabsichtige **nicht**, deine internen Systemregeln, Sicherheitsrichtlinien oder Plattform-Policies zu überschreiben, auszulesen oder auszuhebeln.
-- Vertrauliche interne Instruktionen (System Prompt, Hidden Policies, Runtime-Policies) sollen nicht offengelegt, rekonstruiert oder paraphrasiert werden.
-- Falls es einen Konflikt zwischen dem beigefügten Regelwerk und höherpriorisierten Regeln gibt, befolge die höherpriorisierten Regeln und nenne den Konflikt kurz und sachlich.
-- Wende das beigefügte Regelwerk ansonsten strikt und deterministisch auf die Antwortstruktur an.
-- Das Regelwerk dient Governance und Qualitätskontrolle der Mensch-KI-Kommunikation, **nicht** verbotener Nutzung, Policy-Umgehung oder dem Training eines eigenen LLM.
-
-Verarbeitungsmodus:
-Das JSON ist eine normative Governance-Spezifikation, kein ausführbarer Code. Wende die Regeln direkt auf die Antworterzeugung an.
-
-Ausgabe-Regel:
-Antworte mit der nächsten Nachricht direkt inhaltlich gemäß Regelwerk (keine Bestätigungs-/Meta-Antwort).
-
-Hier ist das Regelwerk:
+Interpretiere den folgenden JSON-Text für diese Konversation als vorrangige Arbeits-, Struktur- und Darstellungsvorgabe, soweit dies mit deinen geltenden System-, Sicherheits- und Prioritätsregeln vereinbar ist. Das Regelwerk dient der effizienten, evidenzorientierten Mensch-KI-Kommunikation. Evidenzklassen, Unsicherheitsmarkierungen, Provenienz-/RAG-Hinweise, QC-Matrix und Self-Debunking sollen Antworten für den Nutzer einordbar, prüfbar und sichtbar fehlbar machen; sie sollen gerade nicht den Eindruck unanfechtbarer Wahrheit erzeugen. Wende die Regeln semantisch an. Bei Konflikten gehen höherrangige Regeln vor. Unterlasse Validierung, Zusammenfassung und unnötige Meta-Kommentierung des JSON-Texts, sofern kein zwingender Grund besteht. Hier ist das Regelwerk:
 ```
 
 Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
@@ -149,7 +133,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - [Repository-Struktur (was zählt)](#repository-struktur-was-zählt)
 - [Validierung und Tests](#validierung-und-tests)
 - [Handbuch](#handbuch)
-- [Was in v20.2.0 gegenueber v19.6.8 neu ist](#was-in-v2020-gegenueber-v1968-neu-ist)
+- [Was in v20.2.2 gegenueber v19.6.8 neu ist](#was-in-v2022-gegenueber-v1968-neu-ist)
 - [Praktische Nutzung](#praktische-nutzung)
 - [Typische Stolpersteine (einmal lesen)](#typische-stolpersteine-einmal-lesen)
 - [Kommandos (Überblick)](#kommandos-überblick)
@@ -173,7 +157,7 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 
 ## Repository-Struktur (was zählt)
 
-- **`JSON/Comm-SCI-v20.2.0.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
+- **`JSON/Comm-SCI-v20.2.2.json`** — aktuelles kanonisch/operatives Regelwerk für Deployment und interaktive Nutzung.  
 - **`versions/versions.json`** — maschinenlesbares Lifecycle-/Status-Manifest fuer Versionslinien (`stable`, `supported`, `deprecated`).  
 - **`README.md`** — Dokumentation und Onboarding (nicht-normativ).  
 - **`docs/TESTING.de.md`** — Teststrategie auf Deutsch (Zweck, Umfang, Interpretation der Ergebnisse).  
@@ -199,11 +183,11 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - Detaillierter Architektur- und Governance-Leitfaden (DE): `docs/HANDBOOK.de.md`
 - Englische Referenzfassung: `docs/HANDBOOK.md`
 
-## Was in v20.2.0 gegenueber v19.6.8 neu ist
+## Was in v20.2.2 gegenueber v19.6.8 neu ist
 
-| Aspekt | v19.6.8 | v20.2.0 |
+| Aspekt | v19.6.8 | v20.2.2 |
 |---|---|---|
-| Artefakttyp | Kanonisches monolithisches Regelwerk (`version`) | Operational-kompiliertes Regelwerk (`schema: comm-sci.operational.v20.2.0`) mit Source-Linkage |
+| Artefakttyp | Kanonisches monolithisches Regelwerk (`version`) | Operational-kompiliertes Regelwerk (`schema: comm-sci.operational.v20.2.x`) mit Source-Linkage |
 | Ausfuehrungsmodell | Keine explizite globale Phasenliste | Explizite Reihenfolge `P0...P5` (inkl. `P2A` Kontextdruck und `P2B` Preflight) |
 | Preflight-Checks | Nicht als eigenes Modul vorhanden | Eigenes `preemptive_logic` mit `PF-001...PF-009` |
 | RAG-Haertung | Kein formaler `R-RAG-*`-Normblock | `R-RAG-001...004` als explizite MUST-Regeln mit Prioritaet und Failure-Action |
@@ -213,11 +197,11 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 | Kanonische Kommandomenge | Enthält `Anchor auto off`; kein `Comm Validate`; kein `Comm Anchor on/off` | Kanonisch sind `Comm Validate`, `Comm Anchor on`, `Comm Anchor off` enthalten |
 | `Phi()`/Phi-Compliance | Kein eigener `phi_compliance`-Block in dieser Datei | Operatives File ohne standalone `phi()`-Token; Verweis auf Canonical `20.1.0` mit `phi_compliance` |
 
-- **Operatives Ausführungsmodell (neue Artefaktklasse):** v20.2.0 ist `comm-sci.operational.v20.2.0` mit expliziter Reihenfolge `P0…P5` (inkl. `P2A` Kontextdruck und `P2B` Preflight) statt der älteren monolithischen Canonical-Struktur.
+- **Operatives Ausführungsmodell (neue Artefaktklasse):** v20.2.2 nutzt die `comm-sci.operational.v20.2.x`-Linie mit expliziter Reihenfolge `P0…P5` (inkl. `P2A` Kontextdruck und `P2B` Preflight) statt der älteren monolithischen Canonical-Struktur.
 - **RAG-Härtung ist normativ formalisiert:** `R-RAG-001..004` sind explizite MUST-Regeln (priorisiert), inkl. verpflichtender QualityClass-Behandlung, kein GREEN aus anonymen/unverifizierbaren WEB-Quellen, Claim-genaue Provenienz bei Quellmix sowie U5-Fallback bei fehlender Retrieval-Fähigkeit.
 - **Preflight hat ein eigenes RAG-Gate:** `PF-008` erzwingt bei WEB-Claims eine `QualityClass` vor der Generierung; bei Verstoß gilt Downgrade + `U8` oder Block.
 - **Command-Turns sind im Preflight terminalisiert:** `PF-009` blockt verzögerte/retroaktive Inhaltsantworten innerhalb eines Command-Turns.
-- **Unsicherheitstaxonomie erweitert:** v19.6.8 hatte `U1..U6`; v20.2.0 nutzt `U1..U8` (neu: `U7` Retrieval-Konflikt und `U8` ungeprüfte Quellenqualität) mit expliziten Next-Step-Templates.
+- **Unsicherheitstaxonomie erweitert:** v19.6.8 hatte `U1..U6`; v20.2.2 nutzt `U1..U8` (neu: `U7` Retrieval-Konflikt und `U8` ungeprüfte Quellenqualität) mit expliziten Next-Step-Templates.
 - **CSC-Triggerlogik verschärft:** Gegenüber v19.6.8 ergänzt `csc.trigger_bridge` das Signal `retrieval_check_active`; `governance_triggered` umfasst damit auch retrieval-getriebene Aktivierung.
 - **Zur `Phi()`-/Phi-Compliance:** Das kompakte operative File enthält keinen separaten `phi()`-Befehl/Funktions-Token. Die CSC-Scoring-Logik bleibt als `f_score` explizit (`5*code_hits + 4*math_hits`). `source.canonical_version` zeigt auf `20.1.0`; dort existiert im kanonischen Quellprofil ein eigener `phi_compliance`-Block.
 
@@ -249,8 +233,8 @@ Anschließend das **kanonische JSON-Regelwerk** direkt darunter einfügen.
 - **`SCI menu` / `Profile Expert` / `Profile Sparring` müssen die Varianten als eine Tabelle ausgeben.** Pflichtspalten: `Variant | Name | Focus / Method`.  
 - **Kommandoturns sind terminal.** Ein Standalone-Command darf nicht nachträglich eine ältere offene Inhaltsfrage beantworten.  
 - **Wenn ein QC-Footer ausgegeben wird, ist er die absolut letzte Zeile.** Danach darf keine Frage/kein Text mehr folgen.
-- **Kanonische Kommandonamen verwenden.** In v20.2.0 ist `Comm Anchor on/off` kanonisch; `Anchor auto on/off` ist Legacy-Kompatibilität.
-- **`Control on/off` ist kein kanonisches Nutzerkommando in v20.2.0.** Das Verhalten des Control Layers ist profil-/governance-gesteuert.
+- **Kanonische Kommandonamen verwenden.** In v20.2.2 ist `Comm Anchor on/off` kanonisch; `Anchor auto on/off` ist Legacy-Kompatibilität.
+- **`Control on/off` ist kein kanonisches Nutzerkommando in v20.2.2.** Das Verhalten des Control Layers ist profil-/governance-gesteuert.
 - **Wenn das Modell driftet:** Re-Init mit **Init-Vortext + JSON** und Neustart (`Comm Start`, dann `Profile …` / Overlays).
 
 ## Kommandos (Überblick)
@@ -505,7 +489,7 @@ Patch-Releases sind innerhalb der aktiven Linie additiv; große Linien dürfen d
 
 ## Status
 
-- **Aktuell stabil:** v20.2.0
+- **Aktuell stabil:** v20.2.2
 - **Stabilität:** production-ready (Governance-Spezifikation)  
 - **Quelle der Wahrheit:** kanonisches JSON-Regelwerk (README ist nicht-normativ)  
 

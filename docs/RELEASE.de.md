@@ -27,7 +27,7 @@ Vor einem Release:
 
 ## Tag- und Release-Benennung
 
-- Tag-Format: `v<major>.<minor>.<patch>` (Beispiel: `v20.2.0`)
+- Tag-Format: `v<major>.<minor>.<patch>` (Beispiel: `v20.2.2`)
 - Release-Titel:
   - `Comm-SCI-Control V<major>.<minor>.<patch>`
 

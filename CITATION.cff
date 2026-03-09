@@ -6,7 +6,7 @@ doi: 10.5281/zenodo.17928357
 authors:
   - family-names: Fickert
     given-names: Volker
-version: 20.2.0
+version: 20.2.2
 date-released: 2026-03-04
 license: CC-BY-4.0
 repository: https://github.com/vfi64/Comm-SCI-Control
@@ -17,5 +17,5 @@ preferred-citation:
     - family-names: Fickert
       given-names: Volker
   title: "Comm-SCI-Control"
-  version: 20.2.0
+  version: 20.2.2
   year: 2026

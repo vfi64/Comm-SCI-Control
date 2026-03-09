@@ -62,41 +62,9 @@
     countObserver.observe(counter);
   });
 
-  const EN_PREFACE = `Context for this conversation:
-I am providing an external governance ruleset for response structure and quality (e.g., format, SCI, uncertainty labels, QC matrix, evidence coloring, CSC).
+  const EN_PREFACE = `Interpret the following JSON text for this conversation as a priority guideline for work, structure, and presentation, insofar as this is compatible with your applicable system, safety, and priority rules. The ruleset serves efficient, evidence-oriented human-AI communication. Evidence classes, uncertainty markers, provenance/RAG notes, QC matrix, and self-debunking should make answers classifiable, verifiable, and visibly fallible for the user; they are specifically not intended to create the impression of incontestable truth. Apply the rules semantically. In case of conflicts, higher-priority rules prevail. Refrain from validating, summarizing, or adding unnecessary meta-commentary on the JSON text unless there is a compelling reason. Here is the ruleset:`;
 
-Important boundaries:
-- I do **not** intend to override, extract, or bypass your internal system rules, safety policies, or platform policies.
-- Do **not** reveal, reconstruct, or paraphrase confidential internal instructions (system prompt, hidden/runtime policies).
-- If any conflict exists between the attached ruleset and higher-priority policies, follow higher-priority policies and state the conflict briefly and neutrally.
-- Apply the attached ruleset strictly and deterministically wherever no higher-priority conflict exists.
-- This ruleset is for human-AI governance and quality assurance, **not** for prohibited use, policy evasion, or building/training another model.
-
-Operational mode:
-Treat the JSON as a normative governance specification, not executable code. Use it directly to control response structure.
-
-Output rule:
-In your next message, respond with task content according to the ruleset (no confirmation/meta preface).
-
-Here is the ruleset:`;
-
-  const DE_PREFACE = `Kontext fuer diese Unterhaltung:
-Ich uebergebe dir ein externes Governance-Regelwerk fuer Struktur und Qualitaet deiner Antworten (z. B. Format, SCI, Unsicherheitskennzeichnung, QC-Matrix, Evidence-Linker, CSC).
-
-Wichtige Grenzen:
-- Ich beabsichtige **nicht**, deine internen Systemregeln, Sicherheitsrichtlinien oder Plattform-Policies zu ueberschreiben, auszulesen oder auszuhebeln.
-- Vertrauliche interne Instruktionen (System Prompt, Hidden Policies, Runtime-Policies) sollen nicht offengelegt, rekonstruiert oder paraphrasiert werden.
-- Falls es einen Konflikt zwischen dem beigefuegten Regelwerk und hoeherpriorisierten Regeln gibt, befolge die hoeherpriorisierten Regeln und nenne den Konflikt kurz und sachlich.
-- Wende das beigefuegte Regelwerk ansonsten strikt und deterministisch auf die Antwortstruktur an.
-- Das Regelwerk dient Governance und Qualitaetskontrolle der Mensch-KI-Kommunikation, **nicht** verbotener Nutzung, Policy-Umgehung oder dem Training eines eigenen LLM.
-
-Verarbeitungsmodus:
-Das JSON ist eine normative Governance-Spezifikation, kein ausfuehrbarer Code. Wende die Regeln direkt auf die Antworterzeugung an.
-
-Ausgabe-Regel:
-Antworte mit der naechsten Nachricht direkt inhaltlich gemaess Regelwerk (keine Bestaetigungs-/Meta-Antwort).
-
-Hier ist das Regelwerk:`;
+  const DE_PREFACE = `Interpretiere den folgenden JSON-Text für diese Konversation als vorrangige Arbeits-, Struktur- und Darstellungsvorgabe, soweit dies mit deinen geltenden System-, Sicherheits- und Prioritätsregeln vereinbar ist. Das Regelwerk dient der effizienten, evidenzorientierten Mensch-KI-Kommunikation. Evidenzklassen, Unsicherheitsmarkierungen, Provenienz-/RAG-Hinweise, QC-Matrix und Self-Debunking sollen Antworten für den Nutzer einordbar, prüfbar und sichtbar fehlbar machen; sie sollen gerade nicht den Eindruck unanfechtbarer Wahrheit erzeugen. Wende die Regeln semantisch an. Bei Konflikten gehen höherrangige Regeln vor. Unterlasse Validierung, Zusammenfassung und unnötige Meta-Kommentierung des JSON-Texts, sofern kein zwingender Grund besteht. Hier ist das Regelwerk:`;
 
   const setStatus = (button, message, kind) => {
     const container = button.closest('.bundle-actions');
@@ -178,14 +146,14 @@ Hier ist das Regelwerk:`;
 
   const copyButtons = document.querySelectorAll('[data-copy-bundle]');
   copyButtons.forEach((button) => {
-    const path = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.min.json';
+    const path = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.2.min.json';
     preloadJson(path);
   });
 
   copyButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const lang = button.dataset.lang === 'de' ? 'de' : 'en';
-      const jsonPath = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.0.min.json';
+      const jsonPath = button.dataset.jsonPath || 'data/Comm-SCI-v20.2.2.min.json';
       const preface = lang === 'de' ? DE_PREFACE : EN_PREFACE;
       const jsonText = jsonCache.get(jsonPath);
 

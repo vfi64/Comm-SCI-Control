@@ -468,7 +468,7 @@ The ruleset can be used in two ways: directly as JSON governance in chat, or via
 
 ### 25.1 Minimal setup (JSON directly in chat)
 
-1. Use the current ruleset (`JSON/Comm-SCI-v20.2.0.json`).
+1. Use the current ruleset (`JSON/Comm-SCI-v20.2.2.json`).
 2. Insert init preface + JSON into a fresh chat.
 3. Activate with `Comm Start`.
 4. Set profile and mode (`Profile ...`, optionally `Strict on` or `Explore on`).

@@ -19,7 +19,7 @@ The suite is split into focused layers:
 
 - `tests/core`: basic JSON validity, version/file consistency, command-token sanity.
 - `tests/schema`: deep structural validation against dedicated schemas in `/schemas`.
-- `tests/versions`: contract checks for the active operational line (`v20.2.0`).
+- `tests/versions`: contract checks for the active operational line (`v20.2.2`).
 - `tests/integrity`: deterministic hash/integrity checks for operational artifacts.
 - `tests/docs`: README/CHANGELOG/CITATION consistency checks.
 - `tests/migration`: cross-version feature matrix + migration invariants.

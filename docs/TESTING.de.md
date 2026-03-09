@@ -19,7 +19,7 @@ Die Suite ist in fokussierte Ebenen aufgeteilt:
 
 - `tests/core`: JSON-Grundvalidität, Versions-/Dateikonsistenz, Command-Token-Sanity.
 - `tests/schema`: tiefe Strukturvalidierung gegen dedizierte Schemata in `/schemas`.
-- `tests/versions`: Vertragsprüfungen für die aktive operative Linie (`v20.2.0`).
+- `tests/versions`: Vertragsprüfungen für die aktive operative Linie (`v20.2.2`).
 - `tests/integrity`: deterministische Hash-/Integritätsprüfungen operativer Artefakte.
 - `tests/docs`: Konsistenzprüfungen für README/CHANGELOG/CITATION.
 - `tests/migration`: versionsübergreifende Feature-Matrix + Migrationsinvarianten.
